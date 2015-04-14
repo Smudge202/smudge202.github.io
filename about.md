@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Senior .Net Developer and string advocate of Clean Coding (a.k.a Uncle Bob fanboy).
+Senior .Net Developer and strong advocate of Clean Coding (a.k.a Uncle Bob fanboy).
 
 ### More Information
 

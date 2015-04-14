@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Senior .Net Developer and string advocate of Clean Coding (a.k.a Uncle Bob fanboy).
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+I've been programming for a little over 10 years, the last 8 of which in .Net.  I'm not interested in attracting keyword bots, so base my experience and knowledge on the blog posts therein.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[blog@devbot.net](mailto:blog@devbot.net)

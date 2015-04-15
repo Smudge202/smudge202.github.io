@@ -29,7 +29,7 @@ This is possibly made more clear in [this post by Derick Bailey] which tackles d
 
 ### Dependency Injection (DI)
 
-For all the confusion DI brings about at times, I consider it one of the most valuable patterns available. It takes very little time to teach a junior developer to use dependency injection, and is a pretty easy sell if said junior follows TDD (if not, why not!?).
+For all the [confusion DI brings about] at times, I consider it one of the most valuable patterns available. It takes very little time to teach a junior developer to use dependency injection, and is a pretty easy sell if said junior follows TDD (if not, why not!?).
 
 Dependency Injection is simply a design pattern intended to assist in achieving the Dependency Inversion Principle, which in turn can assist with inverting control (IoC). That's it, really. I quite often see people stating it's usefulness with TDD as it's greatest asset, and although I believe that to be a very handy _side-effect_, the key benefit to me is the component isolation it affords us. Not just for the sake of testing, but for the sake of a cleaner structural design.
 
@@ -43,7 +43,7 @@ Dependency Injection is just a tool, the subjects of DIP and IoC are much broade
 
 Don't get me wrong, DI is great. I just think developers need to realise there is much more to learn on the subject; don't stop at dependency injection, read on!
 
-<link to next article>
+[Next steps]
 
   [dependency injection]: https://www.google.co.uk/#safe=active&q=dependency+injection
   [Compose]: http://www.github.com/smudge202/compose
@@ -51,3 +51,5 @@ Don't get me wrong, DI is great. I just think developers need to realise there i
   [Dependency Inversion Principle]: http://
   [Martin Fowler's article]: http://martinfowler.com/bliki/InversionOfControl.html
   [this post by Derick Bailey]: https://lostechies.com/derickbailey/2011/09/22/dependency-injection-is-not-the-same-as-the-dependency-inversion-principle/
+  [confusion DI brings about]: http://stackoverflow.com/search?q=dependency+injection
+  [Next steps]: http://

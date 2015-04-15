@@ -11,3 +11,20 @@ There seems to be little point in dripping more content into the ocean that is D
 
 First thing's first, lets add my take on the terminology involved in hope of sparking some dim light into those lightbulbs, and if nothing else, to clarify the rest of this article.
 
+### Inversion of Control (IoC)
+
+Sometimes referred to as the _Hollywood Principle - "Don't call me, I'll call you"_, IoC spans back more than 25 years. Although it made appearances in papers beforehand, it was possibly made most famous in the book; _[Gang of Four]_.
+
+I like to think of it as the broadest description of _dependency inversion_, to which patterns that can be used to achieve the [Dependency Inversion Principle] all fit in.
+
+For more information in IoC, I recommend checking out [Martin Fowler's article].
+
+### Dependency Inversion Principle (DIP)
+
+
+
+  [dependency injection]: https://www.google.co.uk/#safe=active&q=dependency+injection
+  [Compose]: http://www.github.com/smudge202/compose
+  [Gang of Four]: http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612
+  [Dependency Inversion Principle]: http://
+  [Martin Fowler's article]: http://martinfowler.com/bliki/InversionOfControl.html

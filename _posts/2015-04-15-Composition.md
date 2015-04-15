@@ -5,7 +5,7 @@ title: Composition
 
 I see a _lot_ of people get application composition _very_ wrong, _very_ often. The problem isn't so much that the subject lacks resources, on contrary, [dependency injection] for example is probably the most talked about and blogged pattern of all time! However, the information presented is all too often incorrect or conflicting, spawned from the enlightened minds of mid level developers keen to share their light bulb moment in which DI and some of its benefits are suddenly realised.
 
-There seems to be little point in dripping more content into the ocean that is DI resources, so I've decided to take matters a step further and provide a framework. In this article I'll address what I consider to be some of the misconceptions surrounding composition techniques and clarify some terminology. In future articles I'll highlight how the use of [Compose] can assist in rectifying these common flaws, whilst simplifying the definition of manageable service components and resulting integration within your application.
+I've decided to take matters a step further than the usual drivel that is DI blogs, and provide a framework. In this article I'll address what I consider to be some of the misconceptions surrounding composition techniques and clarify some terminology. In future articles I'll highlight how the use of [Compose] can assist in rectifying these common flaws, whilst simplifying the definition of manageable service components and resulting integration within your application.
 
 ##Terminology
 
@@ -33,11 +33,17 @@ For all the confusion DI brings about at times, I consider it one of the most va
 
 Dependency Injection is simply a design pattern intended to assist in achieving the Dependency Inversion Principle, which in turn can assist with inverting control (IoC). That's it, really. I quite often see people stating it's usefulness with TDD as it's greatest asset, and although I believe that to be a very handy _side-effect_, the key benefit to me is the component isolation it affords us. Not just for the sake of testing, but for the sake of a cleaner structural design.
 
-Notice how each of the terms listed so far have been a smaller, more direct description of something designed to assist in achieving a broader goal.  
+## DI is not IoC
 
-Now I hope you'll understand when I describe the key misconception I come across... utilising dependency injection does not mean you have achieved DIP, let alone IoC!
+Notice how each of the terms listed so far have been a smaller, more direct description of something designed to assist in achieving a broader goal. It should therefore come as no surprise that simply utilising the dependency injection design pattern, does not mean you have achieved IoC.
 
-### 
+And yet, so many, seem to misunderstand... 
+
+Dependency Injection is just a tool, the subjects of DIP and IoC are much broader. Considerations such as which projects an interface and respective implementations should exist are far more crucial than DI when considering DIP. We saw above, one of the key tenants of DIP was the isolation of high level consumers from it's lower level dependencies, and that DI wasn't even necessary to achieve this.
+
+Don't get me wrong, DI is great. I just think developers need to realise there is much more to learn on the subject; don't stop at dependency injection, read on!
+
+<link to next article>
 
   [dependency injection]: https://www.google.co.uk/#safe=active&q=dependency+injection
   [Compose]: http://www.github.com/smudge202/compose

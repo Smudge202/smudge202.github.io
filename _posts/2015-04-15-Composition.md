@@ -3,7 +3,7 @@ layout: post
 title: Composition
 ---
 
-I see a _lot_ of people get application composition _very_ wrong, _very_ often. The problem isn't so much that the subject lacks resources, on contrary, [dependency injection] for example is probably the most talked about and blogged pattern of all time! However, the information presented is all too often incorrect or conflicting, spawned from the enlightened minds of mid level developers keen to share their light bulb moment in which DI and some of its benefits are suddenly realised.
+I see a _lot_ of people get application composition _very_ wrong, _very_ often. The problem isn't so much that the subject lacks resources, on contrary, [dependency injection](https://www.google.co.uk/#safe=active&q=dependency+injection) for example is probably the most talked about and blogged pattern of all time! However, the information presented is all too often incorrect or conflicting, spawned from the enlightened minds of mid level developers keen to share their light bulb moment in which DI and some of its benefits are suddenly realised.
 
 I've decided to take matters a step further than the usual drivel that is DI blogs, and provide a framework. In this article I'll address what I consider to be some of the misconceptions surrounding composition techniques and clarify some terminology. In future articles I'll highlight how the use of [Compose] can assist in rectifying these common flaws, whilst simplifying the definition of manageable service components and resulting integration within your application.
 
@@ -45,7 +45,6 @@ Don't get me wrong, DI is great. I just think developers need to realise there i
 
 [Next steps]
 
-  [dependency injection]: https://www.google.co.uk/#safe=active&q=dependency+injection
   [Compose]: http://www.github.com/smudge202/compose
   [Gang of Four]: http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612
   [Dependency Inversion Principle]: http://

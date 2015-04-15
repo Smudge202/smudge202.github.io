@@ -31,15 +31,15 @@ This is possibly made more clear in [this post by Derick Bailey] which tackles d
 
 For all the [confusion DI brings about] at times, I consider it one of the most valuable patterns available. It takes very little time to teach a junior developer to use dependency injection, and is a pretty easy sell if said junior follows TDD (if not, why not!?).
 
-Dependency Injection is simply a design pattern intended to assist in achieving the Dependency Inversion Principle, which in turn can assist with inverting control (IoC). That's it, really. I quite often see people stating it's usefulness with TDD as it's greatest asset, and although I believe that to be a very handy _side-effect_, the key benefit to me is the component isolation it affords us. Not just for the sake of testing, but for the sake of a cleaner structural design.
+Dependency Injection is simply a [design pattern] intended to assist in achieving the Dependency Inversion Principle, which in turn can assist with inverting control (IoC). That's it, really. I quite often see people stating it's usefulness with TDD as it's greatest asset, and although I believe that to be a very handy _side-effect_, the key benefit to me is the component isolation it affords us. Not just for the sake of testing, but for the sake of a cleaner structural design.
 
 ## DI is not IoC
 
-Notice how each of the terms listed so far have been a smaller, more direct description of something designed to assist in achieving a broader goal. It should therefore come as no surprise that simply utilising the dependency injection design pattern, does not mean you have achieved IoC.
+Notice how each of the terms listed so far have been a smaller, more direct description of something designed to assist in achieving a broader goal. It should therefore come as no surprise that simply [utilising the dependency injection design pattern, does not mean you have achieved IoC](http://programmers.stackexchange.com/a/131452).
 
 And yet, so many, seem to misunderstand... 
 
-Dependency Injection is just a tool, the subjects of DIP and IoC are much broader. Considerations such as which projects an interface and respective implementations should exist are far more crucial than DI when considering DIP. We saw above, one of the key tenants of DIP was the isolation of high level consumers from it's lower level dependencies, and that DI wasn't even necessary to achieve this.
+Dependency Injection is just a tool, the subjects of DIP and IoC are much broader. Considerations such as which projects an interface and respective implementations should exist ([component cohesion]) are far more crucial than DI when considering DIP. We saw above, one of the key tenants of DIP was the isolation of high level consumers from it's lower level dependencies, and that DI wasn't even necessary to achieve this.
 
 Don't get me wrong, DI is great. I just think developers need to realise there is much more to learn on the subject; don't stop at dependency injection, read on!
 
@@ -52,4 +52,6 @@ Don't get me wrong, DI is great. I just think developers need to realise there i
   [Martin Fowler's article]: http://martinfowler.com/bliki/InversionOfControl.html
   [this post by Derick Bailey]: https://lostechies.com/derickbailey/2011/09/22/dependency-injection-is-not-the-same-as-the-dependency-inversion-principle/
   [confusion DI brings about]: http://stackoverflow.com/search?q=dependency+injection
-  [Next steps]: http://
+  [design pattern]: http://en.wikipedia.org/wiki/Software_design_pattern
+  [component cohesion]: http://en.wikipedia.org/wiki/Cohesion_%28computer_science%29
+  [Next steps]: http://blog.devbot.net/compose

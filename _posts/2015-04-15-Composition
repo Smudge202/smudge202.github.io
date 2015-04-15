@@ -1,0 +1,13 @@
+---
+layout: post
+title: Composition
+---
+
+I see a _lot_ of people get application composition _very_ wrong, _very_ often. The problem isn't so much that the subject lacks resources, on contrary, [dependency injection] for example is probably the most talked about and blogged pattern of all time! However, the information presented is all too often incorrect or conflicting, spawned from the enlightened minds of mid level developers keen to share their light bulb moment in which DI and some of it's benefits are suddenly realised.
+
+There seems to be little point in dripping more content into the ocean that is DI resources, so I've decided to take matters a step further and provide a framework. In this article I'll address what I consider to be some of the misconceptions surrounding composition techniques, and highlight how the use of [Compose] can assist in rectifying these common flaws, whilst simplifying the definition of manageable service components and resulting integration within your application.
+
+##Terminology
+
+First thing's first, lets add my take on the terminology involved in hope of sparking some dim light into those lightbulbs, and if nothing else, to clarify the rest of this article.
+

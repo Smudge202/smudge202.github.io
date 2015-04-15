@@ -25,7 +25,7 @@ footer-links:
   instagram:
   linkedin: smudge202
   pinterest:
-  rss: # just type anything here for a working RSS icon, make sure you set the "url" above!
+  rss: enable
   twitter: smudge202
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: channel/UCRnXEK87cVmyYTlXXW06R4Q

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Composition
+tags: [compose]
 ---
 
 I see a _lot_ of people get application composition _very_ wrong, _very_ often. The problem isn't so much that the subject lacks resources, on contrary, [dependency injection](https://www.google.co.uk/#safe=active&q=dependency+injection) for example is probably the most talked about and blogged pattern of all time! However, the information presented is all too often incorrect or conflicting, spawned from the enlightened minds of mid level developers keen to share their light bulb moment in which DI and some of its benefits are suddenly realised.

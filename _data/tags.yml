@@ -1,2 +1,4 @@
 - slug: compose
   name: Compose
+- slud: tests
+  name: tests

@@ -16,7 +16,7 @@ First thing's first, lets add my take on the terminology involved in hope of spa
 
 Sometimes referred to as the _Hollywood Principle - "Don't call me, I'll call you"_, IoC spans back more than 25 years. Although it made appearances in papers beforehand, it was possibly made most famous in the book; _[Gang of Four]_.
 
-I like to think of it as the broadest description of dependency flow, to which patterns that can be used to achieve the [Dependency Inversion Principle] all fit in. It describes how reusable, generic components are used by applications and in which direction the flow of control should occur.
+I like to think of it as the broadest description of dependency flow, to which patterns that can be used to achieve the [Dependency Inversion Principle] all fit within. It describes how reusable, generic components are used by applications and in which direction the flow of control should occur.
 
 For more information on IoC, I recommend checking out [Martin Fowler's article].
 

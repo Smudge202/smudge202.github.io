@@ -16,7 +16,7 @@ Despite the somewhat aggressive and blunt tone throughout this article (one of m
 
 We all hate spam. It is [widely reported] that spam mail takes up huge portions of overall internet bandwidth, and subsequently your inbox. This is despite the numerous technologies that ensure these emails are removed from the internet at the earliest opportunity.
 
-There are numerous and very specific [laws in the UK/EU], but spam is unavoidable. So the first thing I recommend to candidates, is create a burner e-mail. Personally I take this a step further and create unique e-mails when signing up to job boards so I can monitor and report on how my details are being propagated. But if nothing else, don't use your personal e-mail. Use an account you can simply never sign in to again once you have a role.
+There are some [laws in the UK/EU] that try to assist in countering these mails, but spam is unavoidable. So the first thing I recommend to candidates, is create a burner e-mail. Personally I take this a step further and create unique e-mails when signing up to job boards so I can monitor and report on how my details are being propagated. But if nothing else, don't use your personal e-mail. Use an account you can simply never sign in to again once you have a role.
 
 Recruiters, I can't speak for all potential candidates, but consider the following:
  * If you get my name wrong in an email (I love when I get `Dear <#$Candidate.FullName>` and similar because my supposedly IT literate recruiter can't work a mail merge), I will not deal with your company.

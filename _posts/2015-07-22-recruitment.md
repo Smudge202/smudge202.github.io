@@ -44,7 +44,7 @@ This is my greatest gripe of all when it comes to recruitment. It covers all pre
 
 > I will happily and without remorse, decline the best job opportunity in the world, if the recruiter for said role has annoyed me.
 
-Recruiters have to understand, it is **so easy** for a good developer to get a good job. I can easily find a role in within a week, let alone my notice period. I suppose on the flipside there's nothing stopping a recruitment consultant deciding to not deal with difficult and obnoxious candidates such as myself, but I still doubt I'd struggle.
+Recruiters have to understand, it is **so easy** for a good developer to get a good job. I can easily find a role within a week, let alone my notice period. I suppose on the flipside there's nothing stopping a recruitment consultant deciding to not deal with difficult and obnoxious candidates such as myself, but I still doubt I'd struggle.
 
 ## Candidates
 

@@ -52,7 +52,7 @@ Having been responsible for reviewing and interviewing candidates in the past, i
 
 I've [written before] about my thoughts on Senior Developers, but I'll re-emphasise some of those points here. 
 
-Technology moves fast, and there's a good chance you have a lot of catching up to do. Yes, you may find yet another stale employer nuturing dead technologies and death defying products, but you'd be committing yourself to a dead end career and increasing the difficultly of climbing out from that pit.
+Technology moves fast, and there's a good chance you have a lot of catching up to do. Yes, you may find yet another stale employer nurturing dead technologies and death defying products, but you'd be committing yourself to a dead end career and increasing the difficultly of climbing out from that pit.
 
 There are two key technologies I advise to all current developers. For those more comfortable in the front-end, you really need to get a grasp for [AngularJs]. I don't mean, _you've heard of it_, but actually used and understand it. If you can't learn that as part of your current role, do so in your own time! I consider myself versant with a good portion of technologies, but still spend hours of my own time almost **every day** learning more. I consider it part and parcel of my career choice, and manage to balance social and family life around that (_can almost hear my better half laughing at that statement_).
 
@@ -68,7 +68,7 @@ I know which would better interest me as an interviewer.
 
 ## Recruiter Recommendation
 
-Of all the recruiters I've spoken with (or more accurately, ignored), I highly recommend <a name="harry-porter">Harry Porter</a> over at [Computer Futures] whom ticked all of the above boxes, and went out of his way to find really great matches for me, **as an individual**. Although I'm sure Harry had many roles for which my expertise and skillset would easily fulfill, he spent time on the phone with me during a role discussion to get to know me, and better understand the culture, challenges, and company that would best suit and drive me. That is simply something you can't achieve with these silly regsitration forms, and I thank him for it.
+Of all the recruiters I've spoken with (or more accurately, ignored), I highly recommend <a name="harry-porter">Harry Porter</a> over at [Computer Futures] whom ticked all of the above boxes, and went out of his way to find really great matches for me, **as an individual**. Although I'm sure Harry had many roles for which my expertise and skillset would easily fulfill, he spent time on the phone with me during a role discussion to get to know me, and better understand the culture, challenges, and company that would best suit and drive me. That is simply something you can't achieve with these silly registration forms, and I thank him for it.
 
   [widely reported]: http://skeptics.stackexchange.com/questions/2175/what-percentage-of-total-internet-traffic-is-spam
   [laws in the UK/EU]: https://ico.org.uk/for-the-public/online/spam-emails/

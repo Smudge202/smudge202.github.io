@@ -18,11 +18,11 @@ We all hate spam. It is [widely reported] that spam mail takes up huge portions 
 There are some [laws in the UK/EU] that try to assist in countering this type of marketing, but spam is unavoidable. So the first thing I recommend to candidates, is create a burner e-mail. Personally I take this a step further and create unique e-mails when signing up to job boards so I can monitor and report on how my details are being propagated. But if nothing else, don't use your personal e-mail. Use an account you can simply never sign in to again once you have a role.
 
 Recruiters, I can't speak for all potential candidates, but consider the following:
- * If you get my name wrong in an email (I love when I get `Dear <#$Candidate.FullName>` and similar because my supposedly IT literate recruiter can't work a mail merge), I will not deal with your company.
- * If you do not state the location and salary clearly towards the top of the email, I will not reply.
- * If you send me rediculous roles because your immature bot/matching algorithm spotted `SQL` on my CV and you have `SQL Developer` roles, I will not deal with your company.
- * If you do not provide any information regarding the role, simply a statement asking me to call you, I will not.
- * If you send me a registration form asking me to re-write details on my CV, I will not.
+* If you get my name wrong in an email (I love when I get `Dear <#$Candidate.FullName>` and similar because my supposedly IT literate recruiter can't work a mail merge), I will not deal with your company.
+* If you do not state the location and salary clearly towards the top of the email, I will not reply.
+* If you send me rediculous roles because your immature bot/matching algorithm spotted `SQL` on my CV and you have `SQL Developer` roles, I will not deal with your company.
+* If you do not provide any information regarding the role, simply a statement asking me to call you, I will not.
+* If you send me a registration form asking me to re-write details on my CV, I will not.
  
 They're probably my biggest gripes regarding spam, but note that on some of those points I don't hold anyone personally responsible. That would be mean; instead I take your email as a reflection of your company's practices and blacklist the domain.
 
@@ -30,8 +30,8 @@ They're probably my biggest gripes regarding spam, but note that on some of thos
 
 I know this can be one of the greatest frustrations for everyone involved. Amusingly, I managed to brick my phone just before my most recent foray on the recruitment market, and today cleared the 42 near-pointless voicemails from my phone. This may be a personal preference not shared by others, but here's the most effective way to communicate with me:
 
- * Email me details about a great matching role
- * I'll reply with a phone number and best time to call so we can discuss in more detail
+* Email me details about a great matching role
+* I'll reply with a phone number and best time to call so we can discuss in more detail
 
 That's it. Nothing complicated. I know phone calls are more personal, I know some people will prefer that method of communication. I, and many others, do not. Pass our spam filters, and we'll go from there. If you drop me a voice mail and no e-mail, you'll never hear from me because I just delete them, but maybe that's just me?
 

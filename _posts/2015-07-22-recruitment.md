@@ -9,7 +9,7 @@ As a Senior .Net Developer, I've never found it particularly difficult to find a
 
 I don't envy you. Trying to milk blood from stone dealing with introvert developers, or putting up with the loud-mouth extroverts such as myself... Chasing candiates, chasing clients, trying to keep up with the waterfall of changes despite often working with people reluctant to communicate back. You guys do an incredibly difficult job, in an incredibly competitive market. I fully respect what you're doing, and to some extent sympathise. I know your job is something I could not manage for even 10 minutes, but I hope you find it rewarding.
 
-Despite the somewhat aggressive and blunt tone throughout this article (one of my greatest <del>traits</del> flaws), I do feel there is suggestions and knowledge here that at the very least will help you when dealing with candidates.
+Despite the somewhat aggressive and blunt tone throughout this article (one of my greatest <del>traits</del> flaws), I do feel there are suggestions and knowledge here that at the very least will help you when dealing with candidates.
 
 ## Spam
 

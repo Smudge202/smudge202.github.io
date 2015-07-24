@@ -58,11 +58,11 @@ There are two key technologies I advise to all current developers. For those mor
 
 The second stack is [Azure]. There is a comprehensive suite of technologies surrounding Azure, far too many for most people to keep up with. So I would say focus on [web apps], [cloud services], and any one of their [storage products]. No, you won't have a great understanding of all the little pieces a system architecture might involve, but what sounds better in an interview:
 
-> Yeh, I've heard of Azure and Angular but haven't used them
+> I've heard of Azure and Angular but haven't used them
 
 or
 
-> Yeh, I didn't get a chance to work with Angular and Azure in my previous role, but I've created a couple open source web apps on github that are tied into cloud services, with angular front-ends. Nothing fancy, just an attempt to stay current.
+> I didn't get a chance to work with Angular and Azure in my previous role, but I've created a couple open source web apps on github that are tied into cloud services, with angular front-ends. Nothing fancy, just an attempt to stay current.
 
 I know which would better interest me as an interviewer.
 

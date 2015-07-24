@@ -25,7 +25,7 @@ Recruiters, I can't speak for all potential candidates, but consider the followi
 * If you do not provide any information regarding the role, simply a statement asking me to call you, I will not.
 * If you send me a registration form asking me to re-write details on my CV, I will not.
  
-They're probably my biggest gripes regarding spam, but note that on some of those points I don't hold anyone personally responsible. That would be mean; instead I take your email as a reflection of your company's practices and blacklist the domain.
+They're probably my biggest gripes regarding spam, but note that on the first two points that I don't hold anyone personally responsible. Instead I take your email as a reflection of your company's practices and blacklist the domain.
 
 ## Phone Calls
 

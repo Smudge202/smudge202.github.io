@@ -18,6 +18,7 @@ We all hate spam. It is [widely reported] that spam mail takes up huge portions 
 There are some [laws in the UK/EU] that try to assist in countering this type of marketing, but spam is unavoidable. So the first thing I recommend to candidates, is create a burner e-mail. Personally I take this a step further and create unique e-mails when signing up to job boards so I can monitor and report on how my details are being propagated. But if nothing else, don't use your personal e-mail. Use an account you can simply never sign in to again once you have a role.
 
 Recruiters, I can't speak for all potential candidates, but consider the following:
+
 * If you get my name wrong in an email (I love when I get `Dear <#$Candidate.FullName>` and similar because my supposedly IT literate recruiter can't work a mail merge), I will not deal with your company.
 * If you do not state the location and salary clearly towards the top of the email, I will not reply.
 * If you send me rediculous roles because your immature bot/matching algorithm spotted `SQL` on my CV and you have `SQL Developer` roles, I will not deal with your company.

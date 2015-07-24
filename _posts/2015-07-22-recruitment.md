@@ -20,8 +20,8 @@ There are some [laws in the UK/EU] that try to assist in countering this type of
 Recruiters, I can't speak for all potential candidates, but consider the following:
 
 * If you get my name wrong in an email (I love when I get `Dear <#$Candidate.FullName>` and similar because my supposedly IT literate recruiter can't work a mail merge), I will not deal with your company.
-* If you do not state the location and salary clearly towards the top of the email, I will not reply.
 * If you send me rediculous roles because your immature bot/matching algorithm spotted `SQL` on my CV and you have `SQL Developer` roles, I will not deal with your company.
+* If you do not state the location and salary clearly towards the top of the email, I will not reply.
 * If you do not provide any information regarding the role, simply a statement asking me to call you, I will not.
 * If you send me a registration form asking me to re-write details on my CV, I will not.
  

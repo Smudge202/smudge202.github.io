@@ -1,6 +1,6 @@
 ---
 layout: post
-title: UK .Net Developer Recruitment
+title: .Net Development Recruitment in UK
 ---
 
 As a Senior .Net Developer, I've never found it particularly difficult to find a really good role. Admittedly, the signal-to-noise ratio is astonishingly poor, but the market seems saturated with companies looking for good developers. This was not always the case; as a junior and inexperienced developer it was quite the opposite, having to _settle_ for the best opportunity of the bunch. Clear indication of just how many bad, inexperienced, and junior developers are out there. Having recently revisted the recruitment market, I thought it might be of interest - _recruiters, clients, and candidates alike_ - to share my perspective, and perhaps make some suggestions.

@@ -8,6 +8,78 @@ Unlike my typical rants and rages, I've decided to put together a _quick_ articl
 
 So, without further ado, and in no particular order, this is how to _Smudgify_ your code.
 
+## Casing
+
+There are a [fair few rules to casing](https://msdn.microsoft.com/en-us/library/x2dbyw72(v=vs.71).aspx) but here's the gist of it:
+
+### Lower Camel ( _foo**B**ar_ )
+
+* Private members
+* Method arguments
+* Local variables
+
+### Pascal (_**F**oo**B**ar_ )
+
+* Class names
+* Namespace names
+* Public, Internal, and Protected members
+* Generic Arguments (the declarations, i.e. `Func<TResult>`)
+
+_It's increasingly common to see Constants declared in Pascal case, however upper-case declarations are also ok for `const`s_
+
+### Acronyms
+
+* For 3 letters or more, treat the Acronym as a normal word (i.e. `var xmlReader = new XmlReader()`)
+* For 2 letter acronyms, use all upper **except** in the case of the well known few such as `Id`.
+
+_For the most part, try to avoid using Acronyms. There is almost no restriction on member name length, so describe your code's intent so that it's easy to read. If you need the code obfuscated, use a tool to do so, don't be a tool_.
+
+## Underscores
+
+There are only two legitimate uses for underscores, and both of them are a matter of personal preference. 
+
+### Backing Members
+
+I use an underscore to prefix a backing member (private instance) to remove the need for the `this` keyword in my constructors. Some people prefer to use the `this` keyword and be completely rid of underscores.
+
+i.e.
+
+```c#
+private readonly IFoo _foo;
+
+public MyClass(IFoo foo)
+{
+  _foo = foo;
+}
+
+\\ versus
+
+private readonly IBar bar;
+
+public MyClass(IBar bar)
+{
+  this.bar = bar;
+}
+```
+
+### Test Names
+
+It isn't a practice I follow personally, but I have no problem when I come across test names that use underscores. For example:
+
+```c#
+[Fact]
+public static void Given_Foo_When_Bar_Then_Do_Stuff()
+{ /* ... /* }
+
+// versus
+
+[Fact]
+public static void GivenFooWhenBarThenDoStuff()
+{ /* ... */ }
+```
+
+For whatever reason, I read the latter case easier than I do the former, and so don't use underscores in test names. It drives me mad when I see underscores used in namespaces, class names, and so forth. **This is DOT net, not UNDERSCORE net**.
+
 ## Implicit Declarations
 
 A lot of people seem to think of this as a _personal preference_, but I want to point out that declarations utilising the `var` keyword _are_ better. Here's an example why:

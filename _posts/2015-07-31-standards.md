@@ -114,5 +114,36 @@ _As a slight aside, I will in rare cases add a comment to my code to acknowledge
 
 ## Exceptions
 
-The `try/catch` block is designed to allow the developer to *handle* **specific** exceptions. Avoid catching `Exception` over a more specific exception, and avoid at all cost exception logic. For example, do **not** do the following:
+The `try/catch` block is all too often misused, so here are a couple suggestions:
+
+### Exception Logic
+
+Exception logic is the act of checking whether an exception is thrown by a line of code as a type of `if` statement. For example:
+
+```c#
+public bool TryGetData(out int result)
+{
+  result = default(int);
+  try
+  {
+    result = int.Parse(GetStringRepresentation());
+    return true;
+  }
+  catch
+  {
+    return false;
+  }
+}
+```
+
+Instead, always try to make use of conditions available; generating exceptions is [no small task](http://blogs.msdn.com/b/ricom/archive/2006/09/25/771142.aspx). For example, the above could have been simply changed to:
+
+```c#
+public bool TryGetData(out int result)
+{
+  return int.TryParse(GetStringRepresentation(), out result);
+}
+```
+
+There will be cases where exception logic cannot be avoided, but always use it as a last resort!
 

@@ -69,7 +69,7 @@ It isn't a practice I follow personally, but I have no problem when I come acros
 ```c#
 [Fact]
 public static void Given_Foo_When_Bar_Then_Do_Stuff()
-{ /* ... /* }
+{ /* ... */ }
 
 // versus
 
@@ -103,3 +103,16 @@ public void Implicit()
 As we can see above, the `GetData` method appears to return a `List<string>` which is then enumerated and each element printed to the console. Now imagine we wanted to make some changes to `GetData` so that it returns an `IEnumerable<int>`. In the case of the `Explicit` method, we would have to make changes in that method, but no change would be required in the `Implicit` version.
 
 Some might argue that this is a good thing because it forces you to check callers for breaking changes, but nowadays we all TDD (right!?) so it's no longer necessary. The implicit declaration simply saves time, especially when the object graph has a much deeper hierarchy.
+
+## Comments
+
+Don't use them. Your code should describe what your code is doing. If you think your code is hard enough to read to justify a comment, change your code.
+
+I know sometimes we comment code out to test something in debug, when trying to diagnose an issue, or when trying to get the code to compile quickly, but **never commit commented out code**. The whole point of source control is to give us a history of changes, we simply do not need commented-out code polluting the code base.
+
+_As a slight aside, I will in rare cases add a comment to my code to acknowledge/explain the reason behind an unenviable design decision such as a third party API forcing me to use Exception Logic or call some seemingly unrelated method to make a later call work_.
+
+## Exceptions
+
+The `try/catch` block is designed to allow the developer to *handle* **specific** exceptions. Avoid catching `Exception` over a more specific exception, and avoid at all cost exception logic. For example, do **not** do the following:
+

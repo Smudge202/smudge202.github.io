@@ -57,7 +57,9 @@ So the above describes how to case your **words**, but what do you do about acro
 * For 3 letters or more, treat the Acronym as a normal word (i.e. `var xmlReader = new XmlReader()`)
 * For 2 letter acronyms, use all upper, **except** in the case of a well known acronym such as `Id`.
 
-For the most part you should avoid defining Acronyms in your code. There is almost no restriction on member/type name length, so describe your code's intent so that it's easy to read. 
+For the most part you should avoid defining Acronyms in your code. There is almost no restriction on member/type name length, so describe your code's intent. Not everyone in your company may share your knowledge of the domain. Not everyone using your software may consider an acronym you used during your computing degree as _common_ as you do. 
+
+Write code so that it's easy to read. For everyone.
 
 _If you need the code obfuscated, use a tool to do so, don't be a tool_.
 

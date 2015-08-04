@@ -97,7 +97,7 @@ This is not **handling** an exception, it is attempting to **ignore** an excepti
 
 ### Catch Scope
 
-The root most object in the exception hierarchy, is the `Exception` object itself, from which _all_ other exceptions derive. The `catch` block allows us to filter our _handling_ logic based upon inheritance, so that if we try to catch an `ArgumentException` for example, we would also catch instances of `ArgumentNullException` (unless it has a separate catch block), because `ArgumentNullException` inherits `ArgumentException`.
+The root most object in the exception hierarchy, is the `Exception` object itself, from which _all_ other exceptions derive. The `catch` block allows us to filter our _handling_ logic based upon inheritance, so that if we try to catch an `ArgumentException` for example, we would also catch instances of `ArgumentNullException` (unless it has a separate catch block), because `ArgumentNullException` inherits from `ArgumentException`.
 
 _As of C#6 there are additional filters we can apply to our catch blocks, but I'll omit these for sake of brevity. The same concepts apply for C#6, if not more so due to the additional filtering the features allow._
 

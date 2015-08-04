@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Casing - Modern C# Standards and Conventions
+title: Comments - Modern C# Standards and Conventions
 hidden: true
 ---
 

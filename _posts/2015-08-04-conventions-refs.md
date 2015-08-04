@@ -45,7 +45,7 @@ private void TestCase()
 private void PassByRef(ref List<string> c)
 {
 	c.Add("Bar");
-	c = new List<string>();
+	c = new List<string> { "Cheesecake!" };
 }
 ```
 

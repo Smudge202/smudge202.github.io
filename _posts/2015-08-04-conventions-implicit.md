@@ -17,7 +17,7 @@ This article is part of a series describing [Modern C# Standards and Conventions
 * [Scoping](http://blog.devbot.net/conventions-scoping)
 * [Regions](http://blog.devbot.net/conventions-regions)
 
-_If you feel there is something else that should be added here, please drop a comment below or better yet, [send me a PR](https://github.com/smudge202/smudge202.github.io)_
+_If you feel there is something else that should be included here, please drop a comment below, or better yet [send me a PR](https://github.com/smudge202/smudge202.github.io)._
 
 ## What does it mean?
 

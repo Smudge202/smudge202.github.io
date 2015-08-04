@@ -69,7 +69,7 @@ public static void GivenFooWhenBarThenDoesStuff()
 { /* ... */ }
 ```
 
-Like many of you, I've grown accustomed to reading pascal and camel cased code. The rest of my code follows these casing rules, so I prefer to be consistent and treat tests as some form of _special case_. It is just code after all.
+Like many of you, I've grown accustomed to reading pascal and camel cased code. The rest of my code follows these casing rules, so I prefer to be consistent and not treat tests as some form of _special case_. Tests are just code after all.
 
 ### MVC Partials
 

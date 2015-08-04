@@ -32,7 +32,7 @@ The `ref` keyword is used to pass an argument by reference, as opposed to by val
 Here is a really simple test showing the `ref` keyword in use:
 
 ```c#
-private void TestCase()
+private static void TestCase()
 {
 	var a = new List<string> { "Foo" };
 	var b = a;
@@ -42,7 +42,7 @@ private void TestCase()
 	b.ForEach(Console.WriteLine);
 }
 
-private void PassByRef(ref List<string> c)
+private static void PassByRef(ref List<string> c)
 {
 	c.Add("Bar");
 	c = new List<string> { "Cheesecake!" };

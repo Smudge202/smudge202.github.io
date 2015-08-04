@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Modern C# Standards and Conventions
-published: true
 ---
 
 Unlike my typical rants and rages, I've decided to put together a series of articles on some of the more basic coding standards and conventions I follow, as well as the reason(s) I do so. A lot of the battle of conventions is to offer some form of standardisation, making code easier to read and understand by other developers (and your future-self!). 

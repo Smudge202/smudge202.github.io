@@ -33,7 +33,7 @@ In contrast, an _explicit_ declaration defines the type as part of the declarati
 List<string> data = GetResults();
 ```
 
-I often come across people that believe the _implicit_ declaration to be in some way related to _dynamics_. This is **completely wrong** and should be beaten out of these people. If you do not know what _dynamics_ are, don't worry - they do not relate to this article.
+I often come across people that believe the _implicit_ declaration to be in some way related to _dynamics_. This is **completely wrong** and should be beaten out of said people. If you do not know what _dynamics_ are, don't worry - they do not relate to this article.
 
 ## Pros and Cons
 

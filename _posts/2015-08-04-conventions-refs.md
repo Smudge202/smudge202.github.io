@@ -36,7 +36,7 @@ private static void TestCase()
 {
 	var a = new List<string> { "Foo" };
 	var b = a;
-	PassByRef(ref a);
+	PassByRef(ref b);
 
 	a.ForEach(Console.WriteLine);
 	b.ForEach(Console.WriteLine);

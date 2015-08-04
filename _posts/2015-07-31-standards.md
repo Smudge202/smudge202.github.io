@@ -25,7 +25,7 @@ There are a [fair few rules to casing](https://msdn.microsoft.com/en-us/library/
 * Public, Internal, and Protected members
 * Generic Arguments (the declarations, i.e. `Func<TResult>`)
 
-_It's increasingly common to see Constants declared in Pascal case, however upper-case declarations are also ok for `const`s_
+_It's increasingly common to see Constants declared in Pascal case, however upper-case declarations are also ok for `const`_
 
 ### Acronyms
 

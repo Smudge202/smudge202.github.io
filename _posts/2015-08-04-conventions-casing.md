@@ -23,7 +23,7 @@ _If you feel there is something else that should be included here, please drop a
 
 To get the ball rolling, you need to understand the names we use to describe casing techniques.  
 
-**Camel Casing**, also known as _lower camel_, is when the first letter of the first word ais lower case, but all other words will have an upper case first letter (in some strange way, I guess this is like a Camel's humps?). As a simple example:
+**Camel Casing**, also known as _lower camel_, is when the first letter of the first word is lower case, but all other words will have an upper case first letter (in some strange way, I guess this is like a Camel's humps?). As a simple example:
 
 > _foo**B**ar_
 

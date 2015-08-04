@@ -73,7 +73,7 @@ In the example above, if I change the return type of `GetData` to something that
 
 What if the `GetData` method were changed to return an `IEnumerable<int>`? The person making this change may be forced to then _cascade_ this change to the `Explicit` method too. By using `var` in the _implicit_ method, I maximise compatibility with unimportant changes in lower level components.
 
-Consider the case in which you are not the author of the `GetData` method, instead it is brought in by NuGet or reference to a third party assembly. Updating versions in the _Explicit_ case appears to be a nightmare with potentially thousands of annoying cast exceptions, which may lead to skipping the update. How many future updates will you skip? What if not updating means a critical security issue is not addressed? Ok, too many _whatifs_ and assumptions...
+Consider the case in which you are not the author of the `GetData` method, instead it is brought in by NuGet or reference to a third party assembly. Updating versions in the _Explicit_ case could appear to be a nightmare with potentially thousands of annoying cast exceptions, in turn leading to skipping the update.. leading to future updates being skipped? What if that skipped update would have patched a critical security issue? Ok, too many _whatifs_ and assumptions...
 
 #### Manual Verification
 

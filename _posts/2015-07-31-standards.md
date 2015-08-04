@@ -78,7 +78,7 @@ public static void GivenFooWhenBarThenDoesStuff()
 { /* ... */ }
 ```
 
-For whatever reason, I read the latter case easier than I do the former, and so don't use underscores in test names. It drives me mad when I see underscores used in namespaces, class names, and so forth. **This is DOT net, not UNDERSCORE net**.
+For whatever reason, I find it easier to read the latter than the former, so I don't use underscores in test names. It drives me mad when I see underscores used in namespaces, class names, and so forth. **This is DOT net, not UNDERSCORE net**.
 
 ## Implicit Declarations
 
@@ -100,9 +100,11 @@ public void Implicit()
 }
 ```
 
-As we can see above, the `GetData` method appears to return a `List<string>` which is then enumerated and each element printed to the console. Now imagine we wanted to make some changes to `GetData` so that it returns an `IEnumerable<int>`. In the case of the `Explicit` method, we would have to make changes in that method, but no change would be required in the `Implicit` version.
+As we can see above, the `GetData` method appears to return a `List<string>` which is then enumerated, with each element printed to the console. Now imagine we wanted to make some changes to `GetData` so that it returns an `IEnumerable<int>`. In the case of the `Explicit` method, we would have to make two changes, but no change would be required in the `Implicit` version.
 
-Some might argue that this is a good thing because it forces you to check callers for breaking changes, but nowadays we all TDD (right!?) so it's no longer necessary. The implicit declaration simply saves time, especially when the object graph has a much deeper hierarchy.
+I appreciate that some people prefer to see the type of a variable, but IDE's make this information readily available, especially in the case of Visual Studio. Others might argue that being forced to make a change is a good thing because it forces you to check callers for breaking changes, but nowadays we all TDD (right!?) so it's no longer necessary. We should trust in our tests to identify breaking changes.
+
+The implicit declaration simply saves time, especially when the object graph has a much deeper hierarchy.
 
 ## Comments
 
@@ -110,7 +112,7 @@ Don't use them. Your code should describe what your code is doing. If you think 
 
 I know sometimes we comment code out to test something in debug, when trying to diagnose an issue, or when trying to get the code to compile quickly, but **never commit commented out code**. The whole point of source control is to give us a history of changes, we simply do not need commented-out code polluting the code base.
 
-_As a slight aside, I will in rare cases add a comment to my code to acknowledge/explain the reason behind an unenviable design decision such as a third party API forcing me to use Exception Logic or call some seemingly unrelated method to make a later call work_.
+_As a slight caveat, I will in rare cases add a comment to my code to acknowledge/explain the reason behind an unenviable design decision such as a third party API forcing me to use Exception Logic or call some seemingly unrelated method to make a later call work. I consider this an unavoidable case for using a comment_.
 
 ## Exceptions
 
@@ -145,10 +147,15 @@ public bool TryGetData(out int result)
 }
 ```
 
-There will be cases where exception logic cannot be avoided, but always use it as a last resort!
+There will be cases where exception logic cannot be avoided, but always **use it as a last resort**!
 
 ### On Error Resume Next
 
-One of the most bizarre statements I recall learning back in VB days, but _On Error Resume Next_ simply means to ignore an exception and continue processing. _Exceptions_ are **exceptional**.
+One of the most bizarre statements I recall learning back in VB days was _On Error Resume Next_, which simply means to ignore an exception and continue processing. **Exceptions are exceptional**. This is sometimes mixed with _exception logic_ but not in all cases. I appreciate developers will also often try/catch an exception because they don't want an exception to bubble, but oftentimes the higher level component is in a better position to handle and react to an exception.
 
-#### wip
+### Validation
+
+Validation comes in two forms. There is code validation which asserts that method arguments are valid, correct code flow is followed (opening a connection before using it for example), and so forth. These are perfectly suitable places to `throw` a **relevant and descriptive** exception, but should not be confused with _user input validation_.
+
+There are those that argue that it is easier to throw exceptions for malformed user input and have high level catch blocks generate a friendly UI from the exception, but this is not a practice I follow or advocate. Validation issues should be returned as part of a model whilst exceptions are used for their intended purpose.
+

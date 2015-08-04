@@ -27,7 +27,7 @@ There are two sides to Exceptions which will help us break down this article. Th
 
 ## (Mis)Handling Exceptions
 
-The essence of exception handling in C# (and many other languages) is the `try/catch` block, whereby you _try_ to execute one or more lines of code, and can _catch_ a model representation of an exception should one occur. We'll primarily focus on the `catch` block and statement, however it's worth noting that you should try to limit the size and extent of your `try` blocks. You should pay attention to the types of Exception that can be thrown, and only place the code code that _may_ throw an exception in said block.
+The essence of exception handling in C# (and many other languages) is the `try/catch` block, whereby you _try_ to execute one or more lines of code, and can _catch_ a model representation of an exception should one occur. We'll primarily focus on the `catch` block and statement, however it's worth noting that you should try to limit the size and extent of your `try` blocks. You should pay attention to the types of Exception that can be thrown, and only place the code that _may_ throw an exception in said block.
 
 It may be that you have a broader _catch-all_ statement towards the application entry in order to log the condition and state of the application and perhaps provide an **apology** to the end-user. However, these broad catch blocks should not be littered throughout your code!
 

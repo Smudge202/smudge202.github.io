@@ -68,13 +68,13 @@ It isn't a practice I follow personally, but I have no problem when I come acros
 
 ```c#
 [Fact]
-public static void Given_Foo_When_Bar_Then_Do_Stuff()
+public static void Given_Foo_When_Bar_Then_Does_Stuff()
 { /* ... */ }
 
 // versus
 
 [Fact]
-public static void GivenFooWhenBarThenDoStuff()
+public static void GivenFooWhenBarThenDoesStuff()
 { /* ... */ }
 ```
 

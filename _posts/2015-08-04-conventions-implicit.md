@@ -63,7 +63,7 @@ public void Explicit()
 }
 ```
 
-Here we see that both methods fetch some data from some unknown `GetData` method, and then output the contents to the `Console`. As per the readability section above, it is clear in the `Explicit` code that `data` is of type `List<string>`. However, this leads to the assumption that `GetData` returns `List<string>` which may not be the case, which leads us to our first point.
+Here we see that both methods fetch some data from some unknown `GetData` method, and then output the contents to the `Console`. As per the readability section above, it is clear in the `Explicit` code that `data` is of type `List<string>`. However, this leads to the assumption that `GetData` returns `List<string>` which may not be the case, leading us to our first point.
 
 #### Casting
 

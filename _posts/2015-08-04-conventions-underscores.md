@@ -78,3 +78,7 @@ I suspect there are a few exceptions to the above rules, but only one such comes
 It drives me crazy when I see underscores used in namespaces, class names, and so forth. 
 
 > **This is DOT net, not UNDERSCORE net**.
+
+## Next
+
+The next article in this series is [Implicit vs Explicit](http://blog.devbot.net/conventions-implicit).

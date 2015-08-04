@@ -147,3 +147,8 @@ public bool TryGetData(out int result)
 
 There will be cases where exception logic cannot be avoided, but always use it as a last resort!
 
+### On Error Resume Next
+
+One of the most bizarre statements I recall learning back in VB days, but _On Error Resume Next_ simply means to ignore an exception and continue processing. _Exceptions_ are **exceptional**.
+
+#### wip

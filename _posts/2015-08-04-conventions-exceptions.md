@@ -111,7 +111,7 @@ On the flip side of catching exceptions, developers also have the ability to `th
 
 ### Exception Stack
 
-As you've probably seen, when an exception is thrown the runtime will collect information regarding the call stack at the point the exception is thrown, and adds that information to the Exception. It can be very useful seeing which method and class throws an exception when diagnosing an issue, but equally vital can be seeing which methods were invoked in order to reach that location in code.
+As you've probably seen, when an exception is thrown the runtime will collect information regarding the call stack at the point the exception is thrown, and add that information to the Exception. It can be very useful seeing which method and class throws an exception when diagnosing an issue, but equally vital can be seeing which methods were invoked in order to reach that location in code.
 
 Unfortunately, it is possible for un-informed developers to accidentally drop that stack information, as shown here:
 

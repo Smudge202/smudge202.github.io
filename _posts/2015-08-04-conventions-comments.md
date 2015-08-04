@@ -47,7 +47,7 @@ Code comments are far too often misleading, and entirely unnecessary if you writ
 
 This is a pet hate of mine. Long gone are the days of restoring commented out behaviour at a later stage by un-commenting some code. It is one of the many issues that source control resolves.
 
-I may comment out some code that I'm in the process of refactoring, as it forms a nice _to-do list_, however there should never be a case of committing that code to the repository.
+I may comment out some code that I'm in the process of refactoring, as it forms a nice _to-do list_, however there should never be a case of committing that commented-out code to the repository.
 
 ### TODO
 

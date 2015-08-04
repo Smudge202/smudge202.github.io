@@ -7,7 +7,7 @@ Unlike my typical rants and rages, I've decided to put together a series of arti
 
 There are many legacy practices that have unfortunately lived through the ages that need to be weeded out, whilst many new practices and language features have been slow on the uptake; perhaps for consistency's sake, but possibly for lack of understanding.
 
-I don't want to present this as a rediculously large page, so instead have broken this out into a series for which you can find the links below. Because one of the objectives here is to weed out some of the legacy practices, I recommend these articles to both **new and old** / **junior and senior** developers! Don't think yourself above the basics, because even the fundamentals change.
+I don't want to present this as a rediculously large page, so instead have broken the subject out into a mini-series, for which you can find the links below. Because one of the objectives here is to weed out some of the legacy practices, I recommend these articles to both **new and old** / **junior and senior** developers! Don't think yourself above the basics, because even the fundamentals change.
 
 ## Contents
 

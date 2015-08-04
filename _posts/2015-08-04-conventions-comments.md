@@ -71,4 +71,4 @@ I consider these to not only be an occasion in which you _could_ add a comment, 
 
 ## Next
 
-The next article in this series is [Underscores](http://blog.devbot.net/conventions-exceptions).
+The next article in this series is [Exceptions](http://blog.devbot.net/conventions-exceptions).

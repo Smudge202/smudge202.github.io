@@ -25,7 +25,45 @@ In the same way [comments are not necessary](http://blog.devbot.net/conventions-
 
 Let's explore the reasons people choose to use regions first, in order to understand how they can be avoided.
 
-## Too much responsibility
+### Lost in Code
+
+The first reason people use regions, is to help developers find the location in code they want. As we'll see later, hopefully that isn't too difficult because there shouldn't be too much code in the file. However, to counter this common approach I personally follow a very simple structure in every class I define:
+
+```c#
+internal sealed class Class : Abstraction
+{
+  private readonly object _dependency;
+  private object _state = new object();
+  
+  public Class(object dependency)
+  {
+    _dependency = dependency;
+  }
+  
+  public void ImplementedMethod()
+  {
+    _state = ManageStateIfNeccessary();
+  }
+  
+  private object ManageStateIfNecessary()
+  {
+    return _state ?? new object();
+  }
+}
+```
+
+Clearly, the example above is not intended to accomplish any particular task, simply to show the layout I follow. From top to bottom, my layout is:
+
+* Class Declaration including any inheritance / implementing.
+* `private readonly` fields to hold the class' dependencies.
+* `private` fields to hold any state my class requires (hopefully none).
+* The constructor(s), which should assign my dependencies.
+* `public` methods implementing whichever methods I need to in accordance with my inherited/implemented abstraction.
+* `private` methods to assist in aforementioned public methods and delegate out small tasks for readability.
+
+I've excluded several member types (constants, statics, nested types, etc) for sake of brevity. But, by following this structure every single time I define a class, finding code is easy. Regions in such a case would only serve to obscure my code, not make it easier.
+
+### Too much responsibility
 
 Regions are typically introduced when a class/file is becoming unwieldy, allowing developers to `Collapse to Defintion` (Ctrl+M, Ctrl+O in Visual Studio), and conversely _expand regions_ or `Stop Outlining` (Ctrl+M, Ctrl+P in Visual Studio). Common approaches involve grouping methods into one region, fields into another, properties into a further region, etc.
 

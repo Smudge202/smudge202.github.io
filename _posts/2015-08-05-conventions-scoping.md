@@ -32,7 +32,7 @@ Similarly, the scopes for members:
 
 * `public` - the member is visible to anyone with visibility to the declaring type.
 * `protected` - the member is visible to anyone inheriting (and thus has visibility of) the declaring type.
-* `internal` - the member is visible anywhere within the same assembly with access to the declaring type (and any other assemblies matching `InternalsVisibileToAttribute`.
+* `internal` - the member is visible anywhere within the same assembly with access to the declaring type (and similarly for assemblies matching any `InternalsVisibileToAttribute`).
 * `protected internal` - the member's visibility is a combination (max) of `protected` and `internal`.
 * `private` - the member is only visible within the declaring type.
 

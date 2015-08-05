@@ -26,7 +26,7 @@ The access modifiers available in C# are pretty well known, but let's recap quic
 * `public` - the type is visible to anyone that references your assembly, and from anywhere within your assembly.
 * `internal` - the type is visible within your assembly, and to any assemblies matching [InternalsVisibleToAttributes](https://msdn.microsoft.com/en-us/library/system.runtime.compilerservices.internalsvisibletoattribute(v=vs.110).aspx).
 * `private` - can only be used when the type is nested, and means the type is only visible within the parent type(s).
-* `sealed` - although not considered an access modifier, it does effect scope in that even when the type is visible to others, it cannot be inherited.
+* `sealed` - although not considered an access modifier, it does affect scope in that even when the type is visible to others, it cannot be inherited.
 
 Similarly, the scopes for members:
 

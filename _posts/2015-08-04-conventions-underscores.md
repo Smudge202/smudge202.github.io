@@ -38,7 +38,7 @@ internal sealed class UsingUnderscores
   }
 }
 
-\\ versus
+// versus
 
 internal sealed class UsingThisKeyword
 {

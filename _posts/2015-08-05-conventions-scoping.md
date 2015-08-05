@@ -76,15 +76,15 @@ Now consider that `Bar` was infact something more sensitive to prolonged lifecyc
 
 ### Implications of `ref`
 
-The previous example was somewhat innocent, but the implications of the `ref` keyword can go far beyond that. `ref` makes it possible to hold both value and reference types in memory. I have **never** in all my years of programming, come across a case where `ref` was truly necessary. In every case, a slight restructure of the code would have left it much easier to read.
+The previous example was somewhat innocent, but the implications of the `ref` keyword can go far beyond that. `ref` makes it possible to pass the pointer of both value and reference types. I have **never** in all my years of programming, come across a case where `ref` was truly necessary except when crossing a native boundary. In every case, a slight restructure of the code would have left it much easier to read.
 
-In a previous chatper I provided a [`ref` test](http://blog.devbot.net/conventions-refs/#test) for which the outcome should be very obvious. However, that does not seem to be the case. _You_ may understand refs perfectly, but you must understand there are a huge number of people that do not! And not through fault of their own; as mentioned above, do you **need** it? I would only teach junior's about `ref`, as I am in this article, in order for them to be avoid it. It's a lazy and **unprofessional** means to extend the number of results a method can return.
+In a previous chapter I provided a [`ref` test](http://blog.devbot.net/conventions-refs/#test) for which the outcome should be very obvious. However, that does not seem to be the case. _You_ may understand `ref`s perfectly, but you must also understand there are a huge number of people that do not! And not through fault of their own; as mentioned above, do you **need** it? I would only teach junior's about `ref`, as I am in this article, in order for them to be avoid it. It's a lazy and **unprofessional** means to extend the number of results a method can return.
 
 If you haven't taken the `ref` test, I encourage you to do so.
 
 ## The Point
 
-Now we better understanding access modifiers, visibility, and scoping, you may be wondering what the point of this article is. So here we are:
+Now that we better understand access modifiers, visibility, and scoping, you may be wondering what the point of this article is. So here we are:
 
 > Keep the scope of **everything** to the lowest you possibly can.
 

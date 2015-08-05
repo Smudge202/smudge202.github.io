@@ -69,7 +69,7 @@ Regions are also often introduced when a class/file is becoming unwieldy, allowi
 
 Regardless of how you group your code within regions, the chances are you are doing so to hide a [code smell](https://en.wikipedia.org/wiki/Code_smell). **Hiding an issue does not resolve it!**
 
-If your methods are growing to long, the number of properties and fields too high, then your class is responsible for too much! I'd like to think everyone has heard of, and hopefully tries to follow the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), but in reality I know a large portion of developers lack this understanding, or more commonly, the required knowledge to implement SRP.
+If your methods are growing too long, the number of properties and fields too high, then your class is responsible for too much! I'd like to think everyone has heard of, and hopefully tries to follow the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), but in reality I know a large portion of developers lack this understanding, or more commonly, the required knowledge to implement SRP.
 
 ## Defining Responsibility
 

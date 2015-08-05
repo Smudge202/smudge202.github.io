@@ -35,7 +35,7 @@ I know some companies _enforce_ the policy of having a XML comments for any expo
 
 As always, there are probably many examples of when this isn't the case and an XML comment may be of use to consumers. However, it is not a practice I tend to follow or encourage in others.
 
-### <a name="code-comment">Code Comments</a>
+### <a name="code"></a>Code Comments
 
 These are comments you find through-out code, typically describing what the code nearby does.
 

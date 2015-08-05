@@ -65,7 +65,7 @@ I've excluded several member types (constants, statics, nested types, etc) for s
 
 ### Too much responsibility
 
-Regions are typically introduced when a class/file is becoming unwieldy, allowing developers to `Collapse to Defintion` (Ctrl+M, Ctrl+O in Visual Studio), and conversely _expand regions_ or `Stop Outlining` (Ctrl+M, Ctrl+P in Visual Studio). Common approaches involve grouping methods into one region, fields into another, properties into a further region, etc.
+Regions are also often introduced when a class/file is becoming unwieldy, allowing developers to `Collapse to Defintion` (Ctrl+M, Ctrl+O in Visual Studio), and conversely _expand regions_ or `Stop Outlining` (Ctrl+M, Ctrl+P in Visual Studio). Common approaches involve grouping methods into one region, fields into another, properties into a further region, etc.
 
 Regardless of how you group your code within regions, the chances are you are doing so to hide a [code smell](https://en.wikipedia.org/wiki/Code_smell). **Hiding an issue does not resolve it!**
 

@@ -65,7 +65,7 @@ static void Main(string[] args)
 
 sealed class CreateOrder
 {
-  void Create(string[] args)
+  internal void Create(string[] args)
   {
     var parser = new ArgumentParser();
     var order = parser.ParseOrder(args);

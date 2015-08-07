@@ -30,7 +30,7 @@ Although the process of making changes may vary slightly for you, here is a step
 
 1. Once you have come to an agreement that resources can be allocated to work on the open source project, developers should log in to GitHub and fork the project for themselves.
 1. The developer can now clone their own fork and begin development.
-1. Follow whatever your standard practice is for developing, committing changes to the developer's own fork.
+1. Follow whatever your standard practice is for developing, committing changes to the developers' own fork.
 1. When the developer believes they have completed the work, create a pull-request from their own fork, to the organisation's fork.
 1. At this stage you can follow any standard code review practice you have in place, making sure the code meets your company's standard.
 1. Many open source projects have their own guidelines and standards for contributions. Look for a `Contrib` file at the root of the repository or check the `ReadMe` if one is present.

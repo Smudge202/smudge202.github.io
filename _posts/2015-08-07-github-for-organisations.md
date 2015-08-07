@@ -34,7 +34,7 @@ Although the process of making changes may vary slightly for you, here is a step
 1. When the developer believes they have completed the work, create a pull-request from their own fork, to the organisation's fork.
 1. At this stage you can follow any standard code review practice you have in place, making sure the code meets your company's standard.
 1. Many open source projects have their own guidelines and standards for contributions. Look for a `Contrib` file at the root of the repository or check the `ReadMe` if one is present.
-1. Once it is agreed that the code is good enough, you can merge the pull request into your fork, and then open a pull request from the company's fork, to the original repository.
+1. Once it is agreed that the code is good enough, you can merge the pull request into the organisation fork, and then open a pull request from the company's fork, to the original repository.
  
 All being well, your pull request will be accepted and the commit flow will clearly accredit both the company for the pull request, and also the developer(s) who worked on the code.
 

@@ -50,5 +50,19 @@ Although it hadn't been so evident from the perspective of my prior employment, 
 
 So, you've sold the benefits of open sourcing to your company and you're just waiting to hear back? Still waiting? Sat in limbo?
 
-There are numerous legalities, and ultimately a concern of _trust_ that your company and higher management may be struggling to overcome. In fact, the may well be struggling to even discuss it with you. It's not pleasant telling someone _"I don't trust you"_ but at the end of the day, the company cannot leave itself feeling exposed.
+There are numerous legalities, and ultimately a concern of _trust_ that your company and higher management may be struggling to overcome. In fact, the may well be struggling to even discuss it with you. It's not pleasant telling someone _"I don't trust you"_ but at the end of the day, the company cannot leave itself feeling exposed. After all, if the company trusted you completely, there would have been no need to discuss the benefits of open source; they would have trusted that you were making the right decision _for the business_.
 
+My best advice is that you bring this issue out into the open. I will not discuss here concerns of copyright, licensing, and so forth because I firmly believe that is something you should research for yourself - not take the word of some blogger.
+
+Trust must be earned, so providing the company with ample control over open source _privileges_ can be a way to get your foot in the door and allow that trust to be built upon.
+
+## Process
+
+The actual implementation of open sourcing for your company will likely vary by the level of control your company requires. The least level of control is simply to let the developers _get on with it_. I advise caution to the developers of such a regime because it only takes one person to ruin it for everyone.
+
+Remember that your company has entrusted you. Abusing their generiosity might see open sourcing removed as an option far quicker than it took to put in place.
+
+For those that want to build confidence and trial the process of open sourcing, the following links can provide some guidance. Although both of these articles are exclusive to [GitHub](https://github.com/) processes I've used in the past, I'm sure the concepts could be carried over to other sites and repositories.
+
+* [Managed Organisation Repositories (High level of Company Control)](http://blog.devbot.net/github-for-organisations)
+* [Individual Repositories (Low level of Company Control)](http://blog.devbot.net/github-for-individuals)

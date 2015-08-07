@@ -30,7 +30,7 @@ Whilst I can't deny that there are many developers whom simply work 9-5 to pay t
 
 Developers work hard, within numerous constraints, often writing software that may not be of interest to them. If you offer them some freedom from these shackles and allow the developers not only to feel effort in their own time is of value to themselves, but do so in such a way that the company can benefit and still maintain control, everyone profits. 
 
-I've [spoken before](http://blog.devbot.net/senior/] about how I believe that **all** developers should make time at home to refine their skills, constantly furthering their understanding of fundamentals and keeping an eye on latest technologies. I would be hesistant to hire anyone that didn't do so, but at the same time we need to empower our developers to do so.
+I've [spoken before](http://blog.devbot.net/senior/) about how I believe that **all** developers should make time at home to refine their skills, constantly furthering their understanding of fundamentals and keeping an eye on latest technologies. I would be hesistant to hire anyone that didn't do so, but at the same time we need to empower our developers to do so.
 
 ![Tweet from author of Fluent Assertions thanking me for contributions](http://puu.sh/jsCa9/6432adac1d.png)
 

@@ -26,7 +26,7 @@ If your team is not already doing this, open sourcing your code is certainly one
 
 ### Motivation
 
-Whilst I can't deny that there are many developers whom simply work 9-5 to pay the bills and could care less for self-development and the overall health of our industry, there are an ever increasing number of developers that do. Most employment contracts I've come across contain what has grown to be _typical_ restrictions towards intellectual property that can give a developer doubt as to whether investing their own time creating software is worthwhile.
+Whilst I can't deny that there are many developers who simply work 9-5 to pay the bills and could care less for self-development and the overall health of our industry, there are an ever increasing number of developers that do. Most employment contracts I've come across contain what has grown to be _typical_ restrictions towards intellectual property that can give a developer doubt as to whether investing their own time creating software is worthwhile.
 
 Developers work hard, within numerous constraints, often writing software that may not be of interest to them. If you offer them some freedom from these shackles and allow the developers not only to feel effort in their own time is of value to themselves, but do so in such a way that the company can benefit and still maintain control, everyone profits. 
 

@@ -60,7 +60,7 @@ Trust must be earned, so providing the company with ample control over open sour
 
 The actual implementation of open sourcing for your company will likely vary by the level of control your company requires. The least level of control is simply to let the developers _get on with it_. I advise caution to the developers of such a regime because it only takes one person to ruin it for everyone.
 
-Remember that your company has entrusted you. Abusing their generiosity might see open sourcing removed as an option far quicker than it took to put in place.
+Remember that your company has entrusted you. Abusing their generosity might see open sourcing removed as an option far quicker than it took to put in place.
 
 For those that want to build confidence and trial the process of open sourcing, the following links can provide some guidance. Although both of these articles are exclusive to [GitHub](https://github.com/) processes I've used in the past, I'm sure the concepts could be carried over to other sites and repositories.
 

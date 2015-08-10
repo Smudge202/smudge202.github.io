@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Contributing
-hidden: true
 ---
 
 Increasingly I stumble upon articles that are pushing businesses to increase their investment in open source. I recently fought this battle myself, working against the legacy thought process that all source code of a business should be proprietary as key contributor of unique selling points. I want to ellaborate on my experiences for those of you also working towards such a goal, and provide some advice on how you can go about implementing the process itself.

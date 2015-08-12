@@ -34,6 +34,10 @@ layout: default
   <div class="date">
     Written on {{ page.date | date: "%B %e, %Y" }}
   </div>
+  
+  <div class="social-media">
+    {% include twitter_plug.html %}
+  </div>
 
   {% include disqus.html %}
 </article>

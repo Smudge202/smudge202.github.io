@@ -20,7 +20,7 @@ The wizard is self-explanatory so I won't mollycoddle you through it. Once you h
 
 ## Contributing
 
-Most companies very regularly use Open Source software in the shape of [NuGet](http://nuget.org) packages. Have you ever found a bug in your dependencies or missed a critical feature? Have you ever been forced to download and tinker the original source to fit your circumstance?
+Most companies very regularly use Open Source software in the shape of [NuGet](http://nuget.org) packages. Have you ever found a bug in your dependencies or missed a critical feature? Have you ever been forced to download and tinker the original source to fit your circumstance or worse, been forced to levy workarounds in absence of your desired feature?
 
 Well it is time at last to start giving back to those from which your company has built upon. Thanks to a [recent/upcoming change to Nuget packages](https://github.com/aspnet/Announcements/issues/46) it is becoming even easier to locate the source of your packages, but usually a quick google such as [`xunit github'](https://www.google.co.uk/#q=xunit%20github) will achieve the same result.
 

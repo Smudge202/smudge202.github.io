@@ -33,7 +33,9 @@ However, I always endeavour to make my API **obvious** to the consumer, and prov
 
 I know some companies _enforce_ the policy of having a XML comments for any exposed API, but you'll often find developers add useless information to the XML comments such as `id argument: this is the ID argument`. The time taken to generate that is a constant deduction for something that provides **zero value**.
 
-As always, there are probably many examples of when this isn't the case and an XML comment may be of use to consumers. However, it is not a practice I tend to follow or encourage in others.
+As always, there are probably many examples of when this isn't the case and an XML comment may be of use to consumers. However, it is not a practice I tend to follow or encourage in others. 
+
+One of my favourite counters to the philosophy of _do not write comments_ is [Nicolai Parlog's] article _["Comment Your Fucking Code"]_. Nicolai justly demands that information regarding preconditions, postconditions, units of measurements, thread-safety, mutability, invariants, dependencies, and exception conditions should all be provided (where applicable). If this information is going to go anywhere it should be in the documentation, be that XML comments or otherwise. For internal teams and open-source software, a good test suite will serve as documentation, but if your company provides a public API you should probably be documenting said API.
 
 ### <a name="code"></a>Code Comments
 
@@ -72,3 +74,6 @@ I consider these to not only be an occasion in which you _could_ add a comment, 
 ## Next
 
 The next article in this series is [Exceptions](http://blog.devbot.net/conventions-exceptions).
+
+ [Nicolai Parlog's]: http://blog.codefx.org/about-nicolai-parlog/
+ ["Comment Your Fucking Code"]: http://blog.codefx.org/techniques/documentation/comment-your-fucking-code/

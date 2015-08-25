@@ -170,7 +170,7 @@ app.UseServices(services =>
 );
 ```
 
-The somewhat controversial aspect of this approach is the naive might argue that we have turned our abstract factory (or usage thereof), into an example of service location; the very thing I forewarned against! However, that is not the case. The concerns surrounding the service location anti-pattern are that it breaks up composition. The simple act of abstracting our DI container as a delegate or `Func<DatabaseContext>`, I believes absolves us of this issue.
+The somewhat controversial aspect of this approach is the naive might argue that we have turned our abstract factory (or usage thereof), into an example of service location; the very thing I forewarned against! However, that is not the case. The concerns surrounding the service location anti-pattern are that it breaks up composition. The simple act of abstracting our DI container as a delegate or `Func<DatabaseContext>`, in my opinion, absolves us of this issue.
 
 ### Was that an Interface?
 

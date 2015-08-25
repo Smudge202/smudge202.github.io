@@ -2,6 +2,7 @@
 layout: post
 title: Abstracting
 hidden: true
+wip: true
 ---
 
 The term _"abstract"_ is thrown around often within the realms of programming. There are numerous resources that explain the various interpretations of "abstract" as well as usages thereof. It's a term that I too commonly refer to and therefore would like to ellaborate upon. Not only to better explain the principle and usage, but also to offer tips on how to introduce _abstractions_ into your otherwise, rotting products, and later demonstrate the benefits afforded.

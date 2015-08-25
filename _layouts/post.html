@@ -23,6 +23,10 @@ layout: default
 <article class="post">
   <h1>{{ page.title }}</h1>
   
+{% if page.wip %}
+  {% include wip.html %}
+{% endif %}
+  
   <div class="tags">
     <p id="post-meta">{{ tags_content }}</p>
   </div>
@@ -35,9 +39,7 @@ layout: default
     Written on {{ page.date | date: "%B %e, %Y" }}
   </div>
   
-{% if page.wip != null %}
-  {% include wip.html %}
-{% else %}
+{% if page.wip == null %}
   <div class="social-media">
     {% include twitter_plug.html %}
   </div>

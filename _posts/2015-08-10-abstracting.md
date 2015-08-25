@@ -74,7 +74,7 @@ sealed class CreateOrder
     using (var database = new DatabaseContext())
       database.Store(order);
     
-    Console.WriteLine($"Order with ID {order.OrderId} has been created");
+    Logger.Information($"Order with ID {order.OrderId} has been created");
   }
 }
 ```

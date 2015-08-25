@@ -18,7 +18,7 @@ html {
 }
 
 body {
-	background: $white;
+  background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
 }
@@ -281,6 +281,13 @@ nav {
 footer {
   padding: 20px 0;
   text-align: center;
+}
+
+// smudgikins custom css
+.wip {
+  background-color: #3498db;
+  border-color: #3498db;
+  color: #fff;
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS

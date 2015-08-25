@@ -83,8 +83,54 @@ I've intentionally not included details about the `ArgumentParser` and `Database
 
 However, it isn't right. It isn't great. As you learn more about C#, .Net, and development as a whole, you'll find there's a million different ways you can accomplish a given task and _make it work_. I _could_ have written all the code in the `Main` method, but does it mean I _should_? (If you answer `yes` to that, you can leave now and go back to playing flappy-birds). If you consider the above to be fairly clean, then that's good. Not because you're right, but because **you are my target audience**.
 
+You could argue that the implementation detail has been _abstracted_ in the above example, because we are unable to see what code is running in the `ArgumentParser.ParseOrder` and `DatabaseContext.Store` methods. However, whilst the methods do benefit from _encapsulation_, we have left a crucial implementation detail intact, the classes `ArgumentParser` and `DatabaseContext` themselves!
+
 ## Requirements
 
 We try to keep our code clean because we typically add new features and maintain our applications. We want to be able to understand our code when we go back to it, we want to be able to find the right place to make changes, and we want the new features and maintenance to be _easy_.
 
 So how do we abstract the above example?
+
+Although there are many ways to abstract implementation detail from consumers, I'm going to provide here a pattern many will recognise. I hope it's very obvious, so no prizes for guessing the correct answer!
+
+```c#
+sealed class CreateOrder
+{
+  private readonly ArgumentParser _parser;
+  private readonly DatabaseContextFactory _databaseFactory;
+
+  public CreateOrder(ArgumentParser parser, DatabaseContextFactory databaseFactory)
+  {
+    _parser = parser;
+    _databaseFactory = databaseFactory;
+  }
+
+  internal void Create(string[] args)
+  {
+    var order = _parser.ParseOrder(args);
+    
+    using (var database = _databaseFactory.CreateContext())
+      database.Store(order);
+    
+    Console.WriteLine($"Order with ID {order.OrderId} has been created");
+  }
+}
+```
+
+Yikes, what just happened? I imagine you have many questions:
+
+ * _"where'd the static main method go?"_
+ * _"whats this so called `DatabaseContextFactory`?"_,
+ * **_"what on earth do I gain from making things more confusing!?"_**
+
+### Composition Root
+
+Although I've [explained some aspects of Composition](http://blog.devbot.net/composition/) in the past, and frequently refer to _Composition Root_ in my [streams](http://www.twitch.tv/smudge202) and subsequent [youtube videos](https://www.youtube.com/channel/UCRnXEK87cVmyYTlXXW06R4Q), I've never really explained this concept very well in my blog.
+
+My friends and peers will be the first to call me out for not exactly being a fan of Mark Seemann, but he does for once have a useful article on the topic of [Composition Root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/). Although I advise most to avoid Mark's blog (he is clearly very clever and well versed in the industry, so draw your own conclusions!), I can't deny the value of the linked post. Go check it out and then come back, I'll wait...
+
+... digging into the comment section? It's ok, I'll be here when you get back...
+
+Ok, so now you hopefully understand what a Composition Root is, or at least what I mean by it. You'll have also noticed the term _"Constructor Injection"_, otherwise known as **_Dependency Injection_** (a method thereof) to real people. Back on topic, the reason I removed the `static Main` method in that last example is because it no longer concerns us. I'm not interested in arguing [choice of DI Containers](http://stackoverflow.com/questions/4581791/how-do-the-major-c-sharp-di-ioc-frameworks-compare) with anyone here, though I most definitely have a [preferred method](https://github.com/smudge202/compose).
+
+Whilst I'll no longer include details of the Composition Root, it is assumed hereafter that it has been correctly re-purposed from the first example, to be the Composition Root. As an example of such, [see here](https://github.com/smudge202/storybox/blob/advanced/src/Storybox.Cli/Program.cs).

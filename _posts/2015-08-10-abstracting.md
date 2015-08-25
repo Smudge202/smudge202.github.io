@@ -15,7 +15,7 @@ So what is it we mean when we're talking about _abstractions_?
 
 ## `abstract` class
 
-Of course, we have the `abstract` keyword which can be defined on a class declaration and the methods of such a class. When declared against the class itself we are stating that the class **must be inherited** and subsequently, instances cannot be constructed for the `abstract class` itself.
+Of course, we have the `abstract` keyword which can be defined on a class declaration and the methods within. When declared against the class itself we are stating that the class **must be inherited** and subsequently, instances cannot be constructed for the `abstract class` itself.
 
 Similarly, the `abstract` keyword when used with a method means that the method signature must be fulfilled by derivatives (classes inheriting from the abstract class that are not themselves abstract).
 

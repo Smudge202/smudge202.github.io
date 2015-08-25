@@ -120,8 +120,9 @@ sealed class CreateOrder
 Yikes, what just happened? I imagine you have many questions:
 
  * _"where'd the static main method go?"_
- * _"whats this so called `DatabaseContextFactory`?"_,
- * **_"what on earth do I gain from making things more confusing!?"_**
+ * _"whats this so called `DatabaseContextFactory`?"_
+ * _"I was expecting interfaces... where are the interfaces!?"_
+ * _"what on earth do I **gain** from making things more confusing!?"_
 
 ### Composition Root
 
@@ -129,8 +130,48 @@ Although I've [explained some aspects of Composition](http://blog.devbot.net/com
 
 My friends and peers will be the first to call me out for not exactly being a fan of Mark Seemann, but he does for once have a useful article on the topic of [Composition Root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/). Although I advise most to avoid Mark's blog (he is clearly very clever and well versed in the industry, so draw your own conclusions!), I can't deny the value of the linked post. Go check it out and then come back, I'll wait...
 
-... digging into the comment section? It's ok, I'll be here when you get back...
+... you're digging into the comment section? It's ok, I'll be here when you get back...
 
 Ok, so now you hopefully understand what a Composition Root is, or at least what I mean by it. You'll have also noticed the term _"Constructor Injection"_, otherwise known as **_Dependency Injection_** (a method thereof) to real people. Back on topic, the reason I removed the `static Main` method in that last example is because it no longer concerns us. I'm not interested in arguing [choice of DI Containers](http://stackoverflow.com/questions/4581791/how-do-the-major-c-sharp-di-ioc-frameworks-compare) with anyone here, though I most definitely have a [preferred method](https://github.com/smudge202/compose).
 
-Whilst I'll no longer include details of the Composition Root, it is assumed hereafter that it has been correctly re-purposed from the first example, to be the Composition Root. As an example of such, [see here](https://github.com/smudge202/storybox/blob/advanced/src/Storybox.Cli/Program.cs).
+Whilst I'll no longer include details of the Composition Root, it is assumed hereafter that it has been correctly re-purposed from the first example, to be the Composition Root. As an example of such, [see here](https://github.com/smudge202/storybox/blob/advanced/src/Storybox.Cli/Program.cs). Let's instead concern ourselves with the important stuff, fulfilling our customers' requirements.
+
+### Abstract Factory
+
+There are a couple factories presented in the core OOP [Creational Patterns](http://www.oodesign.com/creational-patterns/), plus I'm sure many spin-offs. Although it can be easy to cross the line from _factory pattern_ to the _service locator anti-pattern_ (intentionally not linking a certain someone's article on the subject), factories done right are a fantastic way to achieve _abstraction_; particularly in the case of `Disposable` objects, such as implied by the `using` statements in the above examples.
+
+It's not that a DI Container couldn't have injected the `DatabaseContext` for us, it's simply that in the original example we were responsible for the allocation (and _disposal_) of the context. Containers will vary on their implementation (and lack thereof) disposable handling, and I don't believe it should be their concern in a majority of cases. So, in steps the abstract factory.
+
+Somewhat contrary to the last two paragraphs (and probably controversially), you could hook your abstract factory up to your DI container in order to maintain abstraction throughout your application. As an example of such:
+
+```c#
+private class DelegatedDatabaseContextFactory : DatabaseContextFactory
+{
+	private readonly Func<DatabaseContext> _factory;
+	public DelegatedDatabaseContextFactory(Func<DatabaseContext> factory)
+	{
+		_factory = factory;
+	}
+
+	public DatabaseContext CreateContext()
+		=> _factory();
+}
+```
+
+As you can hopefully see, this so called _implementation_ of the `DatabaseContextFactory` does nothing, simply holds a `Func<T>` that can actually do the work. So where does this `Func<T>` come from? Composition, of course! Like I said, I don't want to argue DI Containers, but here's an example using the new [`Microsoft.Framework.DependencyInjection` NuGet packages](https://www.nuget.org/packages/microsoft.framework.dependencyinjection):
+
+```c#
+app.UseServices(services =>
+	services
+		.AddTransient<Func<DatabaseContext>>(provider => provider.GetService<DatabaseContext>)
+		.AddTransient<DatabaseContextFactory, >
+);
+```
+
+The somewhat controversial aspect of this approach is the naive might argue that we have turned our abstract factory (or usage thereof), into an example of service location; the very thing I forewarned against! However, that is not the case. The concerns surrounding the service location anti-pattern are that it breaks up composition. The simple act of abstracting our DI container as a delegate or `Func<DatabaseContext>`, I believes absolves us of this issue.
+
+### Was that an Interface?
+
+I'm sure some of you will have done a double-take at the `DelegatedDatabaseContextFactory` implementation. Was it inheriting from an `abstract class` called `DatabaseContextFactory`, or was it implementing the `DatabaseContextFactory` interface? Have you ever examined the difference between an abstract class and an interface? [Uncle Bob](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) makes some [fantastic points](http://blog.cleancoder.com/uncle-bob/2015/01/08/InterfaceConsideredHarmful.html) on the subject, and similarly [instigates some thought](https://books.google.co.uk/books?id=_i6bDeoCQzsC&lpg=PT72&ots=eo6KCj2eY1&dq=I%20prefer%20to%20leave%20interfaces%20unadorned.%20The%20preceding%20I&pg=PT72#v=onepage&q=I%20prefer%20to%20leave%20interfaces%20unadorned.%20The%20preceding%20I&f=false) regarding hungarian notation for interfaces in his excellent book, [Clean Code: A Handbook of Agile Software Craftsmanship](http://www.amazon.co.uk/gp/search?index=books&linkCode=qs&keywords=9780136083252).
+
+Although I'm clearly walking the path of _"Uncle Bob Fanboi"_ here, I'm mature enough to research subjects and consider [opposing perspectives](http://programmers.stackexchange.com/questions/117348/should-interface-names-begin-with-an-i-prefix). Without trying to further the i-in-interface debate, although I was naming my interface without the hungarian notation, picture it as an abstract class if you prefer. In both cases, we achieve our goal!

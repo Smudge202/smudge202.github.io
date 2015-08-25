@@ -120,7 +120,7 @@ sealed class CreateOrder
 Yikes, what just happened? I imagine you have many questions:
 
  * _"where'd the static main method go?"_
- * _"whats this so called `DatabaseContextFactory`?"_
+ * _"whats this so called `DatabaseContextFactory` and `Logger`?"_
  * _"I was expecting interfaces... where are the interfaces!?"_
  * _"what on earth do I **gain** from making things more confusing!?"_
 

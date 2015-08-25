@@ -35,9 +35,11 @@ layout: default
     Written on {{ page.date | date: "%B %e, %Y" }}
   </div>
   
+  {% if page.wip != null %}
   <div class="social-media">
     {% include twitter_plug.html %}
   </div>
 
   {% include disqus.html %}
+  {% endif %}
 </article>

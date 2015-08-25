@@ -124,6 +124,8 @@ Yikes, what just happened? I imagine you have many questions:
  * _"I was expecting interfaces... where are the interfaces!?"_
  * _"what on earth do I **gain** from making things more confusing!?"_
 
+Let's address these, and hopefully any other questions you may have, in turn.
+
 ### Composition Root
 
 Although I've [explained some aspects of Composition](http://blog.devbot.net/composition/) in the past, and frequently refer to _Composition Root_ in my [streams](http://www.twitch.tv/smudge202) and subsequent [youtube videos](https://www.youtube.com/channel/UCRnXEK87cVmyYTlXXW06R4Q), I've never really explained this concept very well in my blog.

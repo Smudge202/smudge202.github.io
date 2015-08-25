@@ -136,7 +136,7 @@ My friends and peers will be the first to call me out for not exactly being a fa
 
 Ok, so now you hopefully understand what a Composition Root is, or at least what I mean by it. You'll have also noticed the term _"Constructor Injection"_, otherwise known as **_Dependency Injection_** (a method thereof) to real people. Back on topic, the reason I removed the `static Main` method in that last example is because it no longer concerns us. I'm not interested in arguing [choice of DI Containers](http://stackoverflow.com/questions/4581791/how-do-the-major-c-sharp-di-ioc-frameworks-compare) with anyone here, though I most definitely have a [preferred method](https://github.com/smudge202/compose).
 
-Whilst I'll no longer include details of the Composition Root, it is assumed hereafter that it has been correctly re-purposed from the first example, to be the Composition Root. As an example of such, [see here](https://github.com/smudge202/storybox/blob/advanced/src/Storybox.Cli/Program.cs). Let's instead concern ourselves with the important stuff, fulfilling our customers' requirements.
+Whilst I'll no longer include details of the Composition Root, it is assumed hereafter that it has been correctly re-purposed from the first example, to be the Composition Root. As an example of a composition root within a Console Application, [see here](https://github.com/smudge202/storybox/blob/advanced/src/Storybox.Cli/Program.cs). Let's instead concern ourselves with the important stuff, fulfilling our customers' requirements.
 
 ### Abstract Factory
 

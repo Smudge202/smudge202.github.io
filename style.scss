@@ -285,10 +285,22 @@ footer {
 
 // smudgikins custom css
 .wip {
-  background-color: #3498db;
-  border-color: #3498db;
-  color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
 }
+
+	.wip h2, .wip h3 {
+	  color: #fff;
+	  margin-top: 20px;
+	  margin-bottom: 20px;
+	}
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start

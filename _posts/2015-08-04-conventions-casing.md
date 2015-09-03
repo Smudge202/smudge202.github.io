@@ -38,7 +38,7 @@ There are some [Microsoft guidelines to casing](https://msdn.microsoft.com/en-us
 ### Camel
 
 * Private members
-* Method arguments
+* Method parameters
 * Local variables
 
 ### Pascal 

@@ -1,4 +1,4 @@
-0-=0-=90-=0-=0-=0-=0-=0-=0-=0-=0-=---
+---
 layout: post
 title: Comprehensive, Practical Guide to Model-View-Presenter in C# Winforms
 hidden: true

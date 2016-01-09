@@ -29,7 +29,7 @@ Some 4 or 5 years ago, [a colleague](http://blog.devbot.net/testing/#guru) was j
 
 That lunchtime, I opened a fresh can of relentless energy drink, and started digging in to Git. I downloaded some free server software and 30 minutes later my machine was connected to my first repository (the config for my chosen software was somewhat of a farce!). Visual Studio at the time didn't have much in the way of Git Integration, but I had found some UI tools I could use, steering away from any Git console interactions which looked far too linux for my liking. By the end of lunch, I knew what Git was, I knew to a lesser extent how it worked, and I had used it. No, I wasn't an expert, and no I wasn't ready to add Git to my CV, but I had at least some foundation knowledge that I could expand upon in the future if this Git thing became popular...
 
-I admit, in this example I was probably more driven by my desire to not look the fool than any professional etiquette, but the point still stands. Whilst becoming an expert in every frivolous technology that pops up would be a fool's errand, and require some kind of cybernetic-superhuman, keeping your finger on the pulse is not only achievable, but easy!
+I admit, in this example I was probably more driven by my desire to not look the fool than any professional etiquette, but the point still stands. Whilst becoming an expert in every frivolous technology that pops up would be a fool's errand (and require some kind of cybernetic-superhuman) keeping your finger on the pulse is not only achievable, but easy!
 
 ## Unprofessional
 

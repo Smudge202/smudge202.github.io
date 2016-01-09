@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: Keeping up with the moving times
 hidden: true

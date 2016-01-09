@@ -16,6 +16,7 @@ The first point some of you will pick up on, was the phrase "I believe it _expec
 It wouldn't be one of my blog posts if I didn't quote the illustrious Uncle Bob at least once, so here's this issue's quote of the day:
 
 > the number of programmers [doubles] every five years
+
 _Uncle Bob's [My Lawn](http://blog.cleancoder.com/uncle-bob/2014/06/20/MyLawn.html)_
 
 Uncle Bob describes the exponential rate of growth regarding the number of Software Developers, and how this presents a tremendous issue in our industry whereby knowledge is not being adequately shared between us, effectively reducing the overall competence of our sector over time! So, as a Senior Developer I take it upon myself to not only do my sprint work, and to keep up with technologies, but also to teach. Teach, teach, teach like there's no tomrrow. If [The Letter](https://blog.8thlight.com/uncle-bob/2012/01/12/The-Letter.html) is anything to go by, there very well may be no tomorrow!

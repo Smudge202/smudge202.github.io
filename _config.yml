@@ -29,6 +29,8 @@ footer-links:
   twitter: smudge202
   stackoverflow: "users/707618/smudge202"
   youtube: channel/UCRnXEK87cVmyYTlXXW06R4Q
+  googleplus: 100992643523766537674
+
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
@@ -65,6 +67,7 @@ sass:
 # Use the following plug-ins
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
 
 # Exclude these files from your production _site
 exclude:
@@ -72,3 +75,4 @@ exclude:
     - Gemfile.lock
     - LICENSE
     - README.md
+    - CNAME

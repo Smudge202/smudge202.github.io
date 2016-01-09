@@ -11,7 +11,7 @@ As is the tradition of this blog, I have a gripe to get off my chest; a moment's
 
 ## Expectations
 
-The first point in the above some of you will pick up on, was the phrase "I believe it _expected of me_". Perhaps I'm expecting more of myself than is necessary? To which I ellaborately respond, no.
+The first point some of you will pick up on, was the phrase "I believe it _expected of me_". Perhaps I'm expecting more of myself than is necessary? To which I ellaborately respond, no.
 
 It wouldn't be one of my blog posts if I didn't quote the illustrious Uncle Bob at least once, so here's this issue's quote of the day:
 

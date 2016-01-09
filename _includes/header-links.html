@@ -12,7 +12,7 @@ var linkifyAnchors = function (level, containingElement) {
   for (var h = 0; h < headers.length; h++) {
     var header = headers[h];
 
-    if (typeof header.id !== "undefined") {
+    if (typeof header.id !== "undefined" && header.id !== "") {
       header.appendChild(anchorForId(header.id));
     } else if (typeof header.innerHTML !== "undefined") {
       header.appendChild(anchorForId(header.innerHTML.split(' ').join('-')));

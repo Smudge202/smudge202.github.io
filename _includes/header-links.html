@@ -13,9 +13,9 @@ var linkifyAnchors = function (level, containingElement) {
     var header = headers[h];
 
     if (typeof header.id !== "undefined" && header.id !== "") {
-      header.appendChild(anchorForId(header.id));
+      header.appendChild(anchorForId(header.id.toLowerCase()));
     } else if (typeof header.innerHTML !== "undefined" && header.innerHTML !== "") {
-      header.appendChild(anchorForId(header.innerHTML.split(' ').join('-')));
+      header.appendChild(anchorForId(header.innerHTML.split(' ').join('-').toLowerCase()));
     }
   }
 };

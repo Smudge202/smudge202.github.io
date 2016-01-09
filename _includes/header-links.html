@@ -15,8 +15,7 @@ var linkifyAnchors = function (level, containingElement) {
     if (typeof header.id !== "undefined" && header.id !== "") {
       header.appendChild(anchorForId(header.id.toLowerCase()));
     } else if (typeof header.innerHTML !== "undefined" && header.innerHTML !== "") {
-      header.id = header.innerHTML.split(' ').join('-').toLowerCase();
-      header.appendChild(anchorForId(header.id));
+      header.appendChild(anchorForId(header.innerHTML.split(' ').join('-').toLowerCase()));
     }
   }
 };

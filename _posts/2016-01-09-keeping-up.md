@@ -5,7 +5,7 @@ hidden: true
 wip: true
 ---
 
-Even those that work outside the realms of IT are unlikely to argue against the fact that our field is fast moving, so I assume I'd be hard pressed to find a software developer that wouldn't attest to our changing times and the difficulties of keeping up with the latest technologies. Far too many technologies, in my opinion, for it to be plausible to keep up with all of them. As a _Professional_ Software Developer, I believe it _expected of me_, that I know as much as possible about the technologies in use in my day to day work, that I know of and have perhaps tried out technologies in the plausible pipeline of the company's upcoming work, and of course I'm keeping ontop of any core technologies and frameworks that are perhaps not in use, but are prevalent in the industry.
+Even those that work outside the realms of IT are unlikely to argue against the fact that our field is fast moving, so I assume I'd be hard pressed to find a software developer that wouldn't attest to our changing times and the difficulties of keeping up with the latest technologies. Far too many technologies, in my opinion, for it to be plausible to keep up with them all. As a _Professional_ Software Developer, I believe it _expected of me_, that I know as much as possible about the technologies in use in my day to day work, that I know of and have perhaps tried out technologies in the plausible pipeline of the company's upcoming work, and of course I'm keeping ontop of any core technologies and frameworks that are perhaps not in use, but are prevalent in the industry.
 
 As is the tradition of this blog, I have a gripe to get off my chest; a moment's rage if you will...
 

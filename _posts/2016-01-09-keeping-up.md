@@ -23,7 +23,7 @@ Uncle Bob describes the exponential rate of growth regarding the number of Softw
 
 I admit, I don't write as much code as I used to or in fact as much as I'd like to some days. Something I've noticed as a result of all the tutoring and more supervisory styled collaboration I end up doing, is the diversity across developers as to what they believe is expected of them. Many of the views I so [strongly hold](http://blog.codinghorror.com/strong-opinions-weakly-held/) I don't anticipate others sharing. Let's face it, I wouldn't need to hold those views so strongly if everyone was in agreement! However, that _Professional_ developers are expected to try and keep up with the moving times, is one I don't think can, nor should be argued.
 
-## Practical Example
+## A Practical Example
 
 Some 4 or 5 years ago, [a colleague](http://blog.devbot.net/testing/#guru) was jovially ridiculing me for some SVN issues I was having, and basically spurted this word at me, "Git". I had heard of git, at a seemingly increasing rate in fact. I had by association deduced it was some method of version controlling, but beyond that knew little else. So, having tried to laugh myself out of the conversation about git, turned my screen away from said colleague and did a quick google search. No more than 10 minutes later, I was in a much better position to discuss the merits of Git, and despite a lack of actual experience, could even talk about the differences between Git and SVN.
 
@@ -31,9 +31,9 @@ That lunchtime, I opened a fresh can of relentless energy drink, and started dig
 
 I admit, in this example I was probably more driven by my desire to not look the fool than any professional etiquette, but the point still stands. Whilst becoming an expert in every frivolous technology that pops up would be a fool's errand (and require some kind of cybernetic-superhuman) keeping your finger on the pulse is not only achievable, but easy!
 
-## Unprofessional
+## Core Technologies
 
-Do you know your core technologies? Developers should certainly know Git by now, though if for some reason you're still using TFSVC, check out [Dennis Doomen's](https://twitter.com/ddoomen) [comparison of the two](http://www.continuousimprover.com/2015/06/why-you-should-abandon-tfs-source.html). Of course, Git is just an example, there are many technologies, frameworks, and aspects of programming that could or should be considered _core_.
+Do you know your core technologies? Developers should certainly know Git by now, though if for some reason you're still using TFSVC, check out [Dennis Doomen's](https://twitter.com/ddoomen) blog post [comparing the two](http://www.continuousimprover.com/2015/06/why-you-should-abandon-tfs-source.html). Of course, Git is just an example, there are many technologies, frameworks, and aspects of programming that could or should be considered _core_.
 
 I'm reluctant to provide a list of core technologies; doing so would inevitably lead to some dispute and if nothing else, would mean this article doesn't age well as those core technologies shift. However, developers should have _some_ level of web experience to stay current, which at time of writing probably means keeping an eye on technologies like [ASP.Net 5](https://get.asp.net/), [AngularJs](https://angularjs.org/), etc. Similarly, I'd recommend trying to keep up with cloud platforms such as [Azure](https://azure.microsoft.com/en-gb/) and/or [Amazon Web Services](https://aws.amazon.com/). These two I'd recommend even to people such as myself who currently work on neither web nor cloud solutions!
 

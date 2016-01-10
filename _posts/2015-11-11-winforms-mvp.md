@@ -15,7 +15,7 @@ Although business requirements and their respective user stories ultimately drov
 
 ### Specs
 
-The _list_ of **technical** requirements, as will be explained, are much more a _chain_ of requirements. The first link of that chain, and I would hope of any chain of work, were the user stories. The first step from a development point of view however, or the second link in aforementioned chain, were the tests. My team and I were able to translate the user stories into _specs_, or more specifically, a [feature file in specflow](http://www.specflow.org/getting-started/).
+The _list_ of **technical** requirements, as will be explained, are much more a _chain_ of requirements. The first link of that chain, and I would hope of any development work, are the user stories. The first step from a development point of view however, or the second link in aforementioned chain, were the tests. My team and I were able to translate the user stories into _specs_, or more specifically, a [feature file in specflow](http://www.specflow.org/getting-started/).
 
 This is a great practice that the whole team should be involved in, as you will very quickly flesh out both the design and the requirements, making sure you do in fact have all the information you need before starting development; a great practice to prevent starting on some work and then having to shelve it whilst further information is sought.
 

@@ -26,3 +26,28 @@ I don't want to bog this article down with usage info regarding SpecFlow because
 With a failing end-to-end test in place, we can start with our unit testing. Again, I'm not going to go into uniting testing each layer in a typical n-tier system; I only want to look at the UI in this article. The first test I go for is that my application is actually going to be able to load my view (whereby the view is my Form). Now I suspect this will sound odd to some, why on earth wouldn'tmy application be able to load the form? Simply because my form will almost always be required to fetch something from my persistence layer, and/or process some logic in my domain. In order to achieve that, and conform with the [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle), I opt to use [Dependency Injection](http://blog.devbot.net/composition/#dependency-injection-di).
 
 By always having a test that checks the anticipated composition graph of the respective host is valid for my view, I protect myself against changes to composition. I appreciate there's a couple long words there, so time to show some examples.
+
+#### Windows Forms Composition Example
+
+The following example uses the [Compose](https://www.nuget.org/packages/compose) package, which we've extended as follows for WinForms compatibility _(note, we intend to push this change back up to the [repository](https://github.com/compose-net/compose) so with a little luck you won't need to do this)_:
+
+```c#
+public class WindowsFormsApplication<Form> : Executable where Form : System.Windows.Forms.Form
+{
+  public WindowsFormsApplication()
+  {
+    this.OnExecute<Form>(form => Windows.Forms.Application.Run(form));
+  }
+
+  protected override void PreServiceConfiguration(IServiceCollection services)
+	{
+		services.TryAddTransient<Form, Form>();
+	}
+}
+```
+
+There's quite a lot going on in the above snippet so I'll walk through it briefly. _Compose_ provides these `Execution` classes that can be extended to inherit all the fancy composition features such as dependency injection. By having `WindowsFormsApplication` inherit from `Execution`, we get access to everything _Compose_ has to offer.
+
+In the constructor, we set up our _execution_; the action that will be run when we execture our application. Hopefully the content of the lambda is familiar to you because it's essentially the same code that is included in new Windows Forms Application templates. The difference, and perhaps a source of confusion, is the generic.  Simply, if you specify a generic on the `OnExecute` method, the _Compose_ library will use your composition graph to dependency inject the specified service.
+
+The final detail of note in the snippet is the `TryAddTransient` call in the `PreServiceConfiguration` method override. Here I'm utilising Microsoft's [Dependency Injection](https://www.nuget.org/packages/microsoft.extensions.dependencyinjection) library to create a _self binding_ for the form. Whilst some DI containers assume a self binding for unregistered types, Microsoft's container requires explicit bindings.

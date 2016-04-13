@@ -8,7 +8,7 @@ I see a _lot_ of people get application composition _very_ wrong, _very_ often. 
 
 I've decided to take matters a step further than the usual drivel that is DI blogs, and provide a framework. In this article I'll address what I consider to be some of the misconceptions surrounding composition techniques and clarify some terminology. In future articles I'll highlight how the use of [Compose] can assist in rectifying these common flaws, whilst simplifying the definition of manageable service components and resulting integration within your application.
 
-##Terminology
+## Terminology
 
 First thing's first, lets add my take on the terminology involved in hope of sparking some dim light into those lightbulbs, and if nothing else, to clarify the rest of this article.
 

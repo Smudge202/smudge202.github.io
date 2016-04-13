@@ -16,7 +16,7 @@ _Clean Space_ is, or will be, a space game. Specifically, it's a 4X (e**x**plore
 
 Whilst I'll inevitable take inspiration from the numerous 4X, strategy, and RPG games I've played over the years, for better or for worse, this game will differ. As will be explained in future posts about the game engine, [clean engine](https://github.com/clean-development/engine), everything from a technical aspect is most certainly different to other games. This, I hope, will afford me the ability to implement a level of complexity and realism simply not possibly in other games.
 
-To ellaborate on the *'realism'* mention there, when talking about space games the best we can do is *plausible realism*. That is, whilst it may not be technically or even physically possible currently, the game will utilise theoretical physics considered *plausible*, or in some cases simply *possible*.
+To ellaborate on the *'realism'* mention there, when talking about space games the best we can do is *plausible realism*. That is, whilst it may not be technically or even physically possible given our current understanding, the game will utilise theoretical physics considered *plausible*, or in some cases simply *possible*. Some form of *Warp Drive* certainly isn't possible given the human race's current understanding and capabilities, but there's actually a people at [NASA contemplating the physics involved](http://www.space.com/22430-star-trek-warp-drive-quantum-thrusters.html)...
 
 ### Technicalities
 

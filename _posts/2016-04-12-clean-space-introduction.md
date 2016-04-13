@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title: Clean Space Introduction
 hidden: true

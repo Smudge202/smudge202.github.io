@@ -2,3 +2,7 @@
   name: Compose
 - slug: tests
   name: tests
+- slug: clean-space
+  name: Clean Space
+- slug: game-development
+  name: Game Development

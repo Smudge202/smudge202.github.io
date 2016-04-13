@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Clean Space Introduction
-tags: [clean space, game]
+tags: [clean space, game development]
 ---
 
 All my life I've dreamt of writing a game. Not just any game; one game in particular. The subject of countless hours of daydreaming, theorycrafting, brainstorming, and outright planning. For a long time I put off this endeavour, all too aware that one should never undertake a project of the magnitude I intend for *my game*, as their *first* game. I've glimpsed at the possibility of game development [from afar](http://blog.devbot.net/industry) whilst growing my skill and experience as a [Senior Software Developer](http://blog.devbot.net/senior). At long last, it's time to act.

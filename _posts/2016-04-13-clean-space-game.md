@@ -6,7 +6,7 @@ hidden: true
 tags: [clean-space, game-development]
 ---
 
-In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. I hope to clarify some of the high level detail, concepts, and goals of (code name) *Clean Space* in this article to give an idea of the scale involved, and to give an idea of what this series has to look forward to. I'll admit outright that I'm not following any kind of [guide](http://www.amazon.co.uk/Level-Up-Guide-Great-Design/dp/1118877160) on game design at this stage, so there's a level of professionalism in this regard that you should expect to be missing.
+In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. In this article I hope to clarify some of the high level detail, concepts, and goals of (code name) *Clean Space*, to give an idea of the scale involved and an idea of what this series has to look forward to. I'll admit outright that I'm not following any kind of [guide](http://www.amazon.co.uk/Level-Up-Guide-Great-Design/dp/1118877160) on game design at this stage, so there's a level of professionalism in this regard that you should expect to be missing.
 
 ## Brief
 
@@ -14,9 +14,15 @@ _Clean Space_ is, or will be, a space game. Specifically, it's a 4X (e**x**plore
 
 > There are many like it, but this one is mine.
 
+I've played several space games, not least my top 5 which are (in no discernible order):
+* [X3: Terran Conflict]()
+* [Aurora 4X]()
+* [Eve Online]()
+* [Homeworld 2]()
+
 ### Plausible
 
-Whilst I'll inevitable take inspiration from the numerous 4X, strategy, and RPG games I've played over the years, for better or for worse, this game will differ. As will be explained in future posts about the game engine, [clean engine](https://github.com/clean-development/engine), everything from a technical aspect is most certainly different to other games. This, I hope, will afford me the ability to implement a level of complexity and realism simply not technically possibly in other games.
+Whilst I'll inevitable take inspiration from the 4X, strategy, and RPG games I've played over the years, for better or for worse, this game will differ. As will be explained in future posts about the game engine, [clean engine](https://github.com/clean-development/engine), everything from a technical aspect is most certainly different to other games. This, I hope, will afford me the ability to implement a level of complexity and realism simply not technically possibly in other games.
 
 To ellaborate on the *'realism'* mention there, when talking about space games the best we can do is *plausible realism*. That is, whilst it may not be technically or even physically possible given our current understanding, the game will utilise theoretical physics considered *plausible*, or in some cases, simply *possible*. Some form of *Warp Drive* certainly isn't technically or even physically possible given the human race's current understanding of physics, let alone engineering capabilities, but there's actually people at [NASA contemplating the physics involved](http://www.space.com/22430-star-trek-warp-drive-quantum-thrusters.html) making it a (albeit remote) possibility in the future, and therefore a candidate for integration into the game.
 

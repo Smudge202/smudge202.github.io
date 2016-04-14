@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Clean Space Game
+wip: true
+hidden: true
 tags: [clean-space, game-development]
 ---
 

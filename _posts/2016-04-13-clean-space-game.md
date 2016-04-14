@@ -4,7 +4,7 @@ title: Clean Space Game
 tags: [clean-space, game-development]
 ---
 
-In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. I hope to clarify some of the high level detail of (code name) *Clean Space* in this article to give an idea of the scale involved, and to give an idea of what this series has to look forward to. I'll admit outright that I'm not following any kind of [guide](http://www.amazon.co.uk/Level-Up-Guide-Great-Design/dp/1118877160) on game design at this stage, so there's a level of professionalism in this regard that you should expect to be missing.
+In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. I hope to clarify some of the high level detail, concepts, and goals of (code name) *Clean Space* in this article to give an idea of the scale involved, and to give an idea of what this series has to look forward to. I'll admit outright that I'm not following any kind of [guide](http://www.amazon.co.uk/Level-Up-Guide-Great-Design/dp/1118877160) on game design at this stage, so there's a level of professionalism in this regard that you should expect to be missing.
 
 ## Brief
 

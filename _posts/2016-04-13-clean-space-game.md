@@ -36,7 +36,7 @@ The game not only needs to track an *internal* state for which all things be hel
 
 Thanks mostly to Hollywood, there are a huge number of ludicrous inaccuracies that we have come to *accept* with regards to space travel. Most of these can be attributed to our apparent preference to consider vessels in space, naval. Throughout this post and all others, I will go out of my way to describe these space faring craft as anything but a _space**ship**_.
 
-There's no point picking on films, games or books for the propagation of these myths. We set aside the laws of physics (and common sense) for better narration. I certainly don't want the tutorial for *Clean Space* to take 3 real life days to travel between the Earth and the Moon, as is the case given our current tech levels. But, at the same time I want to stop treating space craft as *ships*.
+There's no point picking on films, games or books for the propagation of these myths. We set aside the laws of physics (and common sense) for better narration. I certainly don't want the tutorial for *Clean Space* to take 3 real life days to travel between Earth and the Moon, as is the case given our current tech levels. But, at the same time I want to stop treating space craft as *ships*.
 
 #### Space Battles
 

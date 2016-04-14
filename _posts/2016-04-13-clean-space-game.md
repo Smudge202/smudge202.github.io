@@ -29,3 +29,15 @@ Of course, their are numerous and obvious issues with that statement, such as th
 Beyond the technical implications of working on such massive scales, consider for a moment taking into account the *speed of information* when designing a UI. The fastest speed to transfer data currently possible is the speed of light (~229,792km/s). To send data to or fro Mars can be anywhere between 182 seconds to 1,342 seconds depending on the distance between Eart and Mars at the time. Whilst I intend to allow FTL capacilities in the game, consider for a moment how these factors would play into trying to display the *position* of a space craft.
 
 The game not only needs to track an *internal* state for which all things be held accountable, but it also needs to be able to correctly identify and simulate a *perspective*. Given a space craft approaching Mars orbit, when viewed from earth my perspective includes an information speed gap of potentially several minutes between _the **expected** position_ and _the **last known** position_. This same information, when viewed from Mars for example, or the space craft itself, would be quite different.
+
+### Myth Debunking
+
+Thanks mostly to Hollywood, there are a huge number of ludicrous inaccuracies that we have come to *accept* with regards to space travel. Most of these can be attributed to our apparent preference to consider vessels in space, naval. Throughout this post and all others, I will go out of my way to describe these space faring craft as anything but a _space**ship**_.
+
+There's no point picking on films, games or books for the propagation of these myths. We set aside the laws of physics (and common sense) for better narration. I certainly don't want the tutorial for *Clean Space* to take 3 real life days to travel between the Earth and the Moon, as is the case given our current tech levels. But, at the same time I want to stop treating space craft as *ships*.
+
+#### Space Battles
+
+If the human race ever does make it into space, and two space craft were to battle one another, that battle would take place at incredible speeds over vast distances. The craft would not be firing lasers and phasers and railguns at one another. Lasers can *only* move at the speed of light, so even if it was possible to accurately track your opponent over such a large distance and such great speeds, there would be several seconds or even minutes between firing and *impact*. Your opponent would have to make but the tiniest of course change to *dodge* the fire.
+
+Much more likely would be missiles for medium to long range engagements, any other turretted weapon only useful as point defense for said missiles. Without giving away any spoilers, there is a space battle within the first few episodes of the TV Series, [The Expanse](https://en.wikipedia.org/wiki/The_Expanse_(TV_series)), which I personally think depicts one of the more likely scenarios of space warfare, assuming all the technology involved is possible.

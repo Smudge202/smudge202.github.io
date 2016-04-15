@@ -1,30 +1,51 @@
 ---
 layout: post
 title: Clean Space Game
-wip: true
-hidden: true
 tags: [clean-space, game-development]
 ---
 
-In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. In this article I hope to clarify some of the high level detail, concepts, and goals of (code name) *Clean Space*, to give an idea of the scale involved and an idea of what this series has to look forward to. I'll admit outright that I'm not following any kind of [guide](http://www.amazon.co.uk/Level-Up-Guide-Great-Design/dp/1118877160) on game design at this stage, so there's a level of professionalism in this regard that you should expect to be missing.
+In my [previous post](blog.devbot.net/clean-space-introduction/) I talked about the reasons for writing a game, but without going into the detail of what the game is actually about. In this article I hope to clarify some of the high level detail, concepts, and goals of (code name) *Clean Space*, to give an idea of the scale involved and an idea of what this series has to look forward to.
 
 ## Brief
 
-_Clean Space_ is, or will be, a space game. Specifically, it's a 4X (e**x**plore, e**x**pand, e**x**ploit, and e**x**terminate). To quote the Rifleman's Creed:
+*Clean Space* is, or will be, a space game. Specifically, it's a 4X (e**x**plore, e**x**pand, e**x**ploit, and e**x**terminate). To quote the Rifleman's Creed:
 
 > There are many like it, but this one is mine.
 
 I've played several space games, not least my top 5 which are (in no discernible order):
-* [X3: Terran Conflict]()
-* [Aurora 4X]()
-* [Eve Online]()
-* [Homeworld 2]()
 
-### Plausible
+* [X3: Terran Conflict](http://www.egosoft.com/games/x3tc/info_en.php)
+* [Aurora 4X](http://aurora2.pentarch.org/)
+* [Eve Online](http://www.eveonline.com/)
+* [Homeworld 2](http://www.homeworldremastered.com/)
+* [Kerbal Space Program](https://kerbalspaceprogram.com/en/)
+ 
+If I haven't listed your favourite space game, don't take it to heart, we all have our preferences. I own [Elite: Dangerous](https://www.elitedangerous.com/) and found it a tedious grind, despite playing during the beta with a 1/10 economy. [Star Citizen](https://robertsspaceindustries.com/) looks amazing but that's it, there's simply no content and, whilst I'd love to be proven wrong, I don't have faith in the guys to deliver. There are of course great space games from the past such as [Freelancer](https://en.wikipedia.org/wiki/Freelancer_(video_game)), but I wouldn't want to play it today (nor would I expect it to run on Windows 10).
 
-Whilst I'll inevitable take inspiration from the 4X, strategy, and RPG games I've played over the years, for better or for worse, this game will differ. As will be explained in future posts about the game engine, [clean engine](https://github.com/clean-development/engine), everything from a technical aspect is most certainly different to other games. This, I hope, will afford me the ability to implement a level of complexity and realism simply not technically possibly in other games.
+As with almost every game genre, there are a lot of great (and even more bad) games out there. I'm not aiming for *x% market share* or *y number of users*. Given how vile gaming/internet communities can be, it wouldn't be all that bad if I was the only person to ever play *Clean Space*. So long as I enjoy it.
 
-To ellaborate on the *'realism'* mention there, when talking about space games the best we can do is *plausible realism*. That is, whilst it may not be technically or even physically possible given our current understanding, the game will utilise theoretical physics considered *plausible*, or in some cases, simply *possible*. Some form of *Warp Drive* certainly isn't technically or even physically possible given the human race's current understanding of physics, let alone engineering capabilities, but there's actually people at [NASA contemplating the physics involved](http://www.space.com/22430-star-trek-warp-drive-quantum-thrusters.html) making it a (albeit remote) possibility in the future, and therefore a candidate for integration into the game.
+## Content
+
+So, what is the game about? What type of game is it?? Interesting question... First and foremost, it's a 3D 4X strategy akin *Aurora 4X*. It is *not* a pretty game, in fact, as you'll see in the coming articles, beyond getting some poorly textured or wireframed models onto the screen so I can prove and test aspects of gameplay, I'm not too concerned with the UI right now (though, I do care for the UX). My hope is that parts, if not all of the game, can be open sourced, which maybe one day will inspire a designer to come along and spruce things up.
+
+The game will be set in near to distant future (depending on how long you play of course), and will play out much more like a simulation than an arcade game. To give you an idea of how detailed the simulation will be, here are a couple of points:
+
+* Every single game feature is written for the AI to use (preferably, *correctly*), before being made available to the player.
+* The Goal is to incorporate a fully functional, fully featured mode whereby the player could be a Captain.
+ 
+If you've ever played any of the later *SimCity* games, you'll probably have come across a feature whereby you could attach a camera to one of your citizens and follow them around, perhaps even control their movement. The intent with *Clean Space* is to provide a full game, at that level (think *X3: Terran Conflict* or *Star Trek: Bridge Commander*). The player can choose (maybe even switch) between these modes. When Governing an empire, the AI will control ships in the same way a player would, with all the features and functionality available to the player, and vice-versa when the player is a Captain.
+
+With an impossible goal now firmly established, let's talk technicalities.
+
+## Problems
+
+This blog series is not a *how to* (though I hope many learn from it!). In fact, I'll often post misconstrued *facts* and make mistakes in the code I show, which I'll try to remember to correct when I realise my mistakes. I want this series to be about *the journey*. I'll talk about small tasks that I tackle on a day-to-day basis, how I go about researching subjects, and what I learn. I am not a *Game Developer*. **I've never written a game**. But, I am a pretty good developer, and I'd like to think I'm not a total idiot.
+
+Whilst I'll inevitable take inspiration from the 4X, strategy, and RPG games I've played over the years, for better or for worse, *Clean Space* will differ. As will be explained in future posts about the game engine, [clean engine](https://github.com/clean-development/engine), everything from a technical perspective is most certainly different to other games. This, I hope, will afford me the ability to implement a level of complexity and *realism* simply not technically possibly in other games.
+
+To ellaborate on the *'realism'* mention there, when talking about space games, the best we can do is *plausible realism*. That is, whilst something may not be possible given our current understanding, the game will utilise theoretical physics considered *plausible*, or in some cases, simply *possible*. Some form of *Warp Drive* certainly isn't possible given the human race's current understanding of physics, let alone engineering capabilities, but there's actually people at [NASA contemplating the physics involved](http://www.space.com/22430-star-trek-warp-drive-quantum-thrusters.html) making it a (albeit remote) possibility in the future, and therefore a candidate for integration into the game.
+
+Throughout this series, there will be articles discussing the tasks I set out to achieve, and problems I face. Expect there to be a lot of problems. The following are 2 example problems we'll tackle at a later stage, to warm your brain up...
 
 ### Technicalities
 
@@ -38,14 +59,6 @@ Beyond the technical implications of working on such massive scales, consider fo
 
 The game not only needs to track an *internal* state for which all things be held accountable, but it also needs to be able to correctly identify and simulate a *perspective*. Given a space craft approaching Mars orbit, when viewed from earth my perspective includes an information speed gap of potentially several minutes between _the **expected** position_ and _the **last known** position_. This same information, when viewed from Mars for example, or the space craft itself, would be quite different.
 
-### Myth Debunking
+## Enough Talk Already!
 
-Thanks mostly to Hollywood, there are a huge number of ludicrous inaccuracies that we have come to *accept* with regards to space travel. Most of these can be attributed to our apparent preference to consider vessels in space, naval. Throughout this post and all others, I will go out of my way to describe these space faring craft as anything but a _space**ship**_.
-
-There's no point picking on films, games or books for the propagation of these myths. We set aside the laws of physics (and common sense) for better narration. I certainly don't want the tutorial for *Clean Space* to take 3 real life days to travel between Earth and the Moon, as is the case given our current tech levels. But, at the same time I want to stop treating space craft as *ships*.
-
-#### Space Battles
-
-If the human race ever does make it into space, and two space craft were to battle one another, that battle would take place at incredible speeds over vast distances. The craft would not be firing lasers and phasers and railguns at one another. Lasers can *only* move at the speed of light, so even if it was possible to accurately track your opponent over such a large distance and such great speeds, there would be several seconds or even minutes between firing and *impact*. Your opponent would have to make but the tiniest of course change to *dodge* the fire.
-
-Much more likely would be missiles for medium to long range engagements, any other turretted weapon only useful as point defense for said missiles. Without giving away any spoilers, there is a space battle within the first few episodes of the TV Series, [The Expanse](https://en.wikipedia.org/wiki/The_Expanse_(TV_series)), which I personally think depicts one of the more likely scenarios of space warfare, assuming all the technology involved is possible.
+Ok, I'm done. Keep an eye out for the [next article](http://blog.devbot.net/tag/clean-space/) or [subscribe](http://blog.devbot.net/feed.xml) for the next article, which will be our first foray into code.

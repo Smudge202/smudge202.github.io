@@ -9,3 +9,157 @@ For several weeks now we've been using [Swashbuckle](github.com/domaindrivendev/
 
 > Request matched multiple actions resulting in ambiguity for actions with different parameters
 
+## The Problem
+
+The problem is pretty simple, and I don't believe to be too uncommon. We have an API endpoint which returns a list of addresses based upon the postcode (or zipcode, if you're so inclined).
+
+`GET /addresses/b323pp`
+
+*NB: I googled for an example UK postcode; the above is apparently the postcode for [Birmingham City Council](https://mapit.mysociety.org/area/2514/example_postcode.html).*
+
+Depending on the address service you're using *under the hood*, this will result in several addresses (5 in my case).
+
+I'm intentionally going to avoid the discussion of what is, or is not best practice at this stage, but suffice to say, we decided that it would be appropriate to be able to call our API with both postcode and a house name or number, with the intent of retrieving fewer, or preferably, a single result. I'm not sure how a postcode differs to zipcodes, but postcodes will often return several results, so a filtering mechanic seems quite reasonanble.
+
+We could have gone about this in several ways, but the decision was to route the following request:
+
+`GET /addresses/b323pp?house-number=144`
+
+To implement this, our `AddressController` looks something like the following:
+
+```c#
+		[HttpGet]
+		[Route("addresses/{postcode}")]
+		[Produces(typeof(IEnumerable<AddressSearchResult>))]
+		public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcode(string postcode)
+			=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, string.Empty);
+
+		[HttpGet]
+		[Route("addresses/{postcode}")]
+		[Produces(typeof(IEnumerable<AddressSearchResult>))]
+		public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcodeAndHouseNumber(string postcode, [FromQuery(Name ="house-number")]string houseNumber)
+			=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, houseNumber);
+```
+
+The experienced among you will immediately spot the problem; we have two methods for the same `Route`.
+
+## Fixing Swashbuckle
+
+There are actually two problems that occur. The first exception encountered was:
+
+> Multiple operations with path 'addresses/{postcode}' and method 'GET'. Are you overloading action methods?"
+
+This is an exception thrown by Swashbuckle, version [6.0.0-rc1-final](http://www.nuget.org/packages/Swashbuckle/6.0.0-rc1-final) at time of writing. It's not immediately obvious, but all the ASP.Net 5 variants of Swashbuckle are not actually present in the main Swashbuckle [GitHub Respository](https://github.com/domaindrivendev/swashbuckle). Instead, you can find the code in the [Ahoy Respository](https://github.com/domaindrivendev/ahoy), also ownder by the Swashbuckle author, [Richard Morris'](https://twitter.com/domaindrivendev).
+
+The specific line of code that throws the above exception can be [found here](https://github.com/domaindrivendev/Ahoy/blob/6.0.0-rc1-final/src/Swashbuckle.SwaggerGen/SwaggerGen/DefaultSwaggerProvider.cs#L93-L95). I found mention in the primary Swashbuckle Repository mentions of Conflict Resolution, but any code present in there had clearly not been ported to *Ahoy* yet.
+
+I changed the linked lines of code to no longer throw an exception:
+
+```c#
+ApiDescription apiDescription;
+if (group.Count() > 1)                    
+  apiDescription = _options.ResolveConflict(group.Select(x => x), httpMethod);
+else
+  apiDescription = group.Single();
+```
+
+...and introduced some new functionality onto the `SwaggerDocumentOptions` class:
+
+```c#
+internal Func<IEnumerable<ApiDescription>, string, ApiDescription> ResolveConflict { get; private set; }
+	= ThrowExceptionOnApiDescriptionConflict;
+	
+public void ResolveConflictsBy(Func<IEnumerable<ApiDescription>, string, ApiDescription> resolver)
+	=> ResolveConflict = resolver ?? ThrowExceptionOnApiDescriptionConflict;
+	
+private static ApiDescription ThrowExceptionOnApiDescriptionConflict(IEnumerable<ApiDescription> apiDescriptions, string httpMethod)
+{
+	throw new NotSupportedException(string.Format(
+		"Multiple operations with path '{0}' and method '{1}'. Are you overloading action methods?",
+		apiDescriptions.First().RelativePathSansQueryString(), httpMethod));
+}
+```
+
+As you can see in the above snippet, I maintained the original behaviour of throwing a `NotSupportedException` when a conflict is detected, but provided the ability to extend the conflict resolution. I'm sure this could have been done in different ways, and I may well tidy it up later, but this certainly works.
+
+To use the above changes, I changed by `Startup` class as follows:
+
+```c#
+// various other services get added
+services.ConfigureSwaggerDocument(options =>
+{
+	options.SingleApiVersion(config.ApiVersion);
+  options.ResolveConflictsBy(ApiDescriptionConflictResolver.Resolve);
+});
+```
+
+The implementation of `ApiDescriptionConflictResolver` is as follows:
+
+```c#
+internal static class ApiDescriptionConflictResolver
+{
+	public static ApiDescription Resolve(IEnumerable<ApiDescription> descriptions, string httpMethod)
+	{
+		var parameters = descriptions
+			.SelectMany(desc => desc.ParameterDescriptions)
+			.GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x }, ApiParameterDescriptionEqualityComparer.Instance)
+			.ToList();
+		var description = descriptions.First();
+		description.ParameterDescriptions.Clear();
+		parameters.ForEach(x =>
+		{
+			if (x.Parameter.RouteInfo != null)
+				x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+			description.ParameterDescriptions.Add(x.Parameter);
+		});
+		return description;
+	}
+}
+```
+
+Let's break down what's happening here, as I imagine with some tweaks it could be very reusable.
+
+The `descriptions` passed into the method, in our case, represent the two methods in our controller, `GetAddressesByPostcode` and `GetAddressesByPostcodeAndHouseNumber`. The linq query shown gets all the parameters from both methods (2x `postcode` parameters and 1x `housenumber` parameter), then determines whether a parameter is *Optional* based on whether the parameter is present in both sets of descriptions.
+
+`ApiParameterDescription` is a reference type, so no two parameters would actually be equal by default, so we use a fairly simple `IEqualityComparer` to determine equality:
+
+```c#
+internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
+{
+	private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
+		= new Lazy<ApiParameterDescriptionEqualityComparer>(() => new ApiParameterDescriptionEqualityComparer());
+	public static ApiParameterDescriptionEqualityComparer Instance
+		=> _instance.Value;
+
+	private ApiParameterDescriptionEqualityComparer() { }
+
+	public int GetHashCode(ApiParameterDescription obj)
+	{
+		unchecked
+		{
+			var hash = 17;
+			hash = hash * 23 + obj.ModelMetadata.GetHashCode();
+			hash = hash * 23 + obj.Name.GetHashCode();
+			hash = hash * 23 + obj.Source.GetHashCode();
+			hash = hash * 23 + obj.Type.GetHashCode();
+			return hash;
+		}
+	}
+
+	public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
+	{
+		if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
+		if (!x.Name.Equals(y.Name)) return false;
+		if (!x.Source.Equals(y.Source)) return false;
+		if (!x.Type.Equals(y.Type)) return false;
+		return true;
+	}
+}
+```
+
+This class utilises both Jon Skeet's [Singleton Advice](http://csharpindepth.com/Articles/General/Singleton.aspx), and his implementation of [property based hashcode comparisons](http://stackoverflow.com/a/263416/707618), resulting in two different instances of `ApiParameterDescription` being determined as equal if the `ModelMetadata`, `Name`, `Source`, and `Type` are equal.
+
+*NB: The `RouteInfo` property is intentionally ommitted.*
+
+Ok, with all those pieces of the puzzle in place, navigating to the default swagger URI (`~/swagger/ui`) shows the API signature exactly as intended!
+

@@ -29,28 +29,28 @@ We could have gone about this in several ways, but the decision was to route the
 To implement this, our `AddressController` looks something like the following:
 
 ```c#
-		[HttpGet]
-		[Route("addresses/{postcode}")]
-		[Produces(typeof(IEnumerable<AddressSearchResult>))]
-		public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcode(string postcode)
-			=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, string.Empty);
+[HttpGet]
+[Route("addresses/{postcode:postcode}")]
+[Produces(typeof(IEnumerable<AddressSearchResult>))]
+public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcode(string postcode)
+	=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, string.Empty);
 
-		[HttpGet]
-		[Route("addresses/{postcode}")]
-		[Produces(typeof(IEnumerable<AddressSearchResult>))]
-		public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcodeAndHouseNumber(string postcode, [FromQuery(Name ="house-number")]string houseNumber)
-			=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, houseNumber);
+[HttpGet]
+[Route("addresses/{postcode:postcode}")]
+[Produces(typeof(IEnumerable<AddressSearchResult>))]
+public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcodeAndHouseNumber(string postcode, [FromQuery(Name ="house-number")]string houseNumber)
+	=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, houseNumber);
 ```
 
-The experienced among you will immediately spot the problem; we have two methods for the same `Route`.
+The keen-eyed among you will immediately spot the problem; we have two methods for the same `Route`.
 
 ## Fixing Swashbuckle
 
-There are actually two problems that occur. The first exception encountered was:
+There are actually two problems with the above controller methods. The first exception encountered was:
 
 > Multiple operations with path 'addresses/{postcode}' and method 'GET'. Are you overloading action methods?"
 
-This is an exception thrown by Swashbuckle, version [6.0.0-rc1-final](http://www.nuget.org/packages/Swashbuckle/6.0.0-rc1-final) at time of writing. It's not immediately obvious, but all the ASP.Net 5 variants of Swashbuckle are not actually present in the main Swashbuckle [GitHub Respository](https://github.com/domaindrivendev/swashbuckle). Instead, you can find the code in the [Ahoy Respository](https://github.com/domaindrivendev/ahoy), also ownder by the Swashbuckle author, [Richard Morris'](https://twitter.com/domaindrivendev).
+This is an exception thrown by Swashbuckle, version [6.0.0-rc1-final](http://www.nuget.org/packages/Swashbuckle/6.0.0-rc1-final) at time of writing. It's not immediately obvious, but all the ASP.Net 5 variants of Swashbuckle are not actually present in the main Swashbuckle [GitHub Respository](https://github.com/domaindrivendev/swashbuckle). Instead, you can find the code in the [Ahoy Respository](https://github.com/domaindrivendev/ahoy) also ownder by the Swashbuckle author, [Richard Morris'](https://twitter.com/domaindrivendev).
 
 The specific line of code that throws the above exception can be [found here](https://github.com/domaindrivendev/Ahoy/blob/6.0.0-rc1-final/src/Swashbuckle.SwaggerGen/SwaggerGen/DefaultSwaggerProvider.cs#L93-L95). I found mention in the primary Swashbuckle Repository mentions of Conflict Resolution, but any code present in there had clearly not been ported to *Ahoy* yet.
 
@@ -164,3 +164,4 @@ This class utilises both Jon Skeet's [Singleton Advice](http://csharpindepth.com
 
 Ok, with all those pieces of the puzzle in place, navigating to the default swagger URI (`~/swagger/ui`) shows the API signature exactly as intended!
 
+![swagger documentation](https://raw.githubusercontent.com/smudge202/smudge202.github.io/master/images/swagger-conflict.PNG)

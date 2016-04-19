@@ -122,7 +122,7 @@ Let's break down what's happening here, as I imagine with some tweaks it could b
 
 The `descriptions` passed into the method, in our case, represent the two methods in our controller, `GetAddressesByPostcode` and `GetAddressesByPostcodeAndHouseNumber`. The linq query shown gets all the parameters from both methods (2x `postcode` parameters and 1x `housenumber` parameter), then determines whether a parameter is *Optional* based on whether the parameter is present in both sets of descriptions.
 
-`ApiParameterDescription` is a reference type, so no two parameters would actually be equal by default, so we use a fairly simple `IEqualityComparer` to determine equality:
+`ApiParameterDescription` is a reference type, so no two parameters would actually be equal by default. TO comabt this we use a fairly simple `IEqualityComparer` to determine equality:
 
 ```c#
 internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
@@ -166,7 +166,7 @@ Ok, with all those pieces of the puzzle in place, navigating to the default swag
 
 ![swagger documentation](https://raw.githubusercontent.com/smudge202/smudge202.github.io/master/images/swagger-conflict.PNG)
 
-Note that only one method is shown, with the `house-number` correctly identified as being both a `query` *parameter type*, and it's *optional*. Perfect! But the battle isn't quite over...
+Note that only one method is shown, with the `house-number` correctly identified as being both a `query` *parameter type*, and as *optional*. Perfect! But the battle isn't quite over...
 
 ## MVC Says No
 
@@ -176,7 +176,7 @@ Unfortunately, whilst we've cleared up the method ambiguity for the Swagger docu
 
 So close, but so far. Fortunately, `ASP.Net 5` is compeltely open source, so it didn't take me long to track down [the method](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L37-L99) that [throws this exception](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L90-97).
 
-However, not only is ASP.Net 5 open source, but it's also incredibly extensible compared to it's predecessors. We can see that [line 72](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L72) calls the virtual [`SelectBestActions`](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L106) to allow consumers to *interfere* with conflict resolution!
+However, not only is ASP.Net 5 open source, but it's also incredibly extensible compared to it's predecessors. We can see that [line 72](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L72) calls the virtual [`SelectBestActions`](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L106) method to allow consumers to *interfere* with conflict resolution!
 
 So, I inherited from the `DefaultActionSelector` and added an `override` for the method:
 
@@ -212,7 +212,7 @@ internal sealed class RoutingActionSelector : DefaultActionSelector
 
 As you can see, the `DefaultActionSelector` requires several dependencies, but that's no issue. By specifying the same dependencies on my own class, the new [dependency injection framework](https://github.com/aspnet/dependencyinjection) manages that all for me.
 
-By overriding the default implementation, it's important to be aware that this class will get called all the time, so it was important to *short-circuit* the execution as quickly as possible for the cases I don't care about. The first two lines achieve that in a fairly simple way, immediately returning if there's 1 or less `actions`.
+By overriding the default implementation, it's important to be aware that this class will get for every request that makes it into the MVC pipeline, so it was equally important to *short-circuit* the execution as quickly as possible for the cases I don't care about. The first two lines achieve that in a fairly simple way, immediately returning if there's 1 or less `actions` (i.e. no conflict).
 
 Whilst I'm sure there are better ways to match a HTTP request to actions, I went with a nice and simple implementation of only returning actions where the number of expected query parameters matched the number of query parameters in the request. In our case, the `GetAddressByPostcode` action expects no query parameters, whilst `GetAddressByPostcodeAndHouseNumber` expects a single query parameter.
 
@@ -224,6 +224,6 @@ services.AddTransient<IActionSelector, RoutingActionSelector>();
 
 This places our implementation of the `IActionSelector` into the list of services available to your application.
 
-It is crucial that you add your service **after** calling `services.AddMvc()`. This is because, when multiple implementations of the same service are added to the service collection, the Microsoft DI Framework will always pick the Last added.
+It is crucial that you add your service **after** calling `services.AddMvc()`. This is because, when multiple implementations of the same service are added to the service collection, the Microsoft DI Framework will always pick the **Last** implementation added.
 
 With all these little pieces in place, I ran swashbuckle again and *hey, presto!*. We're in business.

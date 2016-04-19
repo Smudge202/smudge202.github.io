@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Managing Action Conflicts in ASP.Net 5 with Swashbuckle
-wip: true
-hidden: true
 tags: [aspnet5]
 ---
 

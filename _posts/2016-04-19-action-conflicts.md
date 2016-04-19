@@ -168,6 +168,8 @@ Ok, with all those pieces of the puzzle in place, navigating to the default swag
 
 Note that only one method is shown, with the `house-number` correctly identified as being both a `query` *parameter type*, and as *optional*. Perfect! But the battle isn't quite over...
 
+*NB: All of the above can be seen on [this pull request](https://github.com/Gilmond/Ahoy/pull/1). I hope to get it into a state that we can PR back to Swashbuckle.*
+
 ## MVC Says No
 
 Unfortunately, whilst we've cleared up the method ambiguity for the Swagger documentation, we've done nothing to the same effect for MVC. When I clicked `Try it out!` in the above screenshot, I received the following MVC exception:

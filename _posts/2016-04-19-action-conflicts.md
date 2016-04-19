@@ -33,13 +33,13 @@ To implement this, our `AddressController` looks something like the following:
 [Route("addresses/{postcode:postcode}")]
 [Produces(typeof(IEnumerable<AddressSearchResult>))]
 public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcode(string postcode)
-	=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, string.Empty);
+  => await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, string.Empty);
 
 [HttpGet]
 [Route("addresses/{postcode:postcode}")]
 [Produces(typeof(IEnumerable<AddressSearchResult>))]
 public async Task<IEnumerable<AddressSearchResult>> GetAddressesByPostcodeAndHouseNumber(string postcode, [FromQuery(Name ="house-number")]string houseNumber)
-	=> await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, houseNumber);
+  => await _addressLookup.GetAddressesByPostcodeAndHouseNumber(postcode, houseNumber);
 ```
 
 The keen-eyed among you will immediately spot the problem; we have two methods for the same `Route`.
@@ -50,9 +50,9 @@ There are actually two problems with the above controller methods. The first exc
 
 > Multiple operations with path 'addresses/{postcode}' and method 'GET'. Are you overloading action methods?"
 
-This is an exception thrown by Swashbuckle, version [6.0.0-rc1-final](http://www.nuget.org/packages/Swashbuckle/6.0.0-rc1-final) at time of writing. It's not immediately obvious, but all the ASP.Net 5 variants of Swashbuckle are not actually present in the main Swashbuckle [GitHub Respository](https://github.com/domaindrivendev/swashbuckle). Instead, you can find the code in the [Ahoy Respository](https://github.com/domaindrivendev/ahoy) also ownder by the Swashbuckle author, [Richard Morris'](https://twitter.com/domaindrivendev).
+This is an exception thrown by Swashbuckle, version [6.0.0-rc1-final](http://www.nuget.org/packages/Swashbuckle/6.0.0-rc1-final) at time of writing. It's not immediately obvious, but all the ASP.Net 5 variants of Swashbuckle are not actually present in the main Swashbuckle [GitHub Respository](https://github.com/domaindrivendev/swashbuckle). Instead, you can find the code in the [Ahoy Respository](https://github.com/domaindrivendev/ahoy) also owned by the Swashbuckle author, [Richard Morris](https://twitter.com/domaindrivendev).
 
-The specific line of code that throws the above exception can be [found here](https://github.com/domaindrivendev/Ahoy/blob/6.0.0-rc1-final/src/Swashbuckle.SwaggerGen/SwaggerGen/DefaultSwaggerProvider.cs#L93-L95). I found mention in the primary Swashbuckle Repository mentions of Conflict Resolution, but any code present in there had clearly not been ported to *Ahoy* yet.
+The specific line of code that throws the above exception can be [found here](https://github.com/domaindrivendev/Ahoy/blob/6.0.0-rc1-final/src/Swashbuckle.SwaggerGen/SwaggerGen/DefaultSwaggerProvider.cs#L93-L95). I managed to find mention of *Conflict Resolution* in the primary Swashbuckle Repository, but any code present in there had clearly not been ported to *Ahoy* yet.
 
 I changed the linked lines of code to no longer throw an exception:
 
@@ -68,22 +68,22 @@ else
 
 ```c#
 internal Func<IEnumerable<ApiDescription>, string, ApiDescription> ResolveConflict { get; private set; }
-	= ThrowExceptionOnApiDescriptionConflict;
+  = ThrowExceptionOnApiDescriptionConflict;
 	
 public void ResolveConflictsBy(Func<IEnumerable<ApiDescription>, string, ApiDescription> resolver)
-	=> ResolveConflict = resolver ?? ThrowExceptionOnApiDescriptionConflict;
+  => ResolveConflict = resolver ?? ThrowExceptionOnApiDescriptionConflict;
 	
 private static ApiDescription ThrowExceptionOnApiDescriptionConflict(IEnumerable<ApiDescription> apiDescriptions, string httpMethod)
 {
-	throw new NotSupportedException(string.Format(
-		"Multiple operations with path '{0}' and method '{1}'. Are you overloading action methods?",
-		apiDescriptions.First().RelativePathSansQueryString(), httpMethod));
+  throw new NotSupportedException(string.Format(
+    "Multiple operations with path '{0}' and method '{1}'. Are you overloading action methods?",
+    apiDescriptions.First().RelativePathSansQueryString(), httpMethod));
 }
 ```
 
 As you can see in the above snippet, I maintained the original behaviour of throwing a `NotSupportedException` when a conflict is detected, but provided the ability to extend the conflict resolution. I'm sure this could have been done in different ways, and I may well tidy it up later, but this certainly works.
 
-To use the above changes, I changed by `Startup` class as follows:
+To use the above changes, I modified my `Startup` class as follows:
 
 ```c#
 // various other services get added
@@ -99,22 +99,22 @@ The implementation of `ApiDescriptionConflictResolver` is as follows:
 ```c#
 internal static class ApiDescriptionConflictResolver
 {
-	public static ApiDescription Resolve(IEnumerable<ApiDescription> descriptions, string httpMethod)
-	{
-		var parameters = descriptions
-			.SelectMany(desc => desc.ParameterDescriptions)
-			.GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x }, ApiParameterDescriptionEqualityComparer.Instance)
-			.ToList();
-		var description = descriptions.First();
-		description.ParameterDescriptions.Clear();
-		parameters.ForEach(x =>
-		{
-			if (x.Parameter.RouteInfo != null)
-				x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-			description.ParameterDescriptions.Add(x.Parameter);
-		});
-		return description;
-	}
+  public static ApiDescription Resolve(IEnumerable<ApiDescription> descriptions, string httpMethod)
+  {
+    var parameters = descriptions
+      .SelectMany(desc => desc.ParameterDescriptions)
+      .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x }, ApiParameterDescriptionEqualityComparer.Instance)
+      .ToList();
+    var description = descriptions.First();
+    description.ParameterDescriptions.Clear();
+    parameters.ForEach(x =>
+    {
+      if (x.Parameter.RouteInfo != null)
+        x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+      description.ParameterDescriptions.Add(x.Parameter);
+    });
+    return description;
+  }
 }
 ```
 
@@ -127,34 +127,34 @@ The `descriptions` passed into the method, in our case, represent the two method
 ```c#
 internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
 {
-	private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
-		= new Lazy<ApiParameterDescriptionEqualityComparer>(() => new ApiParameterDescriptionEqualityComparer());
-	public static ApiParameterDescriptionEqualityComparer Instance
-		=> _instance.Value;
+  private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
+  	= new Lazy<ApiParameterDescriptionEqualityComparer>(() => new ApiParameterDescriptionEqualityComparer());
+  public static ApiParameterDescriptionEqualityComparer Instance
+  	=> _instance.Value;
 
-	private ApiParameterDescriptionEqualityComparer() { }
+  private ApiParameterDescriptionEqualityComparer() { }
 
-	public int GetHashCode(ApiParameterDescription obj)
-	{
-		unchecked
-		{
-			var hash = 17;
-			hash = hash * 23 + obj.ModelMetadata.GetHashCode();
-			hash = hash * 23 + obj.Name.GetHashCode();
-			hash = hash * 23 + obj.Source.GetHashCode();
-			hash = hash * 23 + obj.Type.GetHashCode();
-			return hash;
-		}
-	}
+  public int GetHashCode(ApiParameterDescription obj)
+  {
+    unchecked
+    {
+      var hash = 17;
+      hash = hash * 23 + obj.ModelMetadata.GetHashCode();
+      hash = hash * 23 + obj.Name.GetHashCode();
+      hash = hash * 23 + obj.Source.GetHashCode();
+      hash = hash * 23 + obj.Type.GetHashCode();
+      return hash;
+    }
+  }
 
-	public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
-	{
-		if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
-		if (!x.Name.Equals(y.Name)) return false;
-		if (!x.Source.Equals(y.Source)) return false;
-		if (!x.Type.Equals(y.Type)) return false;
-		return true;
-	}
+  public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
+  {
+    if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
+    if (!x.Name.Equals(y.Name)) return false;
+    if (!x.Source.Equals(y.Source)) return false;
+    if (!x.Type.Equals(y.Type)) return false;
+    return true;
+  }
 }
 ```
 
@@ -183,30 +183,30 @@ So, I inherited from the `DefaultActionSelector` and added an `override` for the
 ```c#
 internal sealed class RoutingActionSelector : DefaultActionSelector
 {
-	private readonly IHttpContextAccessor _contextAccessor;
+  private readonly IHttpContextAccessor _contextAccessor;
 
-	public RoutingActionSelector(
-		IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider,
-		IActionSelectorDecisionTreeProvider decisionTreeProvider,
-		IEnumerable<IActionConstraintProvider> actionConstraintProviders,
-		ILoggerFactory loggerFactory,
-		IHttpContextAccessor contextAccessor)
-		: base(actionDescriptorsCollectionProvider, decisionTreeProvider, actionConstraintProviders, loggerFactory)
-	{
-		_contextAccessor = contextAccessor;
-	}
+  public RoutingActionSelector(
+    IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider,
+    IActionSelectorDecisionTreeProvider decisionTreeProvider,
+    IEnumerable<IActionConstraintProvider> actionConstraintProviders,
+    ILoggerFactory loggerFactory,
+    IHttpContextAccessor contextAccessor)
+    : base(actionDescriptorsCollectionProvider, decisionTreeProvider, actionConstraintProviders, loggerFactory)
+  {
+    _contextAccessor = contextAccessor;
+  }
 
-	protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
-	{
-		if (actions.Count <= 1)
-			return base.SelectBestActions(actions);
+  protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
+  {
+    if (actions.Count <= 1)
+      return base.SelectBestActions(actions);
 
-		var queryParametersCount = _contextAccessor.HttpContext.Request.Query.Count;
-		return actions
-			.Where(x => x.Parameters.Count(p => p.BindingInfo?.BindingSource.Id == "Query") == queryParametersCount)
-			.ToList()
-			.AsReadOnly();
-	}
+    var queryParametersCount = _contextAccessor.HttpContext.Request.Query.Count;
+    return actions
+      .Where(x => x.Parameters.Count(p => p.BindingInfo?.BindingSource.Id == "Query") == queryParametersCount)
+      .ToList()
+      .AsReadOnly();
+  }
 }
 ```
 

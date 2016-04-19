@@ -176,7 +176,7 @@ Unfortunately, whilst we've cleared up the method ambiguity for the Swagger docu
 
 > Request matched multiple actions resulting in ambiguity for actions with different parameters
 
-So close, but so far. Fortunately, `ASP.Net 5` is compeltely open source, so it didn't take me long to track down [the method](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L37-L99) that [throws this exception](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L90-97).
+So close, but so far. Fortunately, `ASP.Net 5` is completely open source, so it didn't take me long to track down [the method](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L37-L99) that [throws this exception](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L90-97).
 
 However, not only is ASP.Net 5 open source, but it's also incredibly extensible compared to it's predecessors. We can see that [line 72](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L72) calls the virtual [`SelectBestActions`](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L106) method to allow consumers to *interfere* with conflict resolution!
 

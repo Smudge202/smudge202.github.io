@@ -6,15 +6,17 @@ layout: default
 <div>
     {% if site.tags[page.tag] %}
         {% for post in site.tags[page.tag] %}
-            <article class="post">
-                <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>    
-            
-                <div class="entry">
-                    {{ post.excerpt }}
-                </div>
+            {% if post.hidden == null %}
+                <article class="post">
+                    <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>    
                 
-                <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-            </article>
+                    <div class="entry">
+                        {{ post.excerpt }}
+                    </div>
+                    
+                    <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+                </article>
+            {% endif %}
         {% endfor %}
     {% else %}
         <p>There are no posts for this tag.</p>

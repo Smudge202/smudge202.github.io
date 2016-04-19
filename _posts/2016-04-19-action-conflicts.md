@@ -226,6 +226,6 @@ services.AddTransient<IActionSelector, RoutingActionSelector>();
 
 This places our implementation of the `IActionSelector` into the list of services available to your application.
 
-It is crucial that you add your service **after** calling `services.AddMvc()`. This is because, when multiple implementations of the same service are added to the service collection, the Microsoft DI Framework will always pick the **Last** implementation added.
+It is crucial that you add your service **after** calling `services.AddMvc()`. This is because, when multiple implementations of the same service are added to the service collection, the Microsoft DI Framework will always pick the **last** implementation added.
 
 With all these little pieces in place, I ran swashbuckle again and *hey, presto!*. We're in business.

@@ -5,5 +5,11 @@
   If you have been given this url, I hope you can provide some early feedback for an article that is work in progress. I may also link to an incomplete page (to help me not forget), so apologies if you've arrived here by accident.
   </p>
   
+  {% if page.date %}
+  <p>
+    This draft was published: {{ page.date | date: "%B %e, %Y" }}
+  </p>
+  {% endif %}
+  
   <h3>Check back soon for the complete article!</h3>
 </div>

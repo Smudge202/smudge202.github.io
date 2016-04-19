@@ -165,3 +165,65 @@ This class utilises both Jon Skeet's [Singleton Advice](http://csharpindepth.com
 Ok, with all those pieces of the puzzle in place, navigating to the default swagger URI (`~/swagger/ui`) shows the API signature exactly as intended!
 
 ![swagger documentation](https://raw.githubusercontent.com/smudge202/smudge202.github.io/master/images/swagger-conflict.PNG)
+
+Note that only one method is shown, with the `house-number` correctly identified as being both a `query` *parameter type*, and it's *optional*. Perfect! But the battle isn't quite over...
+
+## MVC Says No
+
+Unfortunately, whilst we've cleared up the method ambiguity for the Swagger documentation, we've done nothing to the same effect for MVC. When I clicked `Try it out!` in the above screenshot, I received the following MVC exception:
+
+> Request matched multiple actions resulting in ambiguity for actions with different parameters
+
+So close, but so far. Fortunately, `ASP.Net 5` is compeltely open source, so it didn't take me long to track down [the method](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L37-L99) that [throws this exception](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L90-97).
+
+However, not only is ASP.Net 5 open source, but it's also incredibly extensible compared to it's predecessors. We can see that [line 72](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L72) calls the virtual [`SelectBestActions`](https://github.com/aspnet/Mvc/blob/6.0.0-rc1/src/Microsoft.AspNet.Mvc.Core/Infrastructure/DefaultActionSelector.cs#L106) to allow consumers to *interfere* with conflict resolution!
+
+So, I inherited from the `DefaultActionSelector` and added an `override` for the method:
+
+```c#
+internal sealed class RoutingActionSelector : DefaultActionSelector
+{
+	private readonly IHttpContextAccessor _contextAccessor;
+
+	public RoutingActionSelector(
+		IActionDescriptorsCollectionProvider actionDescriptorsCollectionProvider,
+		IActionSelectorDecisionTreeProvider decisionTreeProvider,
+		IEnumerable<IActionConstraintProvider> actionConstraintProviders,
+		ILoggerFactory loggerFactory,
+		IHttpContextAccessor contextAccessor)
+		: base(actionDescriptorsCollectionProvider, decisionTreeProvider, actionConstraintProviders, loggerFactory)
+	{
+		_contextAccessor = contextAccessor;
+	}
+
+	protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
+	{
+		if (actions.Count <= 1)
+			return base.SelectBestActions(actions);
+
+		var queryParametersCount = _contextAccessor.HttpContext.Request.Query.Count;
+		return actions
+			.Where(x => x.Parameters.Count(p => p.BindingInfo?.BindingSource.Id == "Query") == queryParametersCount)
+			.ToList()
+			.AsReadOnly();
+	}
+}
+```
+
+As you can see, the `DefaultActionSelector` requires several dependencies, but that's no issue. By specifying the same dependencies on my own class, the new [dependency injection framework](https://github.com/aspnet/dependencyinjection) manages that all for me.
+
+By overriding the default implementation, it's important to be aware that this class will get called all the time, so it was important to *short-circuit* the execution as quickly as possible for the cases I don't care about. The first two lines achieve that in a fairly simple way, immediately returning if there's 1 or less `actions`.
+
+Whilst I'm sure there are better ways to match a HTTP request to actions, I went with a nice and simple implementation of only returning actions where the number of expected query parameters matched the number of query parameters in the request. In our case, the `GetAddressByPostcode` action expects no query parameters, whilst `GetAddressByPostcodeAndHouseNumber` expects a single query parameter.
+
+The final piece of the puzzle is to make one more change to your `Startup` file:
+
+```c#
+services.AddTransient<IActionSelector, RoutingActionSelector>();
+```
+
+This places our implementation of the `IActionSelector` into the list of services available to your application.
+
+It is crucial that you add your service **after** calling `services.AddMvc()`. This is because, when multiple implementations of the same service are added to the service collection, the Microsoft DI Framework will always pick the Last added.
+
+With all these little pieces in place, I ran swashbuckle again and *hey, presto!*. We're in business.

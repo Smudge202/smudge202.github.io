@@ -89,7 +89,7 @@ To use the above changes, I modified my `Startup` class as follows:
 // various other services get added
 services.ConfigureSwaggerDocument(options =>
 {
-	options.SingleApiVersion(config.ApiVersion);
+  options.SingleApiVersion(config.ApiVersion);
   options.ResolveConflictsBy(ApiDescriptionConflictResolver.Resolve);
 });
 ```

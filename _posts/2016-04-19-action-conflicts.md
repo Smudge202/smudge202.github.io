@@ -168,7 +168,7 @@ Ok, with all those pieces of the puzzle in place, navigating to the default swag
 
 Note that only one method is shown, with the `house-number` correctly identified as being both a `query` *parameter type*, and as *optional*. Perfect! But the battle isn't quite over...
 
-*NB: All of the above can be seen on [this pull request](https://github.com/Gilmond/Ahoy/pull/1). I hope to get it into a state that we can PR back to Swashbuckle.*
+*NB: All of the above can be seen on [this pull request](https://github.com/Gilmond/Ahoy/pull/1). I hope to get it into a state that we can PR back to Swashbuckle (Ahoy).*
 
 ## MVC Says No
 

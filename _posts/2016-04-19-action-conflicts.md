@@ -122,7 +122,7 @@ Let's break down what's happening here, as I imagine with some tweaks it could b
 
 The `descriptions` passed into the method, in our case, represent the two methods in our controller, `GetAddressesByPostcode` and `GetAddressesByPostcodeAndHouseNumber`. The linq query shown gets all the parameters from both methods (2x `postcode` parameters and 1x `housenumber` parameter), then determines whether a parameter is *Optional* based on whether the parameter is present in both sets of descriptions.
 
-`ApiParameterDescription` is a reference type, so no two parameters would actually be equal by default. TO comabt this we use a fairly simple `IEqualityComparer` to determine equality:
+`ApiParameterDescription` is a reference type, so no two parameters would actually be equal by default. To combat this we use a fairly simple `IEqualityComparer` to determine equality:
 
 ```c#
 internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>

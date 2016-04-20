@@ -301,6 +301,24 @@ footer {
 	  margin-top: 20px;
 	  margin-bottom: 20px;
 	}
+	
+.outdated {
+    background-color: #ff3300;
+    border-color: #ff3300;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+}
+
+	.outdated h2, .wip h3 {
+	  color: #fff;
+	  margin-top: 20px;
+	  margin-bottom: 20px;
+	}
 
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome

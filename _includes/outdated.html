@@ -1,0 +1,17 @@
+<div class="wip">
+  <h2>This article is <strong>outdated</strong>!</h2>
+  
+  {% if page.update %}
+  <h3>
+  You can find an up to date version of this article <a href="{% page.update %}">here</a>.
+  </h3>
+  {% else %}
+  Unfortunately, an update to this article is not available. If you would like this article to be updated, drop a comment below or use one of the links at the bottoms of this page to contact me.
+  {% endif %}
+  
+  {% if page.date && page.wip == null %}
+  <p>
+    This draft was published: {{ page.date | date: "%B %e, %Y" }}
+  </p>
+  {% endif %}
+</div>

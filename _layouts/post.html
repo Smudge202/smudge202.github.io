@@ -22,9 +22,12 @@ layout: default
 
 <article class="post">
   <h1>{{ page.title }}</h1>
-  
+
 {% if page.wip %}
   {% include wip.html %}
+{% endif %}
+{% if page.outdated %}
+  {% include outdated.html %}
 {% endif %}
   
   <div class="tags">

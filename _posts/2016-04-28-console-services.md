@@ -2,8 +2,6 @@
 layout: post
 title: Adding Dependency Injection to ASPNET 5 Console Applications
 tags: [aspnet5]
-hidden: true
-wip: true
 ---
 
 As it stands in the RC1-Update1 release of *ASPNET 5* and *DNX*, (soon™ to become *AspNetCore* and the *dotnet CLI* respectively), you are not limited to only creating Web Applications; you can also create Class Libraries and Console Applications. Having been on the proverbial *bandwagon* for quite some time now, I have assisted in getting several ASPNET5 web applications into production, and dozens of class libraries. I recently came across the requirement to introduce a command line interface (CLI) to run some background jobs for one of our sites. In this post I'll explain what I did to not only produce a professional looking CLI, but also to utilise our existing class libraries through dependency injection.

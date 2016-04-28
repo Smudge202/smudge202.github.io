@@ -87,3 +87,74 @@ Once the source has been added (and in most cases, close/open the solution too),
   }
 }
 ```
+
+## Dependency Injection
+
+So we've ~~stolen~~ got a nice Command Line parser from Microsoft, but where's the DI? I expect there are some really good reasons for there not being DI out the box, or in fact used at all in the Microsoft console applications. However, whilst I understand why you might use statics in this case, I couldn't bring myself to do it. Especially given that all of our internal class libraries are typically an `internal sealed class` implementing a `public` interface. I could of course have picked an easy alternative such as code sharing or using `InternalsVisibleToAttribute`, but where's the fun in that!
+
+The first question to answer is, *"Where to inject?"*. This will help us later when we ask *"Where to configure services?"*.
+
+### Where to inject?
+
+Looking through the existing [`CommandLineApplication` code](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs) there are a few candidates. We could set up our bootstrapper to inject at [`Command` level](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs#L46), which currently takes an `Action<CommandLineApplication>` which is executed when the matching command is passed as parameter to your application. This would have been the simplest to achieve, however, for better or for worse, I wanted to be able to inject a different service depending on the `Option`s provided for a command.
+
+Therefore, the logical choice becomes the [`OnExecute` method](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs#L89-L97). It's worth pointing out that the structure nests `CommandLineApplication`s when you add a command, whereby the top level bootstrapper contains a `CommandLineApplication` for each command.
+
+Now we know at what level we want to inject a service, we can look at where would be a logical place to configure services.
+
+### Where to configure services?
+
+Again, there are a couple candidates to pick from here. The pattern we've grown used to from using ASPNET5 Web Applications, is to add our services into the bootstrapper, which is achieved in web applications by said bootstrapper calling the `ConfigureServices` method we mentioned above.
+
+It's time to start extending the imported `CommandLineApplication`. The class is `internal`, but because it's packaged as a build time source package, that's fine; it's considered `internal` to our application too. We can't edit the imported code directly, but we can inherit from the class. I chose to create a class that is also called `CommandLineApplication` which may add to confusion, so you can call it something else if you're struggling with the ambiguous naming.
+
+In order to add services to our bootstrapper, we can add a couple simple members to our inherited `CommandLineApplication` (note, you'll need to add `Microsoft.Extensions.DependencyInjection` to your `project.json` dependencies:
+
+```c#
+using Microsoft.Extensions.DependencyInjection;
+namespace Devbot
+{
+  internal class CommandLineApplication : Microsoft.Dnx.Runtime.Common.CommandLine.CommandLineApplication
+  {
+    private static IServiceCollection ApplicationServices { get; set; }
+    public void UseServices(Action<IServiceCollection> configureServices)
+  	{
+  		var services = new ServiceCollection();
+  		configureServices(services);
+  		ApplicationServices = services;
+  	}
+  }
+}
+```
+
+Nice and simple, we allow application services to be added to the bootstrapper. Assuming you follow the advice given above regarding Service Extensions in your class libraries, you can now add your class library services to your console application in the `Program` class:
+
+```c#
+public class Program
+{
+	public static int Main(string[] args)
+	{
+	  // grab environment data so we can output env info later
+	  var env = PlatformServices.Default.Runtime;
+	
+	  // create the bootstrapper
+	  var app = new CommandLineApplication(); // note, this is our inherited class
+	  app.Name = "example";
+	  app.FullName = "Example Application demonstrating Dependency Injection";
+	 
+	  // add some options to make your CLI look good!
+	  var optionVerbose = app.Option("-v|--verbose", "Show verbose output", CommandOptionType.NoValue);
+		app.HelpOption("-?|-h|--help");
+		app.VersionOption("--version", () => env.GetShortVersion(), () => env.GetFullVersion());
+		
+		// configure services
+		app.UseServices(services => services
+		  .AddMyServices()
+		);
+	}
+}
+```
+
+Great, so now we can configure our services. Next, we need to inject them.
+
+### How to inject services?

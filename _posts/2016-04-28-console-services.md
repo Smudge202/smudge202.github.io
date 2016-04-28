@@ -109,9 +109,10 @@ Hopefully this quick diagram gives you an idea of how the pieces fit together:
 │   │   ├── CommandLineApplication (Command A)
 │   │   │   ├── OnExecute (this is the delegate to execute if a matching command is passed)
 │   │   ├── CommandLineApplication (Command B)
-│   │   │   ├── OnExecute
-etc
+│   │   │   ├── OnExecute (etc..)
 ```
+
+*NB: Each `CommandLineApplication` can have it's own options, too.*
 
 Now we know at what level we want to inject a service, we can look at where would be a logical place to configure services.
 
@@ -147,26 +148,26 @@ Assuming you follow the aforementioned advice regarding Service Extensions in yo
 ```c#
 public class Program
 {
-	public static int Main(string[] args)
-	{
-	  // grab environment data so we can output env info later
-	  var env = PlatformServices.Default.Runtime;
-	
-	  // create the bootstrapper
-	  var app = new CommandLineApplication(); // note, this is our inherited class
-	  app.Name = "example";
-	  app.FullName = "Example Application demonstrating Dependency Injection";
-	 
-	  // add some options to make your CLI look good!
-	  var optionVerbose = app.Option("-v|--verbose", "Show verbose output", CommandOptionType.NoValue);
-		app.HelpOption("-?|-h|--help");
-		app.VersionOption("--version", () => env.GetShortVersion(), () => env.GetFullVersion());
-		
-		// configure services
-		app.UseServices(services => services
-		  .AddMyServices() // <-- add your services here
-		);
-	}
+  public static int Main(string[] args)
+  {
+    // grab environment data so we can output env info later
+    var env = PlatformServices.Default.Runtime;
+    
+    // create the bootstrapper
+    var app = new CommandLineApplication(); // note, this is our inherited class
+    app.Name = "example";
+    app.FullName = "Example Application demonstrating Dependency Injection";
+    
+    // add some options to make your CLI look good!
+    var optionVerbose = app.Option("-v|--verbose", "Show verbose output", CommandOptionType.NoValue);
+    app.HelpOption("-?|-h|--help");
+    app.VersionOption("--version", () => env.GetShortVersion(), () => env.GetFullVersion());
+    
+    // configure services
+    app.UseServices(services => services
+      .AddMyServices() // <-- add your services here
+    );
+  }
 }
 ```
 
@@ -174,4 +175,92 @@ Great, so now we can configure our services. Next, we need to inject them.
 
 ### How to inject services?
 
-This is only slightly more difficult, and only made difficult because I decided to inject at `Option` level
+This is only slightly more difficult, and only made difficult because I decided to inject at `Option` level. The first step is to provide a new overload of the `OnExecute` method:
+
+```c#
+public void OnExecute<TService>(Func<TService, Task<int>> invoke)
+{
+  Invoke = () =>
+  {
+    if (ApplicationServices == null)
+      throw new InvalidOperationException("No services have been configured.");
+    var provider = ApplicationServices.BuildServiceProvider();
+    return invoke(provider.GetRequiredService<Service>()).Result;
+  };
+}
+```
+
+*NB: The imported code provides overloads for both `int`, and `Task<int>`. Feel free to add the `int` variant of the above as a reader's exercise.*
+
+With this last piece of the puzzle in place, you're all set. To utilise the dependency injection, you can create your command:
+
+```c#
+internal static class NoiseCommand
+{
+  public static void UseNoiseCommand(this CommandLineApplication app)
+  {
+    app.Command("speak",
+      c =>
+      {
+        c.Description = "Makes your IAnimal make a noise (different noise for different animal?)";
+        c.OnExecute(async (IAnimal animal) =>  // <- this is where your service gets injected
+        {
+          await animal.SpeakAsync();
+          return 0;
+        });
+      },
+      throwOnUnexpectedArg: true
+    );
+  }
+}
+```
+
+... and the add it to your `Program` class ...
+
+```c#
+public class Program
+{
+  public static int Main(string[] args)
+  {
+    // grab environment data so we can output env info later
+    var env = PlatformServices.Default.Runtime;
+    
+    // create the bootstrapper
+    var app = new CommandLineApplication(); // note, this is our inherited class
+    app.Name = "example";
+    app.FullName = "Example Application demonstrating Dependency Injection";
+    
+    // add some options to make your CLI look good!
+    var optionVerbose = app.Option("-v|--verbose", "Show verbose output", CommandOptionType.NoValue);
+    app.HelpOption("-?|-h|--help");
+    app.VersionOption("--version", () => env.GetShortVersion(), () => env.GetFullVersion());
+    
+    // setup a default execution for when no commands passed
+    app.OnExecute(() =>
+    {
+      app.ShowHelp();
+      return 2;
+    });
+    
+    // configure services
+    app.UseServices(services => services
+      .AddMyServices() // <-- add your services here
+    );
+    
+    app.UseNoiseCommand(); // <-- register your command here
+    
+    app.Execute();
+  }
+}
+```
+
+## Summary
+
+Looking back at this post, it's awfully long-winded! Though, coming up with a means to inject services and implementing the above only actually took 20-30 minutes. I'm keen to get some feedback on:
+
+* Why you shouldn't use DI in your console app?
+* What would be a better/easier/cleaner way to achieve DI in your console app?
+* Would it be easier to provide a sample repository / gist containing all of the code used?
+ 
+It's possibly worth noting that I took matters a step further and use the _tertiary provider_ concept from [Compose](https://github.com/compose-net/compose) so that the application services shown above, are augmented/overridden by services registered at command level. Whilst there were reasons I chose to do this, it's not necessarily I practice I'd recommend as it probably implies some deeper problems. Let me know if you want to see the code for the tertiary provider mechanism.
+

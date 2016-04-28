@@ -96,9 +96,22 @@ The first question to answer is, *"Where to inject?"*. This will help us later w
 
 ### Where to inject?
 
-Looking through the existing [`CommandLineApplication` code](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs) there are a few candidates. We could set up our bootstrapper to inject at [`Command` level](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs#L46), which currently takes an `Action<CommandLineApplication>` which is executed when the matching command is passed as parameter to your application. This would have been the simplest to achieve, however, for better or for worse, I wanted to be able to inject a different service depending on the `Option`s provided for a command.
+Looking through the existing [`CommandLineApplication` code](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs) there are a few candidates. We could set up our bootstrapper to inject at [`Command` level](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs#L46), which currently takes an `Action<CommandLineApplication>` parameter. However, doing so would require a lot more than _extending_ the code we've imported. 
 
 Therefore, the logical choice becomes the [`OnExecute` method](https://github.com/aspnet/Common/blob/dev/src/Microsoft.Extensions.CommandLineUtils/CommandLine/CommandLineApplication.cs#L89-L97). It's worth pointing out that the structure nests `CommandLineApplication`s when you add a command, whereby the top level bootstrapper contains a `CommandLineApplication` for each command.
+
+Hopefully this quick diagram gives you an idea of how the pieces fit together:
+
+```
+├── CommandLineApplication (Top level bootstrapper)
+│   ├── OnExecute (this is the delegate to execute if no command is passed; typically set up to Show Help)
+│   ├── Commands
+│   │   ├── CommandLineApplication (Command A)
+│   │   │   ├── OnExecute (this is the delegate to execute if a matching command is passed)
+│   │   ├── CommandLineApplication (Command B)
+│   │   │   ├── OnExecute
+etc
+```
 
 Now we know at what level we want to inject a service, we can look at where would be a logical place to configure services.
 
@@ -108,7 +121,7 @@ Again, there are a couple candidates to pick from here. The pattern we've grown 
 
 It's time to start extending the imported `CommandLineApplication`. The class is `internal`, but because it's packaged as a build time source package, that's fine; it's considered `internal` to our application too. We can't edit the imported code directly, but we can inherit from the class. I chose to create a class that is also called `CommandLineApplication` which may add to confusion, so you can call it something else if you're struggling with the ambiguous naming.
 
-In order to add services to our bootstrapper, we can add a couple simple members to our inherited `CommandLineApplication` (note, you'll need to add `Microsoft.Extensions.DependencyInjection` to your `project.json` dependencies:
+In order to add services to our bootstrapper, we can add a couple simple members to our inherited `CommandLineApplication` (note, you'll need to add `Microsoft.Extensions.DependencyInjection` to your `project.json` dependencies):
 
 ```c#
 using Microsoft.Extensions.DependencyInjection;
@@ -118,16 +131,18 @@ namespace Devbot
   {
     private static IServiceCollection ApplicationServices { get; set; }
     public void UseServices(Action<IServiceCollection> configureServices)
-  	{
-  		var services = new ServiceCollection();
-  		configureServices(services);
-  		ApplicationServices = services;
-  	}
+    {
+      var services = new ServiceCollection();
+      configureServices(services);
+      ApplicationServices = services;
+    }
   }
 }
 ```
 
-Nice and simple, we allow application services to be added to the bootstrapper. Assuming you follow the advice given above regarding Service Extensions in your class libraries, you can now add your class library services to your console application in the `Program` class:
+Nice and simple, we allow application services to be added to the bootstrapper. We do jump through a bit of a hoop here with regards to accepting an `Action<IServiceCollection>`; whilst there are easier ways to do this, I wanted the consuming code to remain consistent with code you'd find in a `ConfigureServices` method. 
+
+Assuming you follow the aforementioned advice regarding Service Extensions in your class libraries, you can now add your class library services to your console application in the `Program` class:
 
 ```c#
 public class Program
@@ -149,7 +164,7 @@ public class Program
 		
 		// configure services
 		app.UseServices(services => services
-		  .AddMyServices()
+		  .AddMyServices() // <-- add your services here
 		);
 	}
 }
@@ -158,3 +173,5 @@ public class Program
 Great, so now we can configure our services. Next, we need to inject them.
 
 ### How to inject services?
+
+This is only slightly more difficult, and only made difficult because I decided to inject at `Option` level

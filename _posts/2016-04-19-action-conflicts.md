@@ -214,7 +214,36 @@ As you can see, the `DefaultActionSelector` requires several dependencies, but t
 
 By overriding the default implementation, it's important to be aware that this class will get called for **every** request that makes it into the MVC pipeline, so it was equally important to *short-circuit* the execution as quickly as possible for the cases I don't care about. The first two lines achieve that in a fairly simple way, immediately returning if there's 1 or less `actions` (i.e. no conflict).
 
-Whilst I'm sure there are better ways to match a HTTP request to actions, I went with a nice and simple implementation of only returning actions where the number of expected query parameters matched the number of query parameters in the request. In our case, the `GetAddressByPostcode` action expects no query parameters, whilst `GetAddressByPostcodeAndHouseNumber` expects a single query parameter.
+Whilst I'm sure there are better ways to match a HTTP request to actions, I initially went with a nice and simple implementation of only returning actions where the number of expected query parameters matched the number of query parameters in the request. In our case, the `GetAddressByPostcode` action expects no query parameters, whilst `GetAddressByPostcodeAndHouseNumber` expects a single query parameter.
+
+> EDIT 2016-04-29: I later upgraded the above implementation as follows
+
+However, if you want something that matches the expected query parameter names to the request's query parameters, you can use the following:
+
+```c#
+protected override IReadOnlyList<ActionDescriptor> SelectBestActions(IReadOnlyList<ActionDescriptor> actions)
+{
+  if (actions.Count <= 1)
+    return base.SelectBestActions(actions);
+  
+  var queryParameters = _contextAccessor.HttpContext.Request.Query.Select(q => q.Key);
+  return actions
+    .Select(x => new
+     {
+       Action = x,
+       Parameters = x.Parameters
+         .Where(p => p.BindingInfo?.BindingSource.Id == "Query")
+         .Select(p => p.BindingInfo.BinderModelName)
+     })
+     .Where(x => 
+       x.Parameters.Count() == queryParameters.Count() &&
+       !x.Parameters.Except(queryParameters).Any()
+     )
+     .Select(x => x.Action)
+     .ToList()
+     .AsReadOnly();
+}
+```
 
 The final piece of the puzzle is to make one more change to your `Startup` file:
 

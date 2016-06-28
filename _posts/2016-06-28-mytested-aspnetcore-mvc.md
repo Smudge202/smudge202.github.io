@@ -13,18 +13,26 @@ I want to get this out of the way early, but it's worth noting that [My Tested A
 
 ## Overview
 
-Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact that my poor display driver crashed on a works machine), I get the impression that the _My Tested *_ series have been around for a while. I was surprised that I haven't heard of the library before, but hopefully goes towards showing some maturity for the product. I was also surprised to see that the aforementioned pricing model was not used for the previous test products; only the new _ASP.NET Core MVC (Preview)_ iteration.
+Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact that my poor display driver crashed on a works machine), I get the impression that the _My Tested *_ series have been around for a while. I was surprised that I haven't heard of the libraries before, but hopefully it goes towards showing some maturity for the product. I was also surprised to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
 
 At a glance, the framework appears to encompass two key areas:
 
   * Instantiation and Execution of the ASP Pipeline (though it's hard to tell exactly how _involved_ this is).
   * Fluent Assertions (not to be mistaken for the well know [Fluent Assertions](http://www.fluentassertions.com/) framework).
 
-   
+
 ## Fluent Assertions
 
-I'll say now that I'm very disappointed that the _Fluent Assertions_ aspect of the _My Tested ASP.NET Core MVC_ framework wasn't created as an extension of the official [Fluent Assertions Library](https://github.com/dennisdoomen/fluentassertions) (apologies for the ambiguities in that statement). I converse with [Dennis Doomen](https://twitter.com/ddoomen) (author of _Fluent Assertions_) regularly on twitter, through [his blog](http://www.continuousimprover.com/), and every now and then via the [Fluent Assertions Gitter Chat](https://gitter.im/dennisdoomen/FluentAssertions). Dennis has always been very helpful and very open to extending _Fluent Assertions_. It may be that Dennis and Ivaylo did speak at some stage and agreed this was the best approach, but I'd be surprised if that were the case.
+I'll say now that I'm pretty disappointed that the _Fluent Assertions_ aspect of the _My Tested ASP.NET Core MVC_ framework wasn't created as an extension of the official [Fluent Assertions Library](https://github.com/dennisdoomen/fluentassertions) (apologies for the ambiguities in that statement). I converse with [Dennis Doomen](https://twitter.com/ddoomen) (author of _Fluent Assertions_) regularly on twitter, through [his blog](http://www.continuousimprover.com/), and every now and then via the [Fluent Assertions Gitter Chat](https://gitter.im/dennisdoomen/FluentAssertions). Dennis has always been very helpful and very open to extending _Fluent Assertions_; it may be that Dennis and Ivaylo spoke with one another at some stage and agreed that the division be for the best, but I'd be surprised if that were the case.
 
 There are of course other _fluent testing libraries_ such as [Shouldly](https://github.com/shouldly/shouldly) though, whilst I periodically review my personally technology choices, I haven't yet strayed from _Fluent Assertions_ since first discovering it some years ago.
 
-Whatever the reasoning behind the decisions made, I will be comparing the functionality of _My Tested ASP.NET Core MVC_ to mechanisms I would use without it, which for me at least, typically involve using the [Fluent Assertions NuGet Package](https://www.nuget.org/packages/fluentassertions).
+Whatever the reasoning behind the decisions made, I will be comparing the functionality of _My Tested ASP.NET Core MVC_ to mechanisms I would use without it, which for me at least, typically involves using the [Fluent Assertions NuGet Package](https://www.nuget.org/packages/fluentassertions).
+
+## ASP.Net Core Pipeline Testing
+
+The second half of the _My Tested ASP.NET Core MVC_ library appears to be responsible for running your web site to _some_ extent. This is a key point and one I intend to verify as thoroughly as limited time permits.
+
+For better or for worse, several of the _ASPNET 5 RC1_ and _ASPNET Core RC2_ websites I've helped get into production utlise somewhat _advanced_ features, digging deep into the Middleware and intricacies of MVC. To test these features I've always (since becoming aware of it) used the [Microsoft Test Host](https://www.nuget.org/packages/Microsoft.AspNet.TestHost) which has the benefits of not only being simple, but of being the tool of choice for the [ASPNET Team](https://github.com/aspnet).
+
+It's important to note here the difference between _Integration_ testing (for which the MS Test Host is intended) and _Unit_ testing, which I'll discuss separately below. 

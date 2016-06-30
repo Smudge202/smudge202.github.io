@@ -33,6 +33,12 @@ Whatever the reasoning behind the decisions made, I will be comparing the functi
 
 The second half of the _'My Tested ASP.NET Core MVC'_ library appears to be responsible for running your web site to _some_ extent. This is a key point and one I intend to verify as thoroughly as limited time permits.
 
-For better or for worse, several of the _ASP.NET 5 RC1_ and _ASP.NET Core RC2_ websites I've helped get into production utlise somewhat _advanced_ features, digging deep into the Middleware and intricacies of MVC. To test these features I've always (since becoming aware of it) used the [Microsoft Test Host](https://www.nuget.org/packages/Microsoft.AspNet.TestHost) which has the benefits of not only being simple, but of being the tool of choice for the [ASP.NET Team](https://github.com/aspnet).
+For better or for worse, several of the _ASP.NET 5 RC1_ and _ASP.NET Core RC2_ websites I've helped get into production utlise somewhat _advanced_ features, digging deep into the Middleware and intricacies of MVC. To test these features I've always (since becoming aware of it) used the [Microsoft Test Host](https://www.nuget.org/packages/Microsoft.AspNet.TestHost) which has the benefits of not only being simple, but being the tool of choice for the [ASP.NET Team](https://github.com/aspnet).
 
-It's important to note here the difference between _Integration_ testing (for which the MS Test Host is intended) and _Unit_ testing, which I'll discuss separately below. 
+It's important to note here the difference between _Integration_ testing (for which the MS Test Host is intended) and _Unit_ testing, which I'll discuss separately below.
+
+## Comparison
+
+I'm going to run through a series of sample scenarios, testing functionality using both the alternatives I've listed, and _'My Tested ASP.NET Core MVC'_ framework (having typed the framework name _'My...'_ several times now, I can't help but think a catchy name wouldn't go amiss!).
+
+### 

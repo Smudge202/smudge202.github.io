@@ -13,11 +13,11 @@ _The sample code referred to below can be found [here](https://github.com/smudge
 
 ## Pricing
 
-I want to get this out of the way early, but it's worth noting that ['My Tested ASP.NET Core MVC'](https://mytestedasp.net/Core/Mvc), whilst free for personal and open source projects, does have [costs outside of those usages](https://mytestedasp.net/Core/Mvc#pricing). All of the alternatives I've personally used and describe below are completely free, so the cost of _'My Tested ASP.NET Core MVC'_ will definitely be held **against** it.
+I want to get this out of the way early, but it's worth noting that ['My Tested ASP.NET Core MVC'](https://mytestedasp.net/Core/Mvc), whilst free for a [number of people](https://mytestedasp.net/Core/Mvc#free-usage-modal) (personal projects, open source, educational and startup companies), does have [costs outside of those usages](https://mytestedasp.net/Core/Mvc#pricing). All of the alternatives I've personally used and describe below are completely free, so the cost of _'My Tested ASP.NET Core MVC'_ will definitely be held **against** it.
 
 ## Overview
 
-Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, but hopefully it goes towards showing some maturity for the product and not the relative obscurity of my own experience. I was also surprised to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
+Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivayo) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and may even be featured in the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity for the product (and excellent marketing) and not the relative obscurity of my own experience. I was also surprised to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
 
 At a glance, the framework appears to encompass two key areas:
 

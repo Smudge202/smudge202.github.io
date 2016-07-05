@@ -45,7 +45,7 @@ I'm going to run through a series of sample scenarios, testing functionality usi
 
 ### Routing Test
 
-I'm going to try and be unbias and as far as possible in my choice of tests to compare. The first test is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website:
+I'm going to try and be unbias and as fair as possible in my choice of tests to compare. The first test is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website:
 
 ```c#
 [Fact]

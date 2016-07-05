@@ -132,4 +132,34 @@ I then added the View as per normal MVC conventions and ran the actual website w
 
 ## Summary
 
-I had actually intended to perform several comparisons, the first _in favour_ of _'My Tested ASP.NET Core MVC'_, or so I assumed when I literally picked the first test example for the website! If anyone is interested, let me know and I'll add additional examples such as more advanced routing, model binding, and so forth which I anticipated _'My Tested ASP.NET Core MVC'_ struggling with.
+I had originally intended to perform several comparisons, the first _in favour_ of _'My Tested ASP.NET Core MVC'_, or so I assumed when I literally picked the first example from the website! If anyone is interested, let me know and I'll add additional examples such as more advanced routing, model binding, etc. which I anticipated _'My Tested ASP.NET Core MVC'_ struggling with.
+
+As you may tell from my cutting this review short, but my impression so far is that of 'optimistic disappointment'. _'My Tested ASP.NET Core MVC'_ has great potential to provide a fluent API of helpers for testing _ASP.Net Core_ websites. However, there are a number of problems I have with it; all of which I hope can be overcome in time:
+
+### Conclusion
+
+We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occaisions where that isn't true, the contributions have been towards projects of my own making in my own time.
+
+I don't expect monetary reward to ever come about from any of them; in fact if any such project should become even mildly popular I would be much more grateful for the professional acknowledgment implied. The best way for an open source project to drive revenue, in my opinion, is for the industry to become sufficiently enthralled be their experience (and subsequent dependence). Such projects may receive donations from grateful enterprises and individuals alike. Equally pleasant are opportunities like that of [Jon Channon](https://twitter.com/jchannon), who was [sponsored](http://blog.jonathanchannon.com/2016/03/30/vq-communications-funds-coreclr-nancyfx/) to update [NancyFX](http://nancyfx.org/) to _ASP.Net Core_.
+
+The pricing model, as adopted by _'My Tested ASP.NET Core MVC'_ has two problems, in my humble opinion. The first is that there are simply too many well documented alternatives to give it sufficient uptake and prominence. Which, in part, leads to the second problem; those of us who regularly switch between internal commerical projects that would be required to pay for _'My Tested ASP.NET Core MVC'_, and open source projects maintained either in our _"spare"_ time or in addition to our corporate activities, are left in a slightly difficult position.
+
+I would struggle to justify the costs of something so easy to replace or replicate at work, making any expertise gained in out-of-hours activities of much less value. I would need to be aware of **both** sets of practices, and if I know how to do things the _hard_ way, it makes much more sense to practice this out of hours and gain valuable experience which I could not only utilise at work, but better guarantee being a transferable skill should I move on to greener pastures (as opposed to fighting the same cost vs. value of _'My Tested ASP.NET Core MVC'_ again and again).
+
+More than that, the knowledge - albeit basic - of MVC required to form the more conventional tests is yet again well placed expertise in a technology stack I'm clearly utilising.
+
+### Fluent
+
+I don't want to dwell on this aspect given my half-rant above, but how amazing would this library have been if it was a natural extension of _Fluent Assertions_!? I don't know if it's something that either Dennis or Ivaylo share an interest in, but as a consumer, it's certainly something I would greatly appreciate.
+
+### Inaccuracies
+
+And this is, in the end, where the library falls short (for now at least). Two very interesting things happened whilst I was testing _'My Tested ASP.NET Core MVC'_. If you read through the section above about how I changed the parameter name between `dummy` and `id`, I was very clearly of the impression that the routing conformed to that of the default routes in MVC's predecessors. Even more so when I saw my original test pass and fail in accordance with that belief.
+
+However, I, and the library, were wrong. And that happens with a fascinating frequency since _ASP.Net Core's_ release. Yes, I need to re-learn a great number of things, and more importantly, be ever careful with my assumptions. But, whilst I know some would groan at that prospect, it's something I genuinely look forward to. _ASP.Net Core_ has simply done too much that's right, correct too many flaws with the previous ASP.Net stack, and open too many possibilities to justify any grimace at changed functionality between the two technologies.
+
+Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I'll of course listen out for further mentions, and hope what is I'm sure, a minor bug is fixed quickly. But, unless I hear a fair amount of _positive press_ from people I trust, it's not a technology I'll be adopting or advocating.
+
+## Summary
+
+I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst _'My Tested ASP.NET Core MVC'_ may not be a great fit for myself and my peers, it is certainly something I encourage people to contribute towards and keep an eye out for.

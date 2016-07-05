@@ -130,13 +130,13 @@ I then added the View as per normal MVC conventions and ran the actual website w
 
 ![screen shot of website routing the request](https://github.com/smudge202/my-tested-asp-net-core-review/blob/master/imgs/hello-world.png?raw=true)
 
-## Summary
+## Conclusion
 
 I had originally intended to perform several comparisons, the first _in favour_ of _'My Tested ASP.NET Core MVC'_, or so I assumed when I literally picked the first example from the website! If anyone is interested, let me know and I'll add additional examples such as more advanced routing, model binding, etc. which I anticipated _'My Tested ASP.NET Core MVC'_ struggling with.
 
 As you may tell from my cutting this review short, but my impression so far is that of 'optimistic disappointment'. _'My Tested ASP.NET Core MVC'_ has great potential to provide a fluent API of helpers for testing _ASP.Net Core_ websites. However, there are a number of problems I have with it; all of which I hope can be overcome in time:
 
-### Conclusion
+### Pricing
 
 We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occaisions where that isn't true, the contributions have been towards projects of my own making in my own time.
 

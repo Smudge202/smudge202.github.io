@@ -119,15 +119,16 @@ I changed the controller implementation as follows:
 
 ```c#
 public class MyController : Controller
-	{
-		public IActionResult Action(int dummy) => View();
-	}
+{
+	public IActionResult Action(int dummy) => View();
+}
 ```
 
 _Note: The parameter name is still `dummy`, however I am no longer returning a `null`._
 
 I then added the View as per normal MVC conventions and ran the actual website with the same URI the tests were using:
 
+![screen shot of website routing the request](https://github.com/smudge202/my-tested-asp-net-core-review/blob/master/imgs/hello-world.png?raw=true)
 
 ## Summary
 

@@ -43,11 +43,11 @@ It's important to note here the difference between _Integration_ testing (for wh
 
 ## Comparison
 
-I'm going to run through a series of sample scenarios, testing functionality using both the alternatives I've listed, and _'My Tested ASP.NET Core MVC'_ framework (having typed the framework name _'My...'_ several times now, I can't help but think a catchy and _much shorter_ name wouldn't have gone amiss!).
+I'm going to run through a ~series of~ _(see conclusion)_ sample scenario, testing functionality using both the alternatives I've listed, and _'My Tested ASP.NET Core MVC'_ framework (having typed the framework name _'My...'_ several times now, I can't help but think a catchy and _much shorter_ name wouldn't have gone amiss!).
 
 ### Routing Test
 
-I'm going to try and be unbias and as fair as possible in my choice of tests to compare. The first test is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website:
+I'm going to try to be unbias and as fair as possible in my choice of tests to compare. The first test I picked is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website. This was the first test I noticed on the website, however, I've since spoken with Ivaylo and agree that whilst this a supported scenario, the library is much more conversant with Controller tests. For the time being though, here is the routing test I copied from the website:
 
 ```c#
 [Fact]
@@ -158,12 +158,14 @@ I don't want to dwell on this aspect given my half-rant above, but how amazing w
 
 ### Inaccuracies
 
-And this is, in the end, where the library falls short (for now at least). Two very interesting things happened whilst I was testing _'My Tested ASP.NET Core MVC'_. If you read through the section above about how I changed the parameter name between `dummy` and `id`, I was very clearly of the impression that the routing conformed to that of the default routes in _MVC Core_'s predecessors. Even more so when I saw my original test pass and fail in accordance with that belief.
+And this is, in the end, where the library fell short for me (and for now at least). Two very interesting things happened whilst I was testing _'My Tested ASP.NET Core MVC'_. If you read through the section above about how I changed the parameter name between `dummy` and `id`, I was very clearly of the impression that the routing conformed to that of the default routes in _MVC Core_'s predecessors. Even more so when I saw my original test pass and fail in accordance with that belief.
 
-However, I, and the library, were wrong. And that happens with a fascinating frequency since _ASP.Net Core's_ release. Yes, I need to re-learn a great number of things, and more importantly, be ever careful with my assumptions. But, whilst I know some would groan at that prospect, it's something I genuinely look forward to. _ASP.Net Core_ has simply done too much that's right, corrected too many flaws with the previous ASP.Net stack, and opened too many possibilities to justify any grimace at changed functionality between the two technologies.
+However, I, and the library, were apparently wrong. And that happens with a fascinating frequency since _ASP.Net Core's_ release. Yes, I need to re-learn a great number of things, and more importantly, be ever careful with my assumptions. But, whilst I know some would groan at that prospect, it's something I genuinely look forward to. _ASP.Net Core_ has simply done too much that's right, corrected too many flaws with the previous ASP.Net stack, and opened too many possibilities to justify any grimace at changed functionality between the two technologies.
 
-Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I'll of course listen out for further mentions, and hope what is I'm sure a minor bug is fixed quickly. But, unless I hear a fair amount of _positive press_ from people I trust, it's not a technology I'll be adopting or advocating.
+Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I have spoken with Ivaylo considerably since the first draft of this article, and have agreed that condemning _'My Tested ASP.NET Core MVC'_ out of hand as this article might first appear, is not at all _fair_. As mentioned above, the library is much more capable os _controller testing_, and considerations around authorisation and sessions as shown in the [official comparison](https://mytestedasp.net/Core/Mvc/Compare-Tests) will likely place the library in far greater stead. To that end, there are at least 2 more comparisons I intend to make in future articles!
 
 ## Summary
 
-I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst _'My Tested ASP.NET Core MVC'_ may not be a great fit for myself and my peers, it is certainly something I encourage people to contribute towards and keep an eye out for.
+I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst the _'My Tested ASP.NET Core MVC'_ routing issue described above may not make the library a great fit for myself and my peers (yet), it is certainly something I encourage people to contribute towards and keep an eye out for.
+
+I also want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement.

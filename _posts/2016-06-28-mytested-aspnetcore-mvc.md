@@ -160,7 +160,7 @@ And this is, in the end, where the library falls short (for now at least). Two v
 
 However, I, and the library, were wrong. And that happens with a fascinating frequency since _ASP.Net Core's_ release. Yes, I need to re-learn a great number of things, and more importantly, be ever careful with my assumptions. But, whilst I know some would groan at that prospect, it's something I genuinely look forward to. _ASP.Net Core_ has simply done too much that's right, corrected too many flaws with the previous ASP.Net stack, and opened too many possibilities to justify any grimace at changed functionality between the two technologies.
 
-Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I'll of course listen out for further mentions, and hope what is I'm sure, a minor bug is fixed quickly. But, unless I hear a fair amount of _positive press_ from people I trust, it's not a technology I'll be adopting or advocating.
+Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I'll of course listen out for further mentions, and hope what is I'm sure a minor bug is fixed quickly. But, unless I hear a fair amount of _positive press_ from people I trust, it's not a technology I'll be adopting or advocating.
 
 ## Summary
 

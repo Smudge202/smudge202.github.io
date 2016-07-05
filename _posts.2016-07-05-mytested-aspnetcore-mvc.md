@@ -7,6 +7,8 @@ wip: true
 
 I was recently contacted by [Ivaylo Kenov](https://www.linkedin.com/in/kenov) asking if I could take the time to review his new [fluent testing framework](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) for [ASP.NET Core MVC](http://www.asp.net/). The timing of the request was a little unfortunate with the [test library NuGet package](https://www.nuget.org/packages/MyTested.AspNetCore.Mvc) still targetting ASP.NET Core RC2 a couple of days after the [1.0 release](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/). However, one could hardly be expected to update libraries so vehemently, so I thought I'd take a look anyway and compare the functionality to that of alternatives I've used.
 
+> EDIT: Ivaylo has even at time of publishing, already caught the bull by the horns, and released an RTM compatible version yesterday. This article has been written against RC2 variants, but with thanks to Ivaylo, I will try to point out any inaccuracies.
+
 _The sample code referred to below can be found [here](https://github.com/smudge202/my-tested-asp-net-core-review)._
 
 ## Pricing
@@ -29,7 +31,7 @@ I'll say now that I'm pretty disappointed that the _Fluent Assertions_ aspect of
 
 There are of course other _fluent testing libraries_ such as [Shouldly](https://github.com/shouldly/shouldly) though, whilst I periodically review my personally technology choices, I haven't yet strayed from _Fluent Assertions_ since first discovering it some years ago.
 
-Whatever the reasoning behind the decisions made, I will be comparing the functionality of _'My Tested ASP.NET Core MVC'_ to mechanisms I would use without it, which for me at least, typically involves using the [Fluent Assertions NuGet Package](https://www.nuget.org/packages/fluentassertions).
+Whatever the reasoning behind the decisions made, I will be comparing the functionality of _'My Tested ASP.NET Core MVC'_ to mechanisms I would use without it, which for me at least, typically involves using the [Fluent Assertions NuGet Package](https://www.nuget.org/packages/fluentassertions). It is worth mentioning (and praise) however, that whilst the library does not have any formal support for other fluent libraries **yet**, it is [in the pipeline](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/issues/142).
 
 ## ASP.NET Core Pipeline Testing
 

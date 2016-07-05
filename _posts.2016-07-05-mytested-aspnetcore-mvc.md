@@ -164,6 +164,12 @@ However, I, and the library, were apparently wrong. And that happens with a fasc
 
 Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I have spoken with Ivaylo considerably since the first draft of this article, and have agreed that condemning _'My Tested ASP.NET Core MVC'_ out of hand as this article might first appear, is not at all _fair_. As mentioned above, the library is much more capable os _controller testing_, and considerations around authorisation and sessions as shown in the [official comparison](https://mytestedasp.net/Core/Mvc/Compare-Tests) will likely place the library in far greater stead. To that end, there are at least 2 more comparisons I intend to make in future articles!
 
+### Performance
+
+Whilst it is not really evident in the test times shown above (which can hardly be considered anything like performance measurements!) _'My Tested ASP.NET Core MVC'_ is much more intrinsically involved in sub-components of the MVC pipeline. I haven't gone as far as confirming such, but I believe it safe to assume that _'My Tested ASP.NET Core MVC'_ will provide a performance boost over the much heavier integration testing I've shown. 
+
+As a _purist_ of pre-optimisation mantra, I tend to entirely ignore performance until it becomes a problem. However, I know it's crucial that we keep test times to a minimum so that running ever-growing suites of them not become a burden. I haven't hit such an obstacle yet, but should I ever do so, _'My Tested ASP.NET Core MVC'_ would certainly make lowering test times mcuh simpler.
+
 ## Summary
 
 I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst the _'My Tested ASP.NET Core MVC'_ routing issue described above may not make the library a great fit for myself and my peers (yet), it is certainly something I encourage people to contribute towards and keep an eye out for.

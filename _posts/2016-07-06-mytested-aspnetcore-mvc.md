@@ -11,13 +11,13 @@ _The sample code referred to below can be found [here](https://github.com/smudge
 
 ## Pricing
 
-I want to get this out of the way early, but it's worth noting that '[My Tested ASP.NET Core MVC](https://mytestedasp.net/Core/Mvc)', whilst free for a [many uses](https://mytestedasp.net/Core/Mvc#free-usage-modal), does have a [price tag](https://mytestedasp.net/Core/Mvc#pricing). The not-insignificant cost will surely drive expectations ever higher for paying customers, which having conversed with Ivayo considerably since first drafting this article, I'm sure will be met in terms of support. I do hope though that those with paid packages which include the ability to request priority features and bug fixes do not hamper progress of the library or detract value from it. After all, if a paying customer demands a _bad_ feature which by rights is included in their package, will Ivayo be able to say _no_, as would normally be the case in well maintained open source projects?
+I want to get this out of the way early, but it's worth noting that '[My Tested ASP.NET Core MVC](https://mytestedasp.net/Core/Mvc)', whilst free for a [many uses](https://mytestedasp.net/Core/Mvc#free-usage-modal), does have a [price tag](https://mytestedasp.net/Core/Mvc#pricing). The not-insignificant cost will surely drive expectations ever higher for paying customers, which having conversed with Ivaylo considerably since first drafting this article, I'm sure will be met in terms of support. I do hope though that those with paid packages which include the ability to request priority features and bug fixes do not hamper progress of the library or detract value from it. After all, if a paying customer demands a _bad_ feature which by rights is included in their package, will Ivaylo be able to say _no_, as would normally be the case in well maintained open source projects?
 
 On the flip side, I'm glad to see there does not appear to be a feature difference between paid and non-paid; instead the cost is seemingly for sake of licensing and some additional support. However, all of the alternatives I've personally used and describe below are completely free, so the cost of _'My Tested ASP.NET Core MVC'_ will definitely be held **against** it.
 
 ## Overview
 
-Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact, that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivayo since) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and more recently added to the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity (and excellent marketing) for the product and not the relative obscurity of my own experience. 
+Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact, that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivaylo since) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and more recently added to the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity (and excellent marketing) for the product and not the relative obscurity of my own experience. 
 
 Still, I was surprised - and disappointed - to see that the aforementioned pricing model was only used for the new _ASP.NET Core MVC (Preview)_ iteration, not the previous test frameworks.
 
@@ -146,7 +146,7 @@ I could of course delve into the routing mechanisms of MVC, but I assure you, ha
 
 ## Conclusion
 
-I intend to make one or two additional comparisons in my next article, testing out much more advanced features to ensure _'My Tested ASP.NET Core MVC'_ is able to handle it. But, having spoken with Ivayo and reviewed the implementation details of the Fluent API provided, I believe I'd be hard pressed to _trip it up_. The library certainly does things that would either be overly tedious and longwinded, or outright impossible using the mechanisms I've grown used to.
+I intend to make one or two additional comparisons in my next article, testing out much more advanced features to ensure _'My Tested ASP.NET Core MVC'_ is able to handle it. But, having spoken with Ivaylo and reviewed the implementation details of the Fluent API provided, I believe I'd be hard pressed to _trip it up_. The library certainly does things that would either be overly tedious and longwinded, or outright impossible using the mechanisms I've grown used to.
 
 Hooking into the relevant MVC pipeline components when testing has numerous advantages (so long as it is done very well!). _'My Tested ASP.NET Core MVC'_ really is a very good library, which serves only to make my conclusion ever more bittersweet.
 
@@ -184,4 +184,6 @@ I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://ww
 
 ## Thanks
 
-I want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement.
+I often seek advice whilst writing these blog articles, for which [Dan Kirkham](https://twitter.com/herecydev) and [Adam Lee](https://twitter.com/incurus) often concede to my coaxing and help out. But a quick thanks to [Jon Channon](https://twitter.com/jchannon) for his help and review of an earlier draft.
+
+I also want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement. Furthermore, despite an almost scathing first draft of this article, Ivaylo was graceful enough to point out the inaccuracies that would have been a source of embarrassment for me!

@@ -162,7 +162,7 @@ As a _purist_ of pre-optimisation mantra, I tend to entirely ignore performance 
 
 ### Behaviour-Driven Development
 
-One of the comparisons I intend to make in my next article is that of the conversion of a behaviourally driven test, which are the ones I typically use. Whilst I'm sure the unit level testing demonstrated above is important to many people, my company and I prefer the BDD approach. Our tests tend to reflect that and instead describe the behaviour that is important from a product owner's point of view. Whilst that might entail assertations of the _nitty gritty_ detail defined in the tests shown, it's often much broader.
+One of the comparisons I intend to make in my next article is that of the conversion of a behaviourally driven test, which are the ones I typically use. Whilst I'm sure the unit scoped testing demonstrated above is important to many people, my company and I prefer the BDD approach. Our tests tend to reflect that and instead describe the behaviour that is important from a product owner's point of view. Whilst that might entail assertations of the _nitty gritty_ detail defined in the tests shown, it's often much broader.
 
 Whilst I've no doubt that _'My Tested ASP.NET Core MVC'_ could make some of the finer nuances simpler, that's also heavily where the library's emphasis lies. Huge swathes of functionality would be unused by _me and mine_, which makes the cost much harder to burden.
 

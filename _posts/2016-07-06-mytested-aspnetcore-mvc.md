@@ -51,7 +51,7 @@ _Note: having typed the framework name_ 'My...' _several times now, I can't help
 
 ### Routing Test
 
-I'm going to try to be unbias and as fair as possible in my choice of tests to compare. The first test I picked is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website. This was the first test I noticed on the website, however, I've since spoken with Ivaylo and agree that whilst this a supported scenario, the library is much more conversant with Controller tests. For the time being though, here is the routing test I copied from the website:
+I'm going to try to be unbias and as fair as possible in my choice of tests to compare. The first test I picked is a simple routing example taken from the _'My Tested ASP.NET Core MVC'_ website. This was the first test I noticed on the website, however, I've since spoken with Ivaylo and agree that whilst this is a supported scenario, the library is much more conversant with Controller tests. For the time being though, here is the routing test I copied from the website:
 
 ```c#
 [Fact]

@@ -5,21 +5,21 @@ hidden: true
 wip: true
 ---
 
-I was recently contacted by [Ivaylo Kenov](https://www.linkedin.com/in/kenov) asking if I could take the time to review his new [fluent testing framework](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) for [ASP.NET Core MVC](http://www.asp.net/). The timing of the request was a little unfortunate with the [test library NuGet package](https://www.nuget.org/packages/MyTested.AspNetCore.Mvc) still targetting ASP.NET Core RC2 a couple of days after the [1.0 release](https://blogs.msdn.microsoft.com/webdev/2016/06/27/announcing-asp-net-core-1-0/). However, one could hardly be expected to update libraries so vehemently, so I thought I'd take a look anyway and compare the functionality to that of alternatives I've used.
-
-> EDIT: Ivaylo has even at time of publishing, already caught the bull by the horns, and released an RTM compatible version yesterday. This article has been written against RC2 variants, but with thanks to Ivaylo, I will try to point out any inaccuracies.
+I was recently contacted by [Ivaylo Kenov](https://www.linkedin.com/in/kenov) asking if I could take the time to review his new [fluent testing framework](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) for [ASP.NET Core MVC](http://www.asp.net/). I hadn't come across any of Ivaylo's work before, but tend to enjoy evaluating new technologies and frameworks so decided to share my review.
 
 _The sample code referred to below can be found [here](https://github.com/smudge202/my-tested-asp-net-core-review)._
 
 ## Pricing
 
-I want to get this out of the way early, but it's worth noting that ['My Tested ASP.NET Core MVC'](https://mytestedasp.net/Core/Mvc), whilst free for a [number of people](https://mytestedasp.net/Core/Mvc#free-usage-modal) (personal projects, open source, educational and startup companies), does have [costs outside of those usages](https://mytestedasp.net/Core/Mvc#pricing). All of the alternatives I've personally used and describe below are completely free, so the cost of _'My Tested ASP.NET Core MVC'_ will definitely be held **against** it.
+I want to get this out of the way early, but it's worth noting that ['My Tested ASP.NET Core MVC'](https://mytestedasp.net/Core/Mvc), whilst free for a [many uses](https://mytestedasp.net/Core/Mvc#free-usage-modal), does have a [price tag](https://mytestedasp.net/Core/Mvc#pricing). The not-insignificant cost will surely drive expectations ever higher for paying customers, which having conversed with Ivayo considerably since first drafting this article, I'm sure will be met in terms of support. I do hope though, that those that pay for packages that include the ability to request priority features and bug fixes do not hamper progress of the library or detract value from it. After all, if a paying customer demands a _bad_ feature which by rights is included in their package, will Ivayo be able to say _no_, as would normally be the case in well maintained open source projects?
+
+On the flip side, I'm glad to see there does not appear to be a feature difference between paid and non-paid; instead the cost is seemingly for sake of licensing and some additional support. However, all of the alternatives I've personally used and describe below are completely free, so the cost of _'My Tested ASP.NET Core MVC'_ will definitely be held **against** it.
 
 ## Overview
 
-Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivayo) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and may even be featured in the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity for the product (and excellent marketing) and not the relative obscurity of my own experience. 
+Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact, that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivayo since) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and more recently added to the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity (and excellent marketing) for the product and not the relative obscurity of my own experience. 
 
-Still, I was surprised to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
+Still, I was surprised - and disappointed - to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
 
 At a glance, the framework appears to encompass two key areas:
 

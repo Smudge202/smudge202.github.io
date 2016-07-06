@@ -47,7 +47,7 @@ It's important to note here the difference between _Integration_ testing for whi
 
 I'm going to run through a sample scenario for the remainder of this article, and plan to add at least one follow up article with additional comparisons. I'll be testing functionality using both the alternatives I've listed, and _'My Tested ASP.NET Core MVC'_ framework 
 
-*Note: having typed the framework name _'My...'_ several times now, I can't help but think a catchy and _much shorter_ name wouldn't have gone amiss!.*
+_Note: having typed the framework name_ 'My...' _several times now, I can't help but think a catchy and_ much shorter _name wouldn't have gone amiss!._
 
 ### Routing Test
 

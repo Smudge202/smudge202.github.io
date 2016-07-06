@@ -23,7 +23,7 @@ Still, I was surprised - and disappointed - to see that the aforementioned prici
 
 At a glance, the framework appears to encompass two key areas:
 
-  * Instantiation and Execution of the ASP Pipeline (though it's hard to tell exactly how _involved_ this is from the website).
+  * Instantiation and execution of the ASP Pipeline (though it's hard to tell exactly how _involved_ this is from the website).
   * Fluent Assertions (not to be mistaken for the well know [Fluent Assertions](http://www.fluentassertions.com/) framework).
 
 

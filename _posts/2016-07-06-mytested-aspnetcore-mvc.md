@@ -60,7 +60,7 @@ public void MyControllerShouldHaveRouteForActionWithId()
 	MyMvc
 	.Routes()
 	.ShouldMap(request => request
-		.WithMethod(HttpMethod.Post.Method)
+		.WithMethod(HttpMethod.Post)
 		.WithPath("/My/Action/1"))
 	.To<MyController>(c => c.Action(1));
 }

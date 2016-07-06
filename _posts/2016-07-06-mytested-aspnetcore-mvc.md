@@ -138,7 +138,7 @@ I then added the View as per normal MVC conventions and ran the actual website w
 
 ![screen shot of website routing the request](https://github.com/smudge202/my-tested-asp-net-core-review/blob/master/imgs/hello-world.png?raw=true)
 
-> A big thanks to some unnamed friends for pointing out my obvious mistakes here, and especially to Ivaylo for taking the time to try and explain the rror in my ways.
+> A big thanks to some unnamed friends for pointing out my obvious mistakes here, and especially to Ivaylo for taking the time to try and explain the error in my ways.
 
 Yes, the request does in fact route to the controller action, but because my `dummy` parameter does not match the `id` parameter of the default route, and because the `id` parameter in the default route is optional, MVC has invoked the method with my `dummy` parameter unbound (i.e. `dummy == default(int) == 0`). Well, whilst obvious in hindsight, it certainly wasn't what I expected. Unless my Controller actually utilises the parameter so how (echoing it back in the View or passing the parameter to another service) there is in fact no way for me to test the route binding with the Test Host in the manner _'My Tested ASP.NET Core MVC'_ has. Or at least, I can't think of a way.
 

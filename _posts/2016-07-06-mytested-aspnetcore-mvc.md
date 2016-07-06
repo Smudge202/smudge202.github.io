@@ -19,7 +19,7 @@ On the flip side, I'm glad to see there does not appear to be a feature differen
 
 Having scanned the very [fancy website](https://mytestedasp.net/) (so fancy in fact, that my poor display driver crashed on a works machine), I get the impression that the _'My Tested *'_ series has been around for a while. I was surprised that I haven't heard of the libraries before, especially after some research (and tactful nudges from Ivayo since) revealed that the library has been both featured in a [.Net Blog](https://blogs.msdn.microsoft.com/dotnet/2016/06/28/the-week-in-net-6282016/), and more recently added to the [MVC Repository](https://github.com/aspnet/Mvc/issues/4905). Hopefully this goes towards showing some maturity (and excellent marketing) for the product and not the relative obscurity of my own experience. 
 
-Still, I was surprised - and disappointed - to see that the aforementioned pricing model was not used for the previous test frameworks; only the new _ASP.NET Core MVC (Preview)_ iteration.
+Still, I was surprised - and disappointed - to see that the aforementioned pricing model was only used for the new _ASP.NET Core MVC (Preview)_ iteration, not the previous test frameworks.
 
 At a glance, the framework appears to encompass two key areas:
 

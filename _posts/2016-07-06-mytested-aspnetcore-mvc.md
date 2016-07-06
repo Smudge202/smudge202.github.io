@@ -140,7 +140,7 @@ I then added the View as per normal MVC conventions and ran the actual website w
 
 > A big thanks to some unnamed friends for pointing out my obvious mistakes here, and especially to Ivaylo for taking the time to try and explain the error in my ways.
 
-Yes, the request does in fact route to the controller action, but because my `dummy` parameter does not match the `id` parameter of the default route, and because the `id` parameter in the default route is optional, MVC has invoked the method with my `dummy` parameter unbound (i.e. `dummy == default(int) == 0`). Well, whilst obvious in hindsight, it certainly wasn't what I expected. Unless my Controller actually utilises the parameter so how (echoing it back in the View or passing the parameter to another service) there is in fact no way for me to test the route binding with the Test Host in the manner _'My Tested ASP.NET Core MVC'_ has. Or at least, I can't think of a way.
+Yes, the request does in fact route to the controller action, but because my `dummy` parameter does not match the `id` parameter of the default route, and because the `id` parameter in the default route is optional, MVC has invoked the method with my `dummy` parameter unbound (i.e. `dummy == default(int) == 0`). Well, whilst obvious in hindsight, it certainly wasn't what I first expected. Unless my Controller actually utilises the parameter somehow (echoing it back in the View or passing the parameter to another service) there is in fact no way for me to test the route binding with the Test Host in the manner _'My Tested ASP.NET Core MVC'_ has. Or at least, I can't think of a way.
 
 I could of course delve into the routing mechanisms of MVC, but I assure you, having tinkered in routing, that would be **far** more involved.
 

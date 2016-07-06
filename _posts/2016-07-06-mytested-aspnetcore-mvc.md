@@ -1,8 +1,6 @@
 ---
 layout: post
-title: Review of 'My Tested ASP.NET' for ASP.NET Core
-hidden: true
-wip: true
+title: First Look at 'My Tested ASP.NET' for ASP.NET Core
 ---
 
 I was recently contacted by [Ivaylo Kenov](https://www.linkedin.com/in/kenov) asking if I could take the time to review his new [fluent testing framework](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) for [ASP.NET Core MVC](http://www.asp.net/). I hadn't come across any of Ivaylo's work before, but tend to enjoy evaluating new technologies and frameworks so decided to share my review.
@@ -188,4 +186,4 @@ I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://ww
 
 I often seek advice whilst writing these blog articles, for which [Dan Kirkham](https://twitter.com/herecydev) and [Adam Lee](https://twitter.com/incurus) often concede to my coaxing and help out. But a quick thanks to [Jon Channon](https://twitter.com/jchannon) for his help and review of an earlier draft.
 
-I also want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement. Furthermore, despite an almost scathing first draft of this article, Ivaylo was graceful enough to point out the inaccuracies that would have been a source of embarrassment for me!
+I also want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended (which he will no doubt overcome), than any form of discouragement. Furthermore, despite an almost scathing first draft of this article, Ivaylo was graceful enough to point out the inaccuracies that would have otherwise been somewhat embarrassing for me!

@@ -74,7 +74,7 @@ public class MyController
 }
 ```
 
-I expect the above test to compile, but still fail because the default route added by MVC expects the parameter of my action to be called `id` in order for the route to succeed. The test does in fact fail with the following message:
+I expect the above test to compile, but still fail because the default route added by MVC expects the parameter of my action to be called `id` in order for the route to succeed. If we examine the [UseMvcWithDefaultRoute](https://github.com/aspnet/Mvc/blob/2e2784aa3d2a2abead5d3366714ddcc4cd63f14f/src/Microsoft.AspNetCore.Mvc.Core/Builder/MvcApplicationBuilderExtensions.cs#L43-L56) call present in my website's `Startup` class, we can confirm the default route is `{controller=Home}/{action=Index}/{id?}` (note it specifically looks for a parameter by the name of `id`). The test further validates this because it does in fact fail with the following message:
 
 ```
 Test Name:	MyControllerShouldHaveRouteForActionWithId
@@ -86,7 +86,7 @@ Result Message:	Expected route '/My/Action/1' to contain route value with 'dummy
 
 That's good. And changing the parameter name to `id` allows the test to pass as expected.
 
-The alternate implementation is [somewhat complicated]() because it is not possible to test routes in MVC directly without mocking and instantiating significant amounts of the MVC pipeline. Therefore, the advice is typically simply to run the test as an _integration test_, as follows:
+The alternate implementation is [somewhat complicated](http://stackoverflow.com/questions/32114999/unit-testing-routing-in-asp-net-core-1-0-ex-mvc-6) because it is not possible to test routes in MVC directly without mocking and instantiating significant amounts of the MVC pipeline. Therefore, the advice is typically simply to run the test as an _integration test_, as follows:
 
 ```c#
 [Fact]
@@ -107,9 +107,9 @@ Whilst I suspect there are other ways to achieve the desired result such as dire
 
 _In actual fact, I utilised a number of helper methods I've built up over the last few months, so the test, when I first created it, only contained 3 lines of much more readable code; but I added the relevant helper method code to the test to show it fairly._
 
-I want to say now, I didn't write the above _conventional_ code in any way at all to try and catch out _'My Tested ASP.NET Core MVC'_ or vice versa. It genuinely is the practice we follow at my company to perform most of our tests. Clearly, the practice I've used is much more inline with what we consider _integration_ testing, because the test will literally run the startup defined in my actual Web Site, it will actually host a web server, and then call into it with the specified URI and HTTP Content.
+I want to say now, I didn't write the above _conventional_ code in any way at all to try and catch out _'My Tested ASP.NET Core MVC'_ or vice versa. It genuinely is the practice we follow at my company to perform most of our tests. Clearly, the practice I've used is much more inline with what we consider _integration_ testing, because the test will literally run the startup defined in my actual Web Site, it will actually _host_ a web server, and then call into it with the specified URI and HTTP Content.
 
-In light of the result of that test, having reset the Action parameter back to `dummy` to allow the test to fail, I can only assume that the integration level testing is _not_ what occurs in _'My Tested ASP.NET Core MVC'_:
+I was very surprised at first to see the result of that test:
 
 ```
 Test Name:	MyControllerShouldHaveRouteForActionWithId
@@ -119,7 +119,7 @@ Test Duration:	0:00:00.578
 Result Message:	Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
 ```
 
-Purely (and genuinely) by accident, I managed to create a controller that could not be used. What's more interesting than the difference in exceptions here, is that `MyController.Action` is in fact called by the second test; it must be in order for MVC to recognise the fact that I'm returning a null. Which means, the second test has in fact routed to the controller with the `dummy` named parameter, whilst _'My Tested ASP.NET Core MVC'_ did not.
+I had accidentally created a controller that could not be used because you're not allowed to return null, as decribed in the message above. What's more interesting than the difference in exceptions here, is that `MyController.Action` is in fact called by the second test; it must be in order for MVC to recognise the fact that I'm returning a null. Which means, the second test has in fact routed to the controller with the `dummy` named parameter, whilst _'My Tested ASP.NET Core MVC'_ did not.
 
 The most important question then, is which of the two tests are correct?
 
@@ -138,17 +138,39 @@ I then added the View as per normal MVC conventions and ran the actual website w
 
 ![screen shot of website routing the request](https://github.com/smudge202/my-tested-asp-net-core-review/blob/master/imgs/hello-world.png?raw=true)
 
+> A big thanks to some unnamed friends for pointing out my obvious mistakes here, and especially to Ivaylo for taking the time to try and explain the rror in my ways.
+
+Yes, the request does in fact route to the controller action, but because my `dummy` parameter does not match the `id` parameter of the default route, and because the `id` parameter in the default route is optional, MVC has invoked the method with my `dummy` parameter unbound (i.e. `dummy == default(int) == 0`). Well, whilst obvious in hindsight, it certainly wasn't what I expected. Unless my Controller actually utilises the parameter so how (echoing it back in the View or passing the parameter to another service) there is in fact no way for me to test the route binding with the Test Host in the manner _'My Tested ASP.NET Core MVC'_ has. Or at least, I can't think of a way.
+
+I could of course delve into the routing mechanisms of MVC, but I assure you, having tinkered in routing, that would be **far** more involved.
+
 ## Conclusion
 
-I had originally intended to perform several comparisons, the first _in favour_ of _'My Tested ASP.NET Core MVC'_, or so I assumed when I literally picked the first example from the website! If anyone is interested, let me know and I'll add additional examples such as more advanced routing, model binding, etc. which I anticipated _'My Tested ASP.NET Core MVC'_ struggling with.
+I intend to make one or two additional comparisons in my next article, testing out much more advanced features to ensure _'My Tested ASP.NET Core MVC'_ is able to handle it. But, having spoken with Ivayo and reviewed the implementation details of the Fluent API provided, I believe I'd be hard pressed to _trip it up_. The library certainly does things that would either be overly tedious and longwinded, or outright impossible using the mechanisms I've grown used to.
 
-As you may tell from my cutting this review short, but my impression so far is that of 'optimistic disappointment'. _'My Tested ASP.NET Core MVC'_ has great potential to provide a fluent API of helpers for testing _ASP.Net Core_ websites. However, there are a number of problems I have with it; all of which I hope can be overcome in time:
+Hooking into the relevant MVC pipeline components when testing has numerous advantages (so long as it is done very well!). _'My Tested ASP.NET Core MVC'_ really is a very good library, which serves only to make my conclusion ever more bittersweet.
+
+### Fluent
+
+I don't want to dwell on this aspect given my half-rant above, but how amazing would this library have been if it was a natural extension of _Fluent Assertions_!? I don't know if it's something that either Dennis or Ivaylo share an interest in, but as a consumer, it's certainly something I would greatly appreciate. Hopefully I can nag both of them to get some action on this!
+
+### Performance
+
+Whilst it is not really evident in the test times shown above (which can hardly be considered anything like performance measurements!) _'My Tested ASP.NET Core MVC'_ is much more intrinsically involved in sub-components of the MVC pipeline. I haven't gone as far as confirming such, but I believe it safe to assume that _'My Tested ASP.NET Core MVC'_ will provide a performance boost over the much heavier integration testing I've shown. 
+
+As a _purist_ of pre-optimisation mantra, I tend to entirely ignore performance until it becomes a problem. However, I know it's crucial that we keep test times to a minimum so that running ever-growing suites of them not become a burden. I haven't hit such an obstacle yet, but should I ever do so, _'My Tested ASP.NET Core MVC'_ would certainly make lowering test times much simpler.
+
+### Behaviour-Driven Development
+
+One of the comparisons I intend to make in my next article is that of the conversion of a behaviourally driven test, which are the ones I typically use. Whilst I'm sure the unit level testing demonstrated above is important to many people, my company and I prefer the BDD approach. Our tests tend to reflect that and instead describe the behaviour that is important from a product owner's point of view. Whilst that might entail assertations of the _nitty gritty_ detail defined in the tests shown, it's often much broader.
+
+Whilst I've no doubt that _'My Tested ASP.NET Core MVC'_ could make some of the finer nuances simpler, that's also heavily where the library's emphasis lies. Huge swathes of functionality would be unused by me and mine, which makes the cost much harder to burden.
 
 ### Cost
 
-We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occaisions where that isn't true, the contributions have been towards projects of my own making in my own time.
+We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occaisions where that isn't true, the contributions have been towards projects of my own making, in my own time.
 
-I don't expect monetary reward to ever come about from any of them; in fact if any such project should become even mildly popular I would be much more grateful for the professional acknowledgment implied. The best way for an open source project to drive revenue, in my opinion, is for the industry to become sufficiently enthralled by their experience (and subsequent dependence). Such projects may receive donations from grateful enterprises and individuals alike. Equally pleasant are opportunities like that of [Jon Channon](https://twitter.com/jchannon), [James Humphries](https://twitter.com/yantrio), and [Andreas Håkansson](https://twitter.com/thecodejunkie) who were [sponsored](http://blog.jonathanchannon.com/2016/03/30/vq-communications-funds-coreclr-nancyfx/) to update [NancyFX](http://nancyfx.org/) to _ASP.Net Core_.
+I don't expect monetary reward to ever come about from any of them; in fact if any such project should become even mildly popular I would be much more grateful for the professional acknowledgment implied. The best way for an open source project to drive revenue, in my opinion, is for the industry to become sufficiently enthralled by their experience (and subsequent dependence). Such projects may receive donations from grateful enterprises and individuals alike. Equally pleasant are opportunities like that of [Jon Channon](https://twitter.com/jchannon), [James Humphries](https://twitter.com/yantrio), and [Andreas Håkansson](https://twitter.com/thecodejunkie) who were [sponsored](http://blog.jonathanchannon.com/2016/03/30/vq-communications-funds-coreclr-nancyfx/) to update [NancyFX](http://nancyfx.org/) to _ASP.Net Core_, and I'm sure they are not alone in these sponsorship deals.
 
 The pricing model, as adopted by _'My Tested ASP.NET Core MVC'_ has two problems, in my humble opinion. The first is that there are simply too many well documented alternatives to give it sufficient uptake and prominence. Which, in part, leads to the second problem; those of us who regularly switch between internal commerical projects that would be required to pay for _'My Tested ASP.NET Core MVC'_, and open source projects maintained either in our _"spare"_ time or in addition to our corporate activities, are left in a slightly difficult position.
 
@@ -156,26 +178,10 @@ I would struggle to justify the costs of something so easy to replace or replica
 
 More than that, the knowledge - albeit basic - of MVC required to form the more conventional tests is yet again well placed expertise in a technology stack I'm clearly utilising.
 
-### Fluent
-
-I don't want to dwell on this aspect given my half-rant above, but how amazing would this library have been if it was a natural extension of _Fluent Assertions_!? I don't know if it's something that either Dennis or Ivaylo share an interest in, but as a consumer, it's certainly something I would greatly appreciate.
-
-### Inaccuracies
-
-And this is, in the end, where the library fell short for me (and for now at least). Two very interesting things happened whilst I was testing _'My Tested ASP.NET Core MVC'_. If you read through the section above about how I changed the parameter name between `dummy` and `id`, I was very clearly of the impression that the routing conformed to that of the default routes in _MVC Core_'s predecessors. Even more so when I saw my original test pass and fail in accordance with that belief.
-
-However, I, and the library, were apparently wrong. And that happens with a fascinating frequency since _ASP.Net Core's_ release. Yes, I need to re-learn a great number of things, and more importantly, be ever careful with my assumptions. But, whilst I know some would groan at that prospect, it's something I genuinely look forward to. _ASP.Net Core_ has simply done too much that's right, corrected too many flaws with the previous ASP.Net stack, and opened too many possibilities to justify any grimace at changed functionality between the two technologies.
-
-Between the points above, and the subsequently knocked faith in the accuracy of _'My Tested ASP.NET Core MVC'_ as a result of the incorrect assertation, it's not something I would typically pursue any further. I have spoken with Ivaylo considerably since the first draft of this article, and have agreed that condemning _'My Tested ASP.NET Core MVC'_ out of hand as this article might first appear, is not at all _fair_. As mentioned above, the library is much more capable os _controller testing_, and considerations around authorisation and sessions as shown in the [official comparison](https://mytestedasp.net/Core/Mvc/Compare-Tests) will likely place the library in far greater stead. To that end, there are at least 2 more comparisons I intend to make in future articles!
-
-### Performance
-
-Whilst it is not really evident in the test times shown above (which can hardly be considered anything like performance measurements!) _'My Tested ASP.NET Core MVC'_ is much more intrinsically involved in sub-components of the MVC pipeline. I haven't gone as far as confirming such, but I believe it safe to assume that _'My Tested ASP.NET Core MVC'_ will provide a performance boost over the much heavier integration testing I've shown. 
-
-As a _purist_ of pre-optimisation mantra, I tend to entirely ignore performance until it becomes a problem. However, I know it's crucial that we keep test times to a minimum so that running ever-growing suites of them not become a burden. I haven't hit such an obstacle yet, but should I ever do so, _'My Tested ASP.NET Core MVC'_ would certainly make lowering test times mcuh simpler.
-
 ## Summary
 
-I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst the _'My Tested ASP.NET Core MVC'_ routing issue described above may not make the library a great fit for myself and my peers (yet), it is certainly something I encourage people to contribute towards and keep an eye out for.
+I'm grateful to see the [.Net Core](http://dot.net) and [ASP.Net Core](http://www.asp.net/) ecosystem so quickly grow and thrive. The drive for technologies we all depend upon to move to _Net Standard_ (or compatible, at least) has been something I've tried to help with for well over a year now, and something I hope to continue as time and work permits. Whilst the issues I've described may not make  _'My Tested ASP.NET Core MVC'_ a great fit for myself and my peers (yet), it is certainly something I encourage people to contribute towards and keep an eye out for.
 
-I also want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement.
+## Thanks
+
+I want to thank Ivaylo personally. Having conversed, I believe this article will be considered much more the _challenge_ I intended to provide, which he will no doubt overcome, than any form of discouragement.

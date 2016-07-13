@@ -39,7 +39,7 @@ Whatever the reasoning behind the decisions made thus far, I will be comparing t
 
 The second half of the _'My Tested ASP.NET Core MVC'_ library appears to be responsible for running your web site to _some_ extent. This is a key point and one I intend to verify as thoroughly as limited time permits.
 
-For better or for worse, several of the websites I've helped get into production, from _ASP.NET 5 RC1_, _ASP.NET Core RC2_, through to _ASP.Net Core RTM_, utlise slightly _advanced_ features, digging deep into the Middleware and intricacies of MVC (as you may recall from my previous article on [action conflict resolution](blog.devbot.net/action-conflicts/)). To test these features I've always - since becoming aware of it - used the [Microsoft Test Host](https://www.nuget.org/packages/Microsoft.AspNet.TestHost) which has the benefits of not only being simple, but being the tool of choice for the [ASP.NET Team](https://github.com/aspnet).
+For better or for worse, several of the websites I've helped get into production, from _ASP.NET 5 RC1_, _ASP.NET Core RC2_, through to _ASP.Net Core RTM_, utlise slightly _advanced_ features, digging deep into the Middleware and intricacies of MVC (as you may recall from my previous article on [action conflict resolution](http://blog.devbot.net/action-conflicts/)). To test these features I've always - since becoming aware of it - used the [Microsoft Test Host](https://www.nuget.org/packages/Microsoft.AspNet.TestHost) which has the benefits of not only being simple, but being the tool of choice for the [ASP.NET Team](https://github.com/aspnet).
 
 It's important to note here the difference between _Integration_ testing for which the MS Test Host is intended, and _Unit_ testing. It _can_ be simple to test the code within a Controller method through Unit testing, but when you start involving routing attributes, constraints, model binding, authorization, and any number of additional MVC features, most of which will rely upon MVC features we tend to take for granted, things become much more complicated. Both the approaches I show below are able to account for these additional features, though I've yet to examine just how far _'My Tested ASP.NET Core MVC'_ is able to go considering it does not take the heavy approach of starting a Test Server, instead tying itself directly into the services responsbile for these MVC features.
 
@@ -47,7 +47,7 @@ It's important to note here the difference between _Integration_ testing for whi
 
 I'm going to run through a sample scenario for the remainder of this article, and plan to add at least one follow up article with additional comparisons. I'll be testing functionality using both the alternatives I've listed, and _'My Tested ASP.NET Core MVC'_ framework 
 
-_Note: having typed the framework name_ 'My...' _several times now, I can't help but think a catchy and_ much shorter _name wouldn't have gone amiss!._
+_Note: having typed the framework name_ 'My...' _several times now, I can't help but think a catchy and_ much shorter _name wouldn't have gone amiss!_
 
 ### Routing Test
 
@@ -152,7 +152,7 @@ Hooking into the relevant MVC pipeline components when testing has numerous adva
 
 ### Fluent
 
-I don't want to dwell on this aspect given my half-rant above, but how amazing would this library have been if it was a natural extension of _Fluent Assertions_!? I don't know if it's something that either Dennis or Ivaylo share an interest in, but as a consumer, it's certainly something I would greatly appreciate. Hopefully I can nag both of them to get some action on this!
+I don't want to dwell on this aspect given my half-rant above, but how amazing would this library have been if it was a natural extension of _Fluent Assertions_!? I don't know if it's something that either Dennis or Ivaylo share an interest in, but as a consumer, it's certainly something I would greatly appreciate. Hopefully, I can nag both of them to get some action on this!
 
 ### Performance
 
@@ -168,7 +168,7 @@ Whilst I've no doubt that _'My Tested ASP.NET Core MVC'_ could make some of the 
 
 ### Cost
 
-We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occaisions where that isn't true, the contributions have been towards projects of my own making, in my own time.
+We all like to be paid for the hard work we do. With the world of collaboration growing, and resources from online services to NuGet packages increasingly made available, it's easy to forget how much work may have gone into a feature we take for granted. However, with regards to open source software, I've always been a strong believer in writing for one's self. The packages I've published and repositories I've collaborated on have almost always related and contributed to the progress of a project at work, and in rare occasions where that isn't true, the contributions have been towards projects of my own making, in my own time.
 
 I don't expect monetary reward to ever come about from any of them; in fact if any such project should become even mildly popular I would be much more grateful for the professional acknowledgment implied. The best way for an open source project to drive revenue, in my opinion, is for the industry to become sufficiently enthralled by their experience (and subsequent dependence). Such projects may receive donations from grateful enterprises and individuals alike. Equally pleasant are opportunities like that of [Jon Channon](https://twitter.com/jchannon), [James Humphries](https://twitter.com/yantrio), and [Andreas Håkansson](https://twitter.com/thecodejunkie) who were recently [sponsored](http://blog.jonathanchannon.com/2016/03/30/vq-communications-funds-coreclr-nancyfx/) to update [NancyFX](http://nancyfx.org/) to _ASP.Net Core_, and I'm sure they are not alone in these sponsorships.
 

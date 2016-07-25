@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Clean Space Game
+title: Clean Space - The Game
 tags: [clean-space, game-development]
 ---
 

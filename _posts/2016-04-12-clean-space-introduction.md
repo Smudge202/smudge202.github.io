@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Clean Space Introduction
+title: Clean Space - Introduction
 tags: [clean-space, game-development]
 ---
 

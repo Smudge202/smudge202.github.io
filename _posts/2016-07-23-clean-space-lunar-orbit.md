@@ -13,13 +13,13 @@ In this article I'm going to delve into some of the science behind the explorati
 
 _Moon orbiting the Sun, locked to the Earth. [Image from Wiki](https://commons.wikimedia.org/wiki/File:Moon_trajectory1.svg)_
 
-As is hopefully evident from the image above, the [Earth-Moon system](https://en.wikipedia.org/wiki/Orbit_of_the_Moon#Path_of_Earth_and_Moon_around_Sun) is better considered as a [_binary planet_](https://en.wikipedia.org/wiki/Double_planet) than the more typical images depicting Moon's orbit of Earth. The acceleration of gravity applied to the moon by the Sun(~0.00596m/s$^2$) is actually twice that of the force applied to the moon from Earth (~0.0026967m/s$^2$).
+As is hopefully evident from the image above, the [Earth-Moon system](https://en.wikipedia.org/wiki/Orbit_of_the_Moon#Path_of_Earth_and_Moon_around_Sun) is better considered as a [_binary planet_](https://en.wikipedia.org/wiki/Double_planet) than the more typical images depicting Moon's orbit of Earth. The acceleration of gravity applied to the moon by the Sun (~0.00596m/s$^2$) is actually twice that of the force applied to the moon from Earth (~0.0026967m/s$^2$).
 
 ## Clean Space
 
 For those of you new here or whom glazed over the [_Clean Space Introduction_](http://blog.devbot.net/clean-space-introduction/), _Clean Space_ is the game I'm working on. I've been defining the game in day dreams and thought for at least a decade, but finally decided I had the capacity to make it a reality about 6 months ago. I've barely scratched the surface for game content so far, but the planning is well underway and there are some substantial amounts of code tucked away in private repositories as I work through the early stages. 
 
-I have built a great support group so far to assist with design decisions, discussions over theoretical physics, and have several people keen to help out with (or at least peek at) the codebase. Despite a great deal of advice to the contrary (and apparent lack of sane judgement), my _first_ game is set to be a **massive** undertaking. When asked, I tend to repeat that I don't believe the game will even be in demo stages for at least another 24 months. However, I plan to share as much of the journey as I can through blogs like these, and the odd technical demonstration.
+I have built a great support group so far to assist with design decisions, discussions over theoretical physics, and have several people keen to help out with (or at least peek at) the codebase. Despite a great deal of advice to the contrary (and apparent lack of sane judgement), my _first_ game is set to be a **massive** undertaking. When asked, I tend to repeat that I don't believe the game will even be in demo stages for at least another 24 months. However, I plan to share as much of the journey as I can through blogs like these, the odd technical demonstration, and a couple game design [revelations](http://blog.devbot.net/clean-space-lunar-orbit/#independent-observation) along the way.
 
 ## Goal
 
@@ -66,7 +66,7 @@ Well, first and foremost, the spacecraft is able to get the distance from itself
 
 Given these little facts, we can calculate the distance between the Earth and Moon easily enough, using the [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines): $c^2 = a^2 + b^2 - 2ab {cos C}$ where _C_ denotes the angle between _a_ (the length between Earth and the vehicle) and _b_ (the length between the Moon and the vehicle), opposite from _c_ (the distance between Earth and Moon).
 
-_Note that the case of_ a, A, _etc. is important. Lowercase for a length, uppercase for an angle._
+_Note that the case of_ a _or_ A _is important. Lowercase for a length, uppercase for an angle._
 
 We have at this point the distance between each body, allowing us to use the [law of sines](https://en.wikipedia.org/wiki/Law_of_sines) to get the 2 remaining angles if required (${a \over sin A} = {b \over sin B} = {c \over sin C} = d$ where _d_ is the diameter of the triangle's circumcircle).
 
@@ -102,7 +102,7 @@ _`π` is [pi](https://en.wikipedia.org/wiki/Pi) for those that may have forgotte
 
 Whilst _Clean Space_ is based largely on real world physics, I don't intend to force all of the above down the throats of a player. For all the scientific simulation that goes on, I know that this _game_ needs to be much more _game_ than _second job_. At the same time, I want to reward those that do take the time to understand the physics.
 
-So why does all of the above science are laborious equations matter? 
+So why does all of the above science and laborious equations matter? 
 
 _Actually, the above is a very simple basis to get your toes wet..._
 
@@ -128,6 +128,6 @@ Forming adequate information to accurately and efficiently perform astrogation i
 
 ## Summary
 
-I truly wish I had the time to put my money where my mouth is, but the real world comes first and we've all got bills to pay. Hopefully, it's evident just how magnificent a task I've set for myself. Whilst I hope the prospect excites you, you're just going to have to hang in there for the evidence of all this posturing to come to fruition.
+I truly wish I had the time to put my money where my mouth is, but the real world comes first and we've all got bills to pay. Hopefully, it's evident just how magnificent a task I've set for myself. Whilst I hope the prospect excites you, you're just going to have to hang in there for evidence of all this posturing to come to fruition.
 
 For the same reason it's much too early to reveal any gameplay footage, it's also the perfect time to submit your ideas. They don't need to be scientifically sound - trust me, mine are dubious at best. But if there's something you'd like to add, something you'd like to see in _Clean Space_, the sooner the better. Drop a comment below or use one of the icons at the bottom of the page to contact me!  

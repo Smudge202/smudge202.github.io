@@ -4,7 +4,7 @@ layout: default
 
 <div class="posts">
   {% for post in site.posts %}
-    {% if post.hidden %}
+    {% if jekyll.environment == "production" and post.hidden %}
     {% else %}
     <article class="post">
 
@@ -15,6 +15,11 @@ layout: default
       </div>
 
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+      {% if post.hidden %}
+      <div class="wip">
+        <span>WIP</span>
+      </div>
+      {% endif %}
     </article>
     {% endif %}
   {% endfor %}

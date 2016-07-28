@@ -82,7 +82,7 @@ The speed at which the satellite (Moon) moves:
 
 {% raw %} $$v = \sqrt{{G \cdot M} \over R}$$ {% endraw %} 
 
-where _G_ is the gravitational constant we discussed earlier, _M_ is the mass of the body being orbited (Earth), and _R_ is the radius of orbit for the satellite body (the distance between the Earth and the Moon we discovered earlier). See how this is all coming together yet?
+where _G_ is the gravitational constant we discussed earlier, _M_ is the mass of the body being orbited (Earth), and _R_ is the radius of orbit for the satellite body (the distance between the centre of the Earth and the centre of the Moon that we discovered above). See how this is all coming together yet?
 
 _NB: The above only works for a circular orbit, but let's keep this first lesson simple._
 

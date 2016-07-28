@@ -51,7 +51,7 @@ I'm not going to try to teach people to suck eggs, but to ensure my readers (you
 
 The greater the mass, the greater the gravity. We actually tend to refer to that resulting force as an _acceleration_, so that the force of gravity on the surface of Earth, for example, is 9.78 to 9.83 m/s$^2$ (meters per second per second). The force of gravity is **incredibly weak** despite the profound effect it has on our day to day lives, which might explain why it's so difficult to measure the [_gravitational constant_](https://en.wikipedia.org/wiki/Gravitational_constant).
 
-This is perhaps an interesting subject; when I began working on _Clean Space_ I simply picked the first value for the gravitational constant I could find on wiki, and got on with my life. I recently revisited the fundamental physics of the game engine ([Clean Engine](https://github.com/clean-development/engine)) and was dismayed by the huge number of supposed _constants_ I was coming across, leading to a very interesting [article by Lisa Zyga](http://phys.org/news/2015-04-gravitational-constant-vary.html). For the sake of the remainder of this article however, as interesting as toying with the idea of a variable gravitational _constant_ might be (<- hint), we'll use the value `6.673889E-11`. 
+This is perhaps an interesting subject; when I began working on _Clean Space_ I simply picked the first value for the gravitational constant I could find on wiki, and got on with my life. I recently revisited the fundamental physics of the game engine ([Clean Engine](https://github.com/clean-development/engine)) and was dismayed by the huge number of supposed _constants_ I was coming across, leading to a very interesting [article by Lisa Zyga](http://phys.org/news/2015-04-gravitational-constant-vary.html). For the sake of the remainder of this article however, as interesting as toying with the idea of a variable gravitational _constant_ might be (that's a hint towards a future article), we'll use the value `6.673889E-11`. 
 
 _NB: For those that have forgotten how exponents work, the_ `E` _can be replaced with $$\times 10^x$$, or simply move the decimal point the given number of digits either to the right for positive, or left for negative exponents._
 
@@ -106,9 +106,11 @@ _NB: It's worth noting that there are a great number of assumptions necessary fo
 
 For anyone that's managed to get a vehicle into [Kerbin](http://wiki.kerbalspaceprogram.com/wiki/Kerbin) orbit in the game _Kerbal Space Program_, the basic concepts of orbital manoeuvres have, I'm sure, made themselves aware. If a vehicle is [orbiting a body](https://en.wikipedia.org/wiki/Orbit#Understanding_orbits) (be it a planet, a star, anything), to attain a lower (closer) orbit, you don't _burn_ towards the body, like you might (and I once did) think. Instead, you thurst in the opposite direction to your orbital trajectory which is known as [retrograde](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion), and similarly thrust _prograde_ to attain a higher (further) orbit. What's more interesting is that, assuming you started in a circular orbit, applying thrust will most effect the opposite side of your orbit, pushing it away or towards the body being orbited (depending on whether your thrust is prograde or retrograde respectively), changing the _eccentricity_ of the orbit either towards a collision (suborbital), or a _parabolic_/_hyperbolic_ escape trajectory.
 
+![prograde thrust](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/5529bcf1-89d5-4019-a792-063215648814.png?updated=1469707434554)
+
 Therefore, to go from a circular orbit, to another circular orbit, you would typically require 2 periods of thrust. One that changes the opposite side of your orbit, which you then _coast_ around to, before thrusting again to circularise the orbit.
 
-_TODO: Add some diagrams..._
+![circularised orbit](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/cc1b3110-20dd-4496-8cf4-6eb0fc9495e0.png?updated=1469707753596)
 
 ## Putting the pieces together
 

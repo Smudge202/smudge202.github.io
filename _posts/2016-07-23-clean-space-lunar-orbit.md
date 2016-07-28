@@ -57,7 +57,7 @@ _NB: For those that have forgotten how exponents work, the_ `E` _can be replaced
 
 ### Law of Cosines
 
-So, our exploration ship has attained orbit around Earth. It's sensors have located a satellite body (the Moon), and it's time to get our geek on. So, what information can get from observing these two objects?
+So, our exploration ship has attained orbit around Earth. It's sensors have located a satellite body (the Moon), and it's time to get our geek on. So, what information can we get from observing these two objects?
 
 ![spacecraft orbiting earth](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/56764aa8-6a9e-4e0b-b4bf-873558e164f0.png?updated=1469416250650)
 _<sup>NB: Clearly not to scale</sup>_

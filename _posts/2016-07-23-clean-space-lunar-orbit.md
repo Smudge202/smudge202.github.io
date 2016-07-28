@@ -64,7 +64,7 @@ _<sup>NB: Clearly not to scale</sup>_
 
 Well, first and foremost, the spacecraft is able to get the distance from itself to the Earth and the Moon (even modern day technology can achieve this so I won't go into detail). From it's position, it should also be able to extrapolate the radius of both bodies which is required to get the distance from the vehicle to the _centre_ of both the Earth and Moon, not simply the distance from itself to the surface of each body as would be measured (the calculation could be done using the surfaces if required, but it becomes slightly more complicated). 
 
-Given these little facts, we can calculate the distance between the Earth and Moon easily enough, using the [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines): $c^2 = a^2 + b^2 - 2ab {cos C}$ where _C_ denotes the angle between _a_ (the length between Earth and the vehicle) and _b_ (the length between the Moon and the vehicle), opposite from _c_ (the distance between Earth and Moon).
+Given these little facts, we can calculate the distance between the Earth and Moon easily enough, using the [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines): $c^2 = a^2 + b^2 - 2ab \cdot cos C$ where _C_ denotes the angle between _a_ (the length between Earth and the vehicle) and _b_ (the length between the Moon and the vehicle), opposite from _c_ (the distance between Earth and Moon).
 
 _Note that the case of_ a, A, _etc. is important. Lowercase for a length, uppercase for an angle._
 

@@ -100,7 +100,23 @@ And finally, the length of time it takes for the satellite to complete an orbit:
 
 _`π` is [pi](https://en.wikipedia.org/wiki/Pi) for those that may have forgotten._
 
-### Independent Observation
+_NB: It's worth noting that there are a great number of assumptions necessary for the rudimentary calculations above to work accurately, such as the observed bodies being spherical (which isn't always the case in the real world). However, given this game universe is one of my own making, I do have the luxury of enforcing these assumptions as contraints should I choose._
+
+### Celestial Mechanics
+
+For anyone that's managed to get a vehicle into [Kerbin](http://wiki.kerbalspaceprogram.com/wiki/Kerbin) orbit, the basic concepts of orbital manoeuvres have I'm sure made themselves aware. If a vehicle is [orbiting a body](https://en.wikipedia.org/wiki/Orbit#Understanding_orbits) (be it a planet, a star, anything), to attain a lower (closer) orbit, you don't _burn_ towards the body, like you might (and I once did) think. Instead, you thurst in the opposite direction to your orbital trajectory which is known as [retrograde](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion), and similarly thrust _prograde_ to attain a higher (further) orbit. What's more interesting is that, assuming you started in a circular orbit, applying thrust will most effect the opposite side of your orbit, pushing it away or towards the body being orbited (depending on whether your thrust is prograde or retrograde respectively), changing the _eccentricity_ of the orbit either into a collision (suborbital), or a _parabolic_/_hyperbolic_ escape trajectory.
+
+Therefore, to go from a circular orbit, to another circular orbit, you would typically require 2 periods of thrust. One that changes the opposite side of your orbit, which you then _coast_ around to, before thrusting again to circularise the orbit.
+
+_TODO: Add some diagrams..._
+
+## Putting the pieces together
+
+If you combine all of the above, there's a great number of things our exploration spacecraft can observe, measure, extrapolate, and assume. By plotting the orbital trajectory of bodies, we can ascertain the [_gravitational parameters_](https://en.wikipedia.org/wiki/Standard_gravitational_parameter) (μ) of the bodies involved. If the _gravitational constant_ is known, we can extrapolate the mass of bodies. We might even begin to make assumptions of density from observed mass (versus body volume) to take a guess at heavy metal likelihoods.
+
+There are a great number of things we can learn from vehicles such as this. Which leads us to how this applies to _Clean Space_.
+
+## Independent Observation
 
 Whilst _Clean Space_ is based largely on real world physics, I don't intend to force all of the above down the throats of a player. For all the scientific simulation that goes on, I know that this _game_ needs to be much more _game_ than _second job_. At the same time, I want to reward those that do take the time to understand the physics.
 
@@ -116,13 +132,13 @@ Think about that for a moment. No, really. Consider the implications.
 
 I mentioned in a [previous article](http://127.0.0.1:4000/clean-space-game/#technicalities) the limitations that would be enforced upon the world with regards to the _speed of information_. That in itself makes for an interesting mechanic that I don't believe I've seen in other games. But this little revelation brings upon a whole new scale.
 
-#### Research
+### Research
 
 The game design behind _research_ in _Clean Living_ is so unique that it'll require at least one article unto itself to fully describe. However, consider for a moment that your typical _technology tree_ isn't rail-roaded. Not only you, but all the AI of your _faction/race_ has but a foundation knowledge when the game begins. It understands all the real world science we know of today, and a limited amount of the aforementioned _theoretical intermingling_.
 
 However, to _learn_ more about the universe, and to increase one's understanding and technology, you can't simply sink some resource into a hypothetical project and after an allotted time have something revealed to you by the game engine. You actually have to explore, make observations that challenge your current [_mis_]understanding of the universe about you. You have to design, fabricate, and trial experimental equipment, and only through subsequent observations and refining of techniques can you hope to learn more about the theoretical physics the sneaky programmer has put into the world.
 
-#### Exploration
+### Exploration
 
 The only scientific consequence I've come across when exploring in other games is perhaps stumbling across some artifact that provides some form of _boost_ to the explorer. In _Clean Space_, the role of exploration will be like nothing I've seen simulated before.
 

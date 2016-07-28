@@ -116,7 +116,7 @@ Therefore, to go from a circular orbit, to another circular orbit, you would typ
 
 If you combine all of the above, there's a great number of things our exploration spacecraft can observe, measure, extrapolate, and assume. By plotting the orbital trajectory of bodies, we can ascertain the [_gravitational parameters_](https://en.wikipedia.org/wiki/Standard_gravitational_parameter) (μ) of the bodies involved. If the _gravitational constant_ is known, we can extrapolate the mass of bodies. We might even begin to make assumptions of density from observed mass (versus body volume) to take a guess at heavy metal likelihoods.
 
-There are a great number of things we can learn from vehicles such as this. Which leads us to how this applies to _Clean Space_.
+There are a great many ways exploration can and will effect the game, and it will evidently be crucial to have a basic understanding to be at all competent in the game. I love the prospect of teaching (hopefully not too incorrectly) physics and astrology to people playing the game, though can hopefully make it _fun_. So, let's see how all this science might apply to _Clean Space_.
 
 ## Independent Observation
 

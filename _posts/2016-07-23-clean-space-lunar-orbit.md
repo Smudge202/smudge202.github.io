@@ -66,7 +66,7 @@ Well, first and foremost, the spacecraft is able to get the distance from itself
 
 Given these little facts, we can calculate the distance between the Earth and Moon easily enough, using the [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines): $c^2 = a^2 + b^2 - 2ab \cdot cos C$ where _C_ denotes the angle between _a_ (the length between Earth and the vehicle) and _b_ (the length between the Moon and the vehicle), opposite from _c_ (the distance between Earth and Moon).
 
-_Note that the case of_ a, A, _etc. is important. Lowercase for a length, uppercase for an angle._
+_Note that the case of_ a, A, _etc. is important. Lowercase for a length, uppercase for an angle. You may also notice that the_ Law of Cosines _shares a striking resemblance with [Pythagorean theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem), which it is. While Pythagoras' theorem is intended for right triangles, the_ Law of Cosines _work with any triangles, which is made more evident when you realise that $cos(90) = 0$, which means for right triangles, the $2ab \cdot cos C$ can essentially be ignored, bringing us back to Pyhtagoras' theorem._
 
 We have at this point the distance between each body, allowing us to use the [law of sines](https://en.wikipedia.org/wiki/Law_of_sines) to get the 2 remaining angles if required (${a \over sin A} = {b \over sin B} = {c \over sin C} = d$ where _d_ is the diameter of the triangle's circumcircle).
 

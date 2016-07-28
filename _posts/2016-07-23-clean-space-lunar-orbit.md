@@ -100,7 +100,7 @@ And finally, the length of time it takes for the satellite to complete an orbit:
 
 _`π` is [pi](https://en.wikipedia.org/wiki/Pi) for those that may have forgotten._
 
-_NB: It's worth noting that there are a great number of assumptions necessary for the rudimentary calculations above to work accurately, such as the observed bodies being spherical (which isn't always the case in the real world). However, given this game universe is one of my own making, I do have the luxury of enforcing these assumptions as contraints should I choose._
+_NB: It's worth noting that there are a great number of assumptions necessary for the rudimentary calculations above to work accurately, such as the observed bodies being spherical (which isn't always the case in the real world). However, given this game universe is one of my own making, I do have the luxury of enforcing these assumptions as contraints, should I choose._
 
 ### Celestial Mechanics
 
@@ -120,7 +120,7 @@ There are a great number of things we can learn from vehicles such as this. Whic
 
 Whilst _Clean Space_ is based largely on real world physics, I don't intend to force all of the above down the throats of a player. For all the scientific simulation that goes on, I know that this _game_ needs to be much more _game_ than _second job_. At the same time, I want to reward those that do take the time to understand the physics.
 
-So why does all of the above science are laborious equations matter? 
+So why does all of the above science and laborious equations matter? 
 
 _Actually, the above is a very simple basis to get your toes wet..._
 

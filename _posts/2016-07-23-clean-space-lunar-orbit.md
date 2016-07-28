@@ -47,7 +47,7 @@ Let's also assume, that the _unexplored_ system in question (through the perspec
 
 I'm not going to try to teach people to suck eggs, but to ensure my readers (you) have the basics under wraps, I'll very briefly mention gravity.
 
-> The force that attracts a body towards any other physical body having mass.
+> The force that attracts a physical body towards any other physical body.
 
 The greater the mass, the greater the gravity. We actually tend to refer to that resulting force as an _acceleration_, so that the force of gravity on the surface of Earth, for example, is 9.78 to 9.83 m/s$^2$ (meters per second per second). The force of gravity is **incredibly weak** despite the profound effect it has on our day to day lives, which might explain why it's so difficult to measure the [_gravitational constant_](https://en.wikipedia.org/wiki/Gravitational_constant).
 
@@ -126,7 +126,7 @@ So why does all of the above science and laborious equations matter?
 
 _Actually, the above is a very simple basis to get your toes wet..._
 
-There are 2 reasons. The first, as I'm sure you could guess, is that the game engine for _Clean Living_ uses all this science to simulate the game universe (no pun intended). Using mechanisms like the above (typically using [_functions over time_](https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion#Position_as_a_function_of_time) to achieve the performance required), the engine intermingles real world physics with vasts amount of theoretical physics. This is a **difficult** task, and at least in part explains why the development time of the game will go on for years.
+There are 2 reasons. The first, as I'm sure you could guess, is that the game engine for _Clean Space_ uses all this science to simulate the game universe (no pun intended). Using mechanisms like the above (typically using [_functions over time_](https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion#Position_as_a_function_of_time) to achieve the performance required), the engine intermingles real world physics with vasts amount of theoretical physics. This is a **difficult** task, and at least in part explains why the development time of the game will go on for years.
 
 However, the second and much more _fun_ reason, is that unlike any game I've **ever** played, _Clean Space_ does not simply _reveal_ these facts about the universe to the player. Moreover, it doesn't reveal these facts to the _AI_!
 

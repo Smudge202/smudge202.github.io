@@ -13,7 +13,7 @@ In this article I'm going to delve into some of the science behind the explorati
 
 _Moon orbiting the Sun, locked to the Earth. [Image from Wiki](https://commons.wikimedia.org/wiki/File:Moon_trajectory1.svg)_
 
-As is hopefully evident from the image above, the [Earth-Moon system](https://en.wikipedia.org/wiki/Orbit_of_the_Moon#Path_of_Earth_and_Moon_around_Sun) is better considered as a [_binary planet_](https://en.wikipedia.org/wiki/Double_planet) than the more typical images depicting Moon's orbit of Earth. The acceleration of gravity applied to the moon by the Sun(~0.00596m/s$^2$) is actually twice that of the force applied to the moon from Earth (~0.0026967m/s$^2$).
+As is hopefully evident from the image above, the [Earth-Moon system](https://en.wikipedia.org/wiki/Orbit_of_the_Moon#Path_of_Earth_and_Moon_around_Sun) is better considered as a [_binary planet_](https://en.wikipedia.org/wiki/Double_planet) orbiting the sun than the more typical images depicting Moon's orbit of Earth. The acceleration of gravity applied to the Moon by the Sun(~0.00596m/s$^2$) is actually twice that of the force applied to the moon from Earth (~0.0026967m/s$^2$).
 
 ## Clean Space
 
@@ -29,7 +29,7 @@ In short, I wanted to flesh out the technical and scientific realities of explor
 
   > Our **solar system** is the ONLY **solar system**; everything else is a **stellar** or **star** system.
 
-_NB: I actually refer to other systems as_ **star** systems _normally (since learning the above), but calling them_ **stellar** systems _hopefully caught your attention._ 
+_NB: I actually refer to other systems as_ **star** systems _normally (since learning the above), but calling them_ **stellar** systems _hopefully caught your attention. Our_ star system _is named for our star, whose Latin name is "Sol" (Solar)_. 
 
 Of course, we tend to _confuse_ ourselves with a naming quite a lot (the "moon", the "sun" and so forth), but _correcting_ those neural pathways of our childhood (and the adult life of a layman) can be trickier than you might think. If you continue to read these articles, prepare yourself for that particular aspect. Whilst we can _intellectually_ accept these corrections and are often already aware of them, it takes a long time before it becomes _natural_. The number and size of differences between the over-simiplified lessons of our youth and subsequent assumptions are truly staggering. Don't be at all surprised though if I misrepresent something because I've fallen pray to the more natural tendencies myself!
 

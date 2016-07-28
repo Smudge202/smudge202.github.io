@@ -70,7 +70,7 @@ _Note that the case of_ a, A, _etc. is important. Lowercase for a length, upperc
 
 You may also notice that the _Law of Cosines_ shares a striking resemblance with [Pythagorean theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem). While Pythagoras' theorem is intended for right triangles, the _Law of Cosines_ works with any triangles, which is made more evident when you realise that $cos(90) = 0$, which means for right triangles, the $2ab \cdot cos(C)$ can essentially be ignored, bringing us back to Pyhtagoras' theorem.
 
-We have at this point the distance between each body, allowing us to use the [law of sines](https://en.wikipedia.org/wiki/Law_of_sines) to get the 2 remaining angles if required (${a \over sin A} = {b \over sin B} = {c \over sin C} = d$ where _d_ is the diameter of the triangle's circumcircle).
+We have at this point the distance between each body, allowing us to use the [law of sines](https://en.wikipedia.org/wiki/Law_of_sines) to get the 2 remaining angles if required (${a \over sin A} = {b \over sin B} = {c \over sin C} = d$ where _d_ is the diameter of the triangle's circumcircle). With the 3 lengths and 3 angles of the triangle between our spacecraft, the Earth, and the Moon, we can begin delving into orbital mechanics.
 
 ### Kepler
 

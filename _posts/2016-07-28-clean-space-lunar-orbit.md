@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Clean Space - The Moon does NOT orbit the Earth
-hidden: true
-wip: true
 math: true
 tags: [clean-space, game-development]
 ---

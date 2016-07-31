@@ -27,7 +27,7 @@ Easy. Just store some names in a database somewhere, track it against an entity 
 
 ### Balance
 
-Certainly, I could take the above approach. In fact, many might argue I _should_ take that approach and iteratively improve upon the design as further requirements crop up. However, for the sake of pragmatism, a software developer will often find themselves trying to walk the thin line of balancing _naviety_ versus _future proofing_. Both are equally bad for a product.
+Certainly, I could take the above approach. In fact, many might argue I _should_ take that approach and iteratively improve upon the design as further requirements crop up. However, for the sake of pragmatism, a software developer will often find themselves trying to walk the thin line of balancing _naivety_ versus _future proofing_. Both are equally bad for a product.
 
 Fortunately, I have a fair amount of knowledge to draw upon from my commercial experience here, so the first thing to do before writing a single line of code, is start _fleshing out_ the requirements. I have to constantly swap between my _Product Owner_ and _Developer_ hats given that this is a one-man-team for now. However, let's step through each of the requirements which, after hours of heated debate infront of a mirror, I've managed to agree with myself.
 

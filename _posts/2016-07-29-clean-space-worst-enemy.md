@@ -41,7 +41,7 @@ Product Owners I've worked with can attest to the fact that I often play devil's
 
 With that in mind, let's take a look at the requirements, features, and game content we can derive from that _simple_ unique constraint. 
 
-_The following sections use [cucumber](https://cucumber.io/)/[gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin)/[specflow](http://www.specflow.org/) syntax which is a great way to communicate between product owners and development teams_.  
+_The following sections use [cucumber](https://cucumber.io/)/[gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin)/[specflow](http://www.specflow.org/) syntax which is a great way to communicate between product owners and development teams, whilst providing [living documentation](https://en.wikipedia.org/wiki/Living_document)_.  
 
 #### Golden Path
 

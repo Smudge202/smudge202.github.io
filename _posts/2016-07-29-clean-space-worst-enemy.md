@@ -13,7 +13,7 @@ Whether you're a game developer, or write software for large corporate enterpris
 _Image from [9gag](http://9gag.com/)_
 {: style="font-size: 12px; text-align: center;"}
 
-In this article, I'm going to examine a [user story](https://en.wikipedia.org/wiki/User_story) for _Clean Space_, which I hope will demonstrate how much thought should be put into these scenarios and provide amples hints regarding game content.
+In this article, I'm going to examine a [user story](https://en.wikipedia.org/wiki/User_story) for _Clean Space_, which I hope will demonstrate how much thought should be put into these scenarios and provide ample hints regarding game content.
 
 ## User Story
 
@@ -37,7 +37,7 @@ Fortunately, I have a fair amount of knowledge to draw upon from my commercial e
 
 We start by getting the seemingly obvious ones out of the way. Being technically minded, the most immediate constraint that comes to mind are whether vehicle names should be _unique_. This begs the question, what should we do when a name is not unique? I could of course tell the user _"tough luck, that name has been used"_, but I can think of several cases where that would be a shoddy experience, at best, for the end user. Conversely, I could have no unique constraints at all. However, the _product owner_ in me feels like offering unique identities to players improves immersion and might introduce interesting mechanics. Examining these cases can be laborious, but in doing so we should discover features we hadn't previously considered and can decide whether or not those features should be included. 
 
-Product Owners I've worked with can attest to the fact that I often play devil's advocate during sprint planning sessions. They've come to understand (I hope!) that I don't question the stories so pendantically as any attempt of malice, simply as a matter of professionalism. I'm not trying to complicate things, I'm trying to offer considerations and side effects that may have been overlooked. Whether they are addressed or not is a question for the product owners, but as someone that takes pride in my code, I need to consider all the states my software might be exposed to. By examining these cases I can try to ensure my code doesn't collapse upon itself the second it's exposed to an end user. We'll never foresee all possible eventualities, but that doesn't mean we shouldn't give them some thought!
+Product Owners I've worked with can attest to the fact that I often play devil's advocate during sprint planning sessions. They've come to understand (I hope!) that I don't question the stories so pedantically as any attempt of malice, simply as a matter of professionalism. I'm not trying to complicate things, I'm trying to offer considerations and side effects that may have been overlooked. Whether they are addressed or not is a question for the product owners, but as someone that takes pride in my code, I need to consider all the states my software might be exposed to. By examining these cases I can try to ensure my code doesn't collapse upon itself the second it's exposed to an end user. We'll never foresee all possible eventualities, but that doesn't mean we shouldn't give them some thought!
 
 With that in mind, let's take a look at the requirements, features, and game content we can derive from that _simple_ unique constraint. 
 

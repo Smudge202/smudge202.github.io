@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Clean Space - Developer's Worst Enemy
-hidden: true
-wip: true
 tags: [clean-space, game-development]
 ---
 

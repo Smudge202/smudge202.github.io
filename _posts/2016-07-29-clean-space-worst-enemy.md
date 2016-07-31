@@ -51,7 +51,7 @@ Given the name "HMSC Enterprise" has not been used before
 When a user tries to name their vehicle "HMSC Enterprise"
 Then the vehicle name "HMSC Enterprise" is allowed to be registered
 ```
-_NB: As I've mentioned previously, I've tried very hard to distinguish space flight from the traditional naval perspectives that Sci-Fiction generally depicts. Therefore,_ "HMSC" _stands for "Her/His Majesty's Space Craft", and hopefully no_ Clean Space _article uses the word "ship"_. 
+_NB: As I've mentioned previously, I've tried very hard to distinguish space flight from the traditional naval perspectives that Science-Fiction generally depicts. Therefore,_ "HMSC" _stands for "Her/His Majesty's Space Craft", and hopefully no_ Clean Space _article uses the word "ship"_. 
 
 I like to always start with a _golden path_ requirement, using the simplest possible case in [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to define some code structure. That code will inevitably change as further requirements are introduced, but I'd rather have something wrong _on paper_ than have nothing at all written down.
 

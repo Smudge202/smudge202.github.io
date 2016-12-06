@@ -17,7 +17,7 @@ _Clean Space_ intends to not only provide me with a great learning resource and 
 
 To that end, _Clean Space_ has the self-imposed _limitation_ of being entirely written in C# (plus [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) if you include the tests, `xaml` if you include the UWP forms, etc). So to, is [Clean Engine](https://github.com/clean-development/engine) _(the game engine used)_. The _rendering_ engine used, be it _Unity_, _MonoGame_, or similar, of course may use other languages, but they're not my concern.
 
-# Engines
+## Engines
 
 Some of you may have done a double-take of that last paragraph. Most people consider _Unity_ and _MonoGame_ to be _Game Engines_, certainly if you navigate to the [Unity3D Home Page](https://unity3d.com/), it says "Unity - Game Engine" in the page title. So why do I need _Clean Engine_ ontop of a _game engine_? 
 
@@ -25,17 +25,17 @@ The problem with _traditional_ game engines is the [game loop](http://gameprogra
 
 So, I need to consider _asynchrony_. But as the .Net `async/await` keywords prove, _asynchrony_ does not simply mean _multi-threaded_. There's more to it than that.
 
-# Async/Await
+## Async/Await
 
 Contrary to what seems to be popular misunderstanding, the `async` and `await` keywords are not about creating new threads to run tasks. Whilst [`Task.Run`](https://msdn.microsoft.com/en-us/library/system.threading.tasks.task.run(v=vs.110).aspx) can queue work on the ThreadPool, that's not where the power of these keywords exist. Lower level Windows API's for I/O use [completion callback mechanisms](https://msdn.microsoft.com/en-us/library/windows/desktop/ms684124(v=vs.85).aspx), which allow us to _yield_ threads instead of wasting them waiting for I/O. So long as you understand the potential pitfalls, it can be immensely powerful, and simple.
 
 The model is so widely adopted across the .Net ecosystem, even technologies as old as WinForms now allow async UI event handlers. But, _Game Loops_ in _Unity_ and _MonoGame_ do not. It's somewhat baffling as to why such widely adopted game _frameworks_ don't support `async/await`. Certainly, these models were not around when the frameworks first hit the market, but the same can be said for WinForms. As will be explained in this and future articles, the mechanisms used by _Clean Engine_ and _Clean Space_ rely heavily, where possible, on eventual consistency. That the code is designed to facilitate and encourage event sourcing and CQRS _(Command Query Repsonsisiblity Segregation)_, makes having access to asynchronous API's all but crucial.
 
-# Dependency Injection
+## Dependency Injection
 
 //TODO: link to ioc shizzle, brief desc, etc.
 
-# Layering
+## Layering
 
 For a long time I was unable to decide which of the traditional C# game engines I wanted to use for the rendering of _Clean Space_. I still find myself switching between _Unity_ and _Monogame_ as one or t'other drives me into a rage with a lack of documentation, poor tooling, broken and confusing APIs... The practice of switching between these frameworks however has been very beneficial. Where possible, _Clean Engine_ has evolved to provide abstractions to which _Clean Space_ can be written against, with pluggable implementations available for the underlying rendering engines. This has had the added bonus of allowing me to improve upon those APIs, hiding away noise and workarounds.
 
@@ -43,5 +43,5 @@ It is upon this layer that _Clean Engine_ provides it's improved game design mod
 
 However, I have not abstracted the underlying frameworks completely, just for the sake of having done so. Almost all of the modelling, textures, lighting, cameras, and general rendering concepts are left untouched. These tend to be the most volatile components, especially in the case of _MonoGame_. I don't believe there would be significant benefit to having abstracted both frameworks, especially given the ongoing maintenance cost of having done so. The time spent switching between these frameworks, trying to realign and reimplement the UI, I believe, would be greatly exceeded by maintaining said abstractions, plus suffer from typical disadvantages of LoD (law of demeter, resulting from Interface Segregation - SOLID).
 
-# Structure
+## Structure
 

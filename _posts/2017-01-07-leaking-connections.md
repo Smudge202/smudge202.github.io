@@ -10,6 +10,8 @@ I tweeted a thank you to the guys over at [Seq](https://getseq.net/) recently be
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="en" dir="ltr">Logging best practices and <a href="https://twitter.com/getseq_net">@getseq_net</a> have been an absolute god-send for tracking down tricky problems. Much love. <a href="https://t.co/6fubnhSnOo">pic.twitter.com/6fubnhSnOo</a></p>&mdash; Tommy Long (@Smudge202) <a href="https://twitter.com/Smudge202/status/816749326642847749">January 4, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+## Contents
+
 * TOC
 {:toc}
 
@@ -111,9 +113,35 @@ With the updated code, we now get log messages pushed out to Visual Studio outpu
 
 _NB: The_ `Environment.UserInteractive` _check may not be necessary for you, but we follow this practice to ensure we don't attempt to output to a console when we're running as a Windows Service for example._
 
+## What to log?
+
+Now we know how to output logs, the next and most important question:
+
+> What should I be logging?
+
+There is no simple answer to this, but there are 4 things I typically aim to log.
+
+### Exceptions
+
+The first and most obvious thing to log is your exceptions. However, simply wrapping everything in a `try` / `catch` > `log` would be a _terrible_ idea. I don't want to dwell on exception management for too long, but I will mention a few things.
+
+For starts, if you are one of those people in the habit of throwing exceptions for non-_exceptional_ circumstances such as failed user input validation, you can stop doing this now. If you were throwing an exception to produce log output, you now have an alternative. If you were throwing an exception to produce a different execution flow, this is called _exception logic_ and is typically [considered a **bad practice**](http://softwareengineering.stackexchange.com/a/107727/30301).
+
+Next up, don't be afraid to allow exceptions to bubble up to a location that may have much more context regarding the current operation. Here's a somewhat abstract example that hopefully demonstrates this point:
+
+```csharp
+
+```
+
+### Correlation
+
+
+
+## What level to log?
+
 ## Practices
 
-This next section will walk through handy tips and tricks, some applicable to all situations whilst others are specific to the examples given. As per the foreword, you need to decide for yourself when these tips apply to your situation.
+This next section will walk through some additional handy tips and tricks, some applicable to all situations whilst others are specific to the examples given. As per the foreword, you need to decide for yourself when these tips apply to your situation.
 
 ### Interpolation
 

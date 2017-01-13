@@ -29,7 +29,7 @@ In addition to the above, we have a considerable amount of heritage code in othe
 
 ## Service (Collection) Extensions
 
-For better or for worse, our company has adopted the `IServiceCollection` extension method approach of building up our composition roots. That is, our _application host_ will contain code similar to the following:
+Our company has adopted the `IServiceCollection` extension method approach of building up our composition roots. That is, our _application host_ will contain code similar to the following:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -58,7 +58,7 @@ public static IServiceCollection AddServicesFromOurClassLibrary(this IServiceCol
 }
 ```
 
-Whilst it's up to you how you manage the composition of your application, this is akin the practice used by ASP.Net Core and is the assumption throughout the rest of this article.
+Whilst it's up to you how you manage the composition of your application, this is akin to the practice used by ASP.Net Core and is the assumption throughout the rest of this article.
 
 ## Abstractions
 
@@ -72,11 +72,18 @@ With the above in place, your application hosts become responsible for hooking u
 
 * [`Microsoft.Extensions.Logging`](https://nuget.org/packages/microsoft.extensions.logging)
 * [`Microsoft.Extensions.Logging.Debug`](https://nuget.org/packages/microsoft.extensions.logging.debug)
+* [`Microsoft.Extensions.Logging.Console`](https://nuget.org/packages/microsoft.extensions.logging.console)
+
+Personally, I prefer to swap out the `Microsoft.Extensions.Logging.Console` for the following, which will give me coloured console output:
+
 * [`Serilog.Extensions.Logging`](https://nuget.org/packages/serilog.extensions.logging)
 * [`Serilog.Sinks.Literate`](https://nuget.org/packages/serilog.sinks.literate)
+
+By adding the `Serilog.Extensions.Logging` package, you open up your application to dozens of high quality outputs via [Serilog Sinks](https://github.com/serilog/serilog/wiki/Provided-Sinks). If you're working on an application that does not have a Console, such as a Windows service, you might consider adding the following:
+
 * [`Serilog.Sinks.RollingFile`](https://nuget.org/packages/serilog.sinks.rollingfile)
 
-We can not adapt the application host code shown above to something akin the following:
+We can not adapt the application host code shown above to something akin to the following:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -130,12 +137,27 @@ For starts, if you are one of those people in the habit of throwing exceptions f
 Next up, don't be afraid to allow exceptions to bubble up to a location that may have much more context regarding the current operation. Here's a somewhat abstract example that hopefully demonstrates this point:
 
 ```csharp
-
+public async Task DisableUser(Guid userId)
+{
+    try
+    {
+        var user = _data.GetUser(userId);
+        // continue to disable user
+    }
+    catch (DatabaseException dex)
+    {
+        _logger.LogError(0, dex, "Unable to disable user '{UserID}'", userId.ToString('N'));
+        throw new DisableUserException(userId, dex);
+    }
+}
 ```
+In the above snippet, it would be unecessary for the `_data` implementation to independently log the `DatabaseException`. 
 
 ### Correlation
 
+### Decisions
 
+### Performance
 
 ## What level to log?
 

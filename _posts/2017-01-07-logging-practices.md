@@ -41,6 +41,7 @@ public static int Main(string[] args)
         .Run();
 }
 ```
+
 _NB: Extremely simplified for sake of brevity._
 
 In turn, our class libraries expose their services as follows:
@@ -414,3 +415,9 @@ I should point out, this blog post isn't in anyway affiliated or sponsored by _S
 My only gripe is, whilst the web portal is incredibly RESTful, generating URL's for your queries and filters, the same does not appear to be true when you enable the live update. You'll find yourself enabling the live feed constantly because everytime you expand a log entry or make a change, the page (correctly) disables the live update so the log entry your working with doesn't scroll off the page. It would be great however to have a query value for this in the URL so that we can, for example, put the logs on an _information radiator_ without having to configure an automatic refresh, or simply bookmark the feed with updates enabled.
 
 One other feature that is definitely worth mentioning and enabling. Follow the guidance [shown here](http://docs.getseq.net/docs/using-serilog#section-dynamic-level-control) to enable _Dynamic Level Control_. Once done, you can control the Minimum Log Levels we discussed earlier at runtime, which again can prove immensely useful. Being able to temporarily change your Production environment from `Information` to `Debug` log levels while you're trying to track down a difficult to reproduce issue is an awesome piece of functionality to have at your disposal, especially given how very simple it is to set up.
+
+## Summary
+
+As has been mentioned throughout this article, logging practices are mostly opinion and conjecture. I hope people find some of the information here useful, but don't take it for gospel. Look around for other blogs and articles on logging (feel free to drop a comment below if you have a post you think I should link here). For example, although it's not mentioned here, our systems also make considerable use of [Application Insights](https://azure.microsoft.com/en-gb/services/application-insights/), [Google Analytics](https://analytics.google.com), and so forth.
+
+Make sure you understand how your log frameworks and tooling work, and be sure to test your logging the same way you would test any piece of functionality you add to your code. Try to separate log output configuration from the code that actually produces log output, usually through use of abstractions. Finally, try not to _re-invent the wheel_ with custom logging. There are simply too many high quality options out there to be wasting time and money _homebrewing_.

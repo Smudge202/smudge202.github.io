@@ -23,7 +23,7 @@ The system we've been working on is a series of commercial applications subject 
 
 The code is primarily contained within 15 .Net Core libraries targeting the full .Net Framework (4.5.2) due to dependency requirements. 4 of those libraries are what we call _application hosts_, containing no business logic, designed to host a selection of the libraries as a .Net Core Console Application which can be deployed inside [Docker](https://www.docker.com/) containers, as a Windows Service, or in Azure. (This is a practice that our company tends to follow and has a collection of composition helpers for so that the applications can be ran anywhere, leaving deployment considerations to our IT department.)
 
-In addition to the above, we have a considerable amount of heritage code in other solutions which is NuGet packaged and deployed by TFS/Octopus, which is then pulled down by one of our microservices at runtime and installed/executed within separate `AppDomain`s. As you might imagine, with this many moving parts, logging is essential.
+In addition to the above, we have a considerable amount of heritage code in other solutions which is NuGet packaged and deployed by TFS/Octopus, which is then pulled down by one of our microservices at runtime and installed/executed within a separate `AppDomain`. As you might imagine, with this many moving parts, logging is essential.
 
 ### Service (Collection) Extensions
 
@@ -34,8 +34,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static int Main(string[] args)
 {
-    var services = new ServiceCollection();
-    services.AddServicesFromOurClassLibrary();
+    var services = new ServiceCollection()
+        .AddServicesFromOurClassLibrary();
     services.BuildServiceProvider()
         .GetRequiredService<SomeService>()
         .Run();
@@ -94,8 +94,8 @@ using Serilog.Events;
 
 public static int Main(string[] args)
 {
-    var services = new ServiceCollection();
-    services.AddServicesFromOurClassLibrary();
+    var services = new ServiceCollection()
+        .AddServicesFromOurClassLibrary();
     var provider = services.BuildServiceProvider();
 
     var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
@@ -121,7 +121,7 @@ With the updated code, we now get log messages pushed out to Visual Studio outpu
 
 _NB: The_ `Environment.UserInteractive` _check may not be necessary for you, but we follow this practice to ensure we don't attempt to output to a console when, for example, the application is running as a Windows Service._
 
-## What to log
+## What to Log
 
 Now we know how to output logs, the next and most important question:
 
@@ -147,13 +147,13 @@ public async Task DisableUser(Guid userId)
     }
     catch (DatabaseException dex)
     {
-        _logger.LogError(0, dex, "Unable to disable user '{UserID}'", userId.ToString('N'));
+        _logger.LogError(0, dex, "Unable to disable user '{UserID}'", userId.ToString("N"));
         throw new DisableUserException(userId, dex);
     }
 }
 ```
 
-In the above snippet, whilst my `_data` implementation _could_ independently log the `DatabaseException`, I've decided the additional context available in the consumer would be better. I can therefore omit logging and even omit the `try`/`catch` in the data implementation (not shown here), and output the logs in the data consumer alongside the information that we were attempting to disable a user when this exception occurred.
+In the above snippet, whilst my `_data` implementation _could_ independently log the `DatabaseException`, I've decided the additional context available in the consumer would be better. I can therefore omit logging and even omit the `try`/`catch` in the data implementation (not shown here), and output the logs in the data consumer alongside information that we were attempting to disable a user when this exception occurred.
 
 _NB: For those wondering why I haven't simply re-thrown the original exception after logging the output, this is a practice I try to follow. The_ `DatabaseException` _is an **implementation detail** of the class shown. I don't want consumers of this class to_ `catch (DatabaseException)`_, nor have to_ `catch (Exception)`_. The_ `DisableUserException` _or something slightly more generic if preferred, allows the consumer to maintain cohesion and not depend upon this class' dependencies directly._
 
@@ -296,13 +296,13 @@ The above will output to the Console (via `Serilog.Sinks.Literate`) as follows:
 
 ![log output screenshot](https://puu.sh/tkXsf/3e945c79ad.png)
 
-Notice that the _interpolated_ entry has no highlighting. That's because it's simply considered a part of the text, whereas the _classic_ entry can be coloured, can be stored into queryable database columns, etc. This is because the parameters are available to the logger instead of being _"burned in"_ at runtime, prior to reaching the logger.
+Notice that the _interpolated_ entry has no highlighting. That's because it's simply considered a part of the text, whereas the _classic_ entry can be coloured, can be stored into queryable database columns, etc. This is because the parameters are available to the logger instead of being _"burned in"_ at runtime, prior to reaching the logger. If you've ever had to regex through log files to find the lines you want, you'll know exactly what I mean here.
 
 ### Disposable Tracking
 
 At last we finally reach the subject that drove this blog post. The application we've been working on was working perfectly in development and lower stages of our deployment cycle. However, when we put the application through load testing it completely fell apart.
 
-Thanks to our application of the above logging practices, not to mention the advanced sink tips below, it was immediately obvious that we were not managing our disposable connections correctly. This particular issue is often very easy to find because most usages of `IDisposable` objects will be in a `using` statement. However, the complexity of our application and the necessity to integrate with legacy code meant that in places we couldn't simply wrap `using` statements around everything. For example, we use the `IServiceScopeFactory` to instantiate parts of the legacy code and rely on the Microsoft Dependency Injection container to track our transient disposables and tear them down for us when we `Dispose` the scope.
+Thanks to our application of the above logging practices, not to mention the advanced sink tips below, it was immediately obvious that we were not managing our disposable connections correctly. This particular issue is often very easy to find because most usages of `IDisposable` objects will be in a `using` statement. Given the right Roslyn analysers, you can simply check the Warnings page in VS and find the problem. However, the complexity of our application and the necessity to integrate with legacy code meant that in places we couldn't simply wrap `using` statements around everything. For example, we use the `IServiceScopeFactory` to instantiate parts of the legacy code and rely on the Microsoft Dependency Injection container to track our transient disposables and tear them down for us when we `Dispose` the scope.
 
 So, we needed a smarter way to track our connections, whilst the code that consumed said connections were essentially a black box to us given it could have been anywhere in millions of lines of heritage code.
 

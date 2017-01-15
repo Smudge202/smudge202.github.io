@@ -117,7 +117,7 @@ public static int Main(string[] args)
 }
 ```
 
-With the updated code, we et log messages pushed out to Visual Studio output window, a rolling file adjacent the exe, and if available, we will also get nicely coloured logs in a console window.
+With the updated code, we get log messages pushed out to Visual Studio output window, a rolling file adjacent the exe, and if available, we will also get nicely coloured logs in a console window.
 
 _NB: The_ `Environment.UserInteractive` _check may not be necessary for you, but we follow this practice to ensure we don't attempt to output to a console when, for example, the application is running as a Windows Service._
 
@@ -414,7 +414,7 @@ I should point out, this blog post isn't in anyway affiliated or sponsored by _S
 
 My only gripe is, whilst the web portal is incredibly RESTful, generating URL's for your queries and filters, the same does not appear to be true when you enable the live update. You'll find yourself enabling the live feed constantly because everytime you expand a log entry or make a change, the page (correctly) disables the live update so the log entry you're working with doesn't scroll off the page. It would be great however to have a query value for this in the URL so that we can, for example, put the logs on an _information radiator_ without having to configure an automatic refresh, or simply bookmark the feed with updates enabled.
 
-One other feature that is definitely worth mentioning and enabling. Follow the guidance [shown here](http://docs.getseq.net/docs/using-serilog#section-dynamic-level-control) to enable _Dynamic Level Control_. Once done, you can control the Minimum Log Levels we discussed earlier at runtime, which again can prove immensely useful. Being able to temporarily change your Production environment from `Information` to `Debug` log levels while you're trying to track down a difficult to reproduce issue is an awesome piece of functionality to have at your disposal, especially given how very simple it is to set up.
+One other feature that is definitely worth mentioning and enabling. Follow the guidance [shown here](http://docs.getseq.net/docs/using-serilog#section-dynamic-level-control) to enable _Dynamic Level Control_. Once done, you can control the Minimum Log Levels we discussed earlier, at runtime, which again can prove immensely useful. Being able to temporarily change your Production environment from `Information` to `Debug` log levels while you're trying to track down a difficult to reproduce issue is an awesome piece of functionality to have at your disposal, especially given how very simple it is to set up.
 
 ## Summary
 

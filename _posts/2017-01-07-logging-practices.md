@@ -233,7 +233,7 @@ For more intricate performance monitoring, consider using [Benchmark.Net](http:/
 
 The point being, logging can be useful for highlighting an area that you should more thoroughly investigate, but the output should also be taken with a pinch of salt.
 
-## What level to log
+## What Level to Log
 
 There are only a couple pieces of advice I can give you on this subject.
 

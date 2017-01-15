@@ -57,7 +57,7 @@ public static IServiceCollection AddServicesFromOurClassLibrary(this IServiceCol
 }
 ```
 
-Whilst it's up to you how you manage the composition of your application, this is akin to the practice used by ASP.Net Core and is the assumption throughout the rest of this article.
+Whilst it's up to you how you manage the composition of your application, this is based on the practice used by ASP.Net Core and is the assumption throughout the rest of this article.
 
 ## Abstractions
 
@@ -84,7 +84,7 @@ By adding the `Serilog.Extensions.Logging` package, you open up your application
 
 * [`Serilog.Sinks.RollingFile`](https://nuget.org/packages/serilog.sinks.rollingfile)
 
-We can now adapt the application host code shown above to something akin to the following:
+We can now adapt the application host code shown above to something like:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;

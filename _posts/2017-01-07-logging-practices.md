@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Logging - Tips and Tricks
-hidden: true
-wip: true
 ---
 
 I tweeted a thank you to the guys over at [Seq](https://getseq.net/) recently because _Seq_ was instrumental in finding and eliminating a very difficult issue we came across. But technology choice alone isn't enough, so I've decided to blog about some of the logging practices we tend to follow as a rule, and some specific practices that we used in a particularly complex application we've been developing over the last couple of months.

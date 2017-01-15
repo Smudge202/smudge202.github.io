@@ -61,7 +61,7 @@ Whilst it's up to you how you manage the composition of your application, this i
 
 ## Abstractions
 
-First and foremost, let's get our abstractions installed. _All_ of our class libraries depend upon the [`Microsoft.Extensions.Logging.Abstractions`](https://nuget.org/packages/microsoft.extensions.logging.abstractions) NuGet Package. The package is lightweight as you would expect of any series of abstractions. Whilst there are other abstractions available, some of which we inevitably need to integrate with through façades, I've found this one of the most well adopted logging abstractions, especially given the recent flurry of activity surround .Net Core.
+First and foremost, let's get our abstractions installed. _All_ of our class libraries depend upon the [`Microsoft.Extensions.Logging.Abstractions`](https://nuget.org/packages/microsoft.extensions.logging.abstractions) NuGet Package. The package is lightweight as you would expect of any series of abstractions. Whilst there are other abstractions available, some of which we inevitably need to integrate with through façades, I've found this one of the most well adopted logging abstractions, especially given the recent flurry of activity surrounding .Net Core.
 
 Once installed, don't forget to add `services.AddLogging()` to your service extensions. After which, any class can rely upon `ILogger<TCategory>` as a dependency, giving us an easy to use logging abstraction.
 

@@ -203,9 +203,13 @@ Now it's very clear which `Foo` and `Bar` messages belong together. It may seem 
 
 ### Performance
 
+The final subject for consideration are performance metrics. If you're going to do this, I recommend doing so very scarecly. For example, we log the time an overall request takes which may involve any number of execution flows and thousands of lines of code, so provides only a very high level of the overall system performance. I don't recommend using logging for lower level performance monitoring.
 
+For more intricate performance monitoring, consider using [Benchmark.Net](http://benchmarkdotnet.org/) to test smaller pieces of code in isolation, and/or outputting metrics using [ETW](https://blogs.msdn.microsoft.com/vancem/2012/08/13/windows-high-speed-logging-etw-in-c-net-using-system-diagnostics-tracing-eventsource/).
 
 ## What level to log?
+
+As with most of the content in this article, determining what log level
 
 ## Practices
 
@@ -220,12 +224,12 @@ var messageType = "Interpolated";
 _logger.LogInformation($"This is an '{messageType}' log entry.");
 
 messageType = "Classic";
-_logger.LogInformation("This is an '{messageType} log entry.", messageType);
+_logger.LogInformation("This is an '{messageType}' log entry.", messageType);
 ```
 
 Outputs to the Console (via `Serilog.Sinks.Literate`) as follows:
 
-![log output screenshot](https://puu.sh/tkOl7/43576feba2.png)
+![log output screenshot](https://puu.sh/tkXsf/3e945c79ad.png)
 
 Notice that the _interpolated_ entry has no highlighting. That's because it's simply considered a part of the text, whereas the _classic_ entry can be coloured, can be stored into queryable database columns, etc. This is because the parameters are available to the logger instead of being _"burned in"_ at runtime, prior to reaching the logger.
 

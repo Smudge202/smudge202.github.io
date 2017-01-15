@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Logging - Good Logging Practices to locate Undisposed Objects
+title: Logging - Tips and Tricks
 hidden: true
 wip: true
 ---

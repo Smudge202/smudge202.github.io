@@ -270,7 +270,7 @@ As you can see, the updated Microsoft logging levels do map better to the Serilo
 
 Also make sure you're aware what the _default_ levels are of your logging frameworks, i.e. when no minimum level is configured or specified, what level will your framework use by default. For both Microsoft and Serilog, this tends to be `Information`.
 
-### Log spam
+### Log Spam
 
 As alluded to in the previous section, _log spam_ can be an issue. When writing new functionality I tend to add a lot of logging at `Trace` and `Debug` levels, knowing that running the code in a production environment would very quickly consume disk space and generally overload my sinks. Whilst testing, I'll then try to decide which of my log entries have proven to be the most useful in either tracking down issues with the code, or in confirming that the code has worked as intended. Anything I deem to be less useful can either be changed to a lower log level, or removed completely if it provides no value.
 

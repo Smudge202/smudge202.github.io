@@ -65,7 +65,7 @@ The rest of this article will walk you through how to implement threat modelling
 
 > If you're not following a templated/typical agile process such as Scrum, don't fear. So long as you follow some form of *plan -> do -> review* process, I'm sure you can make this work.
 
-## Threat Modelling
+## Model
 
 If you were to ask any two developers for a given product what it is that constitutes that product's application(s), you'd likely get very different answers. This isn't necessarily a bad thing, but we do need to find a way to describe our system in such a way that we can examine the security aspects. This practice is often described as a part of [Threat Modeling](https://www.owasp.org/index.php/Threat_Risk_Modeling).
 
@@ -73,7 +73,7 @@ Unless you're about to start a new green field project, decomposing your applica
 
 ### Scope
 
-The first step is work out which *components* make up your application. Find a whiteboard or a nice big blank piece of paper and work with your team to break out the system into it's individual *bits*. In an era of microservices, there might well be several moving parts, but it shouldn't take long to identify each component.
+The first step is work out which *components* make up your application. Find a whiteboard or a nice big blank piece of paper and work with your team to break out the system into it's individual *bits*. In an era of microservices and serverless functions, there might well be several moving parts, but it shouldn't take long to identify each component.
 
 I recommend doing this in one or more diagrams, visualise your application in all it's glory. This artchitectural overview should be fairly easy to keep up to date going forward, and will be very useful examining the next aspects of your application.
 
@@ -97,13 +97,13 @@ Depending on the complexity of your application, it may now be worthwhile breaki
 
 #### Application Assets
 
-Identify the assets mentioned earlier. Simply start a list and keep adding to it until you can't think of any more, updating it from time to time as features are added or you think of something you missed. As we break down the system further, you'll inevitably think of more. That's fine, just keep coming back to this list and adding to it.
+Identify the assets mentioned earlier like passwords, API keys, configuration data, connection strings, data input by users or received from third parties, etc. Simply start a list and keep adding to it until you can't think of any more, updating it from time to time as features are added or you think of something you missed. As we break down the system further, you'll inevitably think of more. That's fine, just keep coming back to this list and adding to it.
 
 I recommend considering how *sensitive* each of your assets are, how much value they represent and how much scrutiny should be invested in keeping each asset secure. Coming up with some simple tiers to categorise each of your assets, or following a more formal *Information Classification Scheme* (Public, Restricted, Confidential, etc) will help later when it comes to prioritising the extent of measures justifiable in securing these assets.
 
-Depending on the size of the system you're trying to decompose, it may make life easier to categorise your assets (different sheets in an Excel workbook or separate markdown tables, whatever your flavour). This will help you track extra relevant information should you feel the need. For example, physical assets (switches, monitors, USB sticks.) may warrant extra columns for *make*, *model*, *serial number*, *firmware version*, and so forth, that wouldn't make sense when describing code repositories and passwords.
-
 How much information you want to hold on these assets is up to you, but I recommend starting simple. The harder you make these lists, the less likely people will keep them up to date! *Name*, *Description* where necessary, and *Classification* make a nice starting point which you can expand upon later as required.
+
+Depending on the size of the system you're trying to decompose, it may make life easier to categorise your assets (different sheets in an Excel workbook or separate markdown tables, whatever your flavour). This will help you track extra relevant information should you feel the need. For example, physical assets (switches, monitors, USB sticks.) may warrant extra columns for *make*, *model*, *serial number*, *firmware version*, and so forth, that wouldn't make sense when describing code repositories and passwords.
 
 #### External Dependencies
 
@@ -126,3 +126,30 @@ As with identifying assets, it'll probably take a couple passes to identify the 
 In addition to the more obscure entry points are the items you're likely much more familiar with - what pages and API calls are there? What message buses and file inputs does the system read from? What web hooks are you subscribed to? Again, add all of these to the list (or additional lists if thats easier for you to manage).
 
 For every one of these endpoints, you're going to want a name and probably a description to help identify them. You'll also need to add what *level of trust* is required to utilise each end point. For example, what happens when an *Anonymous Web User* navigates to your search page? Or when an *Authenticated User* from the Customer Support team attempts to access confidential HR data? The simplest way we found to track this information is list the users and/or roles that *should* have access to an entry point, whether it is implemented yet or not.
+
+#### Trust Levels
+
+If you've already worked through your entry points and identified which users and roles should have access to various entries, this should be really easy. Simply list all of the roles, or get fancy and hookup some kind of `VLOOKUP` in Excel, whatever works for you.
+
+As mentioned previously, you may not have implemented the necessary controls yet to restrict access in accordance with these roles; identifying them is the crucial aspect though. Little more than *Name* and *Description* should be required here.
+
+#### Data Flows
+
+The final piece of modelling your application is to understand and where necessary, document your data flows. These flows rely upon and consolidate all of the information you've gathered up to now.
+
+The intent is to show how data ([Assets](#application-assets)) enter the system ([Entry Points](#entry-points)), which components (within [Scope](#scope)) process, store, or transfer that data. Which users should access or provide that data ([Trust Levels](#trust-levels)), which third parties ([External Dependencies](#external-dependencies)) receive or provide data?
+
+If you want to follow guidance from [OWASP](https://www.owasp.org), you might end up with a diagram like this:
+
+[![owasp data flow](https://www.owasp.org/images/0/00/Data_flow1.jpg)](https://www.owasp.org/index.php/Application_Threat_Modeling#Data_Flow_Diagrams)
+
+Or if you want to try and keep things simple, go back to the whiteboard and scribble down something a bit more rough and ready. The object is not to draw the best diagram, it's to model your application. If that means some scribbles in a notebook that you take a picture of and throw into a docs folder in your repo, that's absolutely fine.
+
+If you're able to visualise these interactions, it's going to make your job of assessing them *that* much easier.
+
+## Assess
+
+You now have all the information you require to assess your system. You may have missed pieces, but as has been mentioned, simply go back to the relevant lists and add pieces as they come to mind. As you've been going through those lists, you've probably already spotted a couple places that could do with some improvement.
+
+There are several ways to go about assessing your system, and several aspects of that system that need assessment. I'll list below a couple mechanisms that I have used and recommend to others, but this is not an exhaustive list. Any and all thought towards the security of your system should be welcome, and I'd love to hear any thoughts you might have on other ways to analyse applications.
+

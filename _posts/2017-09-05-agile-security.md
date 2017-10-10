@@ -125,13 +125,13 @@ As with identifying assets, it'll probably take a couple passes to identify the 
 
 In addition to the more obscure entry points are the items you're likely much more familiar with - what pages and API calls are there? What message buses and file inputs does the system read from? What web hooks are you subscribed to? Again, add all of these to the list (or additional lists if thats easier for you to manage).
 
-For every one of these endpoints, you're going to want a name and probably a description to help identify them. You'll also need to add what *level of trust* is required to utilise each end point. For example, what happens when an *Anonymous Web User* navigates to your search page? Or when an *Authenticated User* from the Customer Support team attempts to access confidential HR data? The simplest way we found to track this information is list the users and/or roles that *should* have access to an entry point, whether it is implemented yet or not.
+For every one of these endpoints, you're going to want a name and probably a description to help identify them. You'll also need to add what *level of trust* is required to utilise each end point. For example, what happens when an *Anonymous Web User* navigates to your search page? Or when an *Authenticated User* from the Customer Support team attempts to access confidential HR data? The simplest way we found to track this information is list the users, service accounts, and/or roles that *should* have access to an entry point, whether it is implemented yet or not.
 
 #### Trust Levels
 
-If you've already worked through your entry points and identified which users and roles should have access to various entries, this should be really easy. Simply list all of the roles, or get fancy and hookup some kind of `VLOOKUP` in Excel, whatever works for you.
+If you've already worked through your entry points and identified which users, service accounts, and roles should have access to various entries, this should be really easy. Simply list all of the roles, or get fancy and hookup some kind of `VLOOKUP` in Excel, whatever works for you.
 
-As mentioned previously, you may not have implemented the necessary controls yet to restrict access in accordance with these roles; identifying them is the crucial aspect though. Little more than *Name* and *Description* should be required here.
+As mentioned previously, you may not yet have implemented the necessary controls to restrict access in accordance with these roles; identifying them is the crucial aspect though. Little more than *Name* and *Description* should be required here.
 
 #### Data Flows
 
@@ -149,7 +149,10 @@ If you're able to visualise these interactions, it's going to make your job of a
 
 ## Assess
 
-You now have all the information you require to assess your system. You may have missed pieces, but as has been mentioned, simply go back to the relevant lists and add pieces as they come to mind. As you've been going through those lists, you've probably already spotted a couple places that could do with some improvement.
+You now have all the information you require to assess your system. You may have missed pieces, but as has been mentioned, simply go back to the relevant lists and add information as it comes to mind. As you've been going through those lists, you've probably already spotted a couple places that could do with some improvement.
 
 There are several ways to go about assessing your system, and several aspects of that system that need assessment. I'll list below a couple mechanisms that I have used and recommend to others, but this is not an exhaustive list. Any and all thought towards the security of your system should be welcome, and I'd love to hear any thoughts you might have on other ways to analyse applications.
 
+### Access Control
+
+###

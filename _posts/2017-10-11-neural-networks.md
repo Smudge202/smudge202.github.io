@@ -119,7 +119,7 @@ I am no expert.
 
 Thanks to authors like [Steven Miller](https://stevenmiller888.github.io) and [John Wakefield](http://www.robosoup.com/category/neural-network), plebs with no background or higher education (like me) have access to some great resources.
 
-I know from reading through these and many other articles on the subject, that I should probably pick an existing framework. However, I won't. Not because of any *Not-Invented-Here* stance, but because I really need to get to grips with how this mechanisms work. I don't *want* to write a framework, but I *do* want to learn how they work.
+I know from reading through these and many other articles on the subject, that I should probably pick an existing framework. However, I won't. Not because of any *Not-Invented-Here* stance, but because I really need to get to grips with how these mechanisms work. I don't *want* to write a framework, but I *do* want to learn how they work.
 
 So, my first steps are to create a framework that can handle the most simple of neural networks, the *Single Layer Perceptron*. To prove the fundamentals of my framework, I want to start with an easy challenge like that proposed by [Trent Sartain](https://github.com/trentsartain), to create a network that can [solve *Exclusive Or (XOR)*](https://github.com/trentsartain/Neural-Network#what-are-the-parts-of-a-neural-network).
 

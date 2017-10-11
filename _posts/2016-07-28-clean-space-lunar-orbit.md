@@ -57,9 +57,6 @@ _NB: For those that have forgotten how exponents work, the_ `E` _can be replaced
 
 So, our exploration ship has attained orbit around Earth. It's sensors have located a satellite body (the Moon), and it's time to get our geek on. So, what information can we get from observing these two objects?
 
-![spacecraft orbiting earth](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/56764aa8-6a9e-4e0b-b4bf-873558e164f0.png?updated=1469416250650)
-_<sup>NB: Clearly not to scale</sup>_
-
 Well, first and foremost, the spacecraft is able to get the distance from itself to the Earth and the Moon (even modern day technology can achieve this so I won't go into detail). From it's position, it should also be able to extrapolate the radius of both bodies which is required to get the distance from the vehicle to the _centre_ of both the Earth and Moon, not simply the distance from itself to the surface of each body as would be measured (the calculation could be done using the surfaces if required, but it becomes slightly more complicated). 
 
 Given these little facts, we can calculate the distance between the Earth and Moon easily enough, using the [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines): $c^2 = a^2 + b^2 - 2ab \cdot cos(C)$ where _C_ denotes the angle between _a_ (the length between Earth and the vehicle) and _b_ (the length between the Moon and the vehicle), opposite from _c_ (the distance between Earth and Moon).
@@ -104,11 +101,11 @@ _NB: It's worth noting that there are a great number of assumptions necessary fo
 
 For anyone that's managed to get a vehicle into [Kerbin](http://wiki.kerbalspaceprogram.com/wiki/Kerbin) orbit in the game _Kerbal Space Program_, the basic concepts of orbital manoeuvres have, I'm sure, made themselves aware. If a vehicle is [orbiting a body](https://en.wikipedia.org/wiki/Orbit#Understanding_orbits) (be it a planet, a star, anything), to attain a lower (closer) orbit, you don't _burn_ towards the body, like you might think. Instead, you thurst in the opposite direction to your orbital trajectory which is known as [retrograde](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion), and similarly thrust _prograde_ to attain a higher (further) orbit. What's more interesting is that, assuming you started in a circular orbit, applying thrust will most effect the opposite side of your orbit, pushing it away or towards the body being orbited (depending on whether your thrust is prograde or retrograde respectively), changing the _eccentricity_ of the orbit either towards a collision (suborbital), or a _parabolic_/_hyperbolic_ escape trajectory.
 
-![prograde thrust](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/5529bcf1-89d5-4019-a792-063215648814.png?updated=1469707434554)
+![prograde thrust](../images/lunar-orbit-02.png)
 
 Therefore, to go from a circular orbit, to another circular orbit, you would typically require 2 periods of thrust. One that changes the opposite side of your orbit, which you then _coast_ around to, before thrusting again to circularise the orbit.
 
-![circularised orbit](https://s3-eu-west-1.amazonaws.com/pub.sketchboard.io/images/cc1b3110-20dd-4496-8cf4-6eb0fc9495e0.png?updated=1469707753596)
+![circularised orbit](../images/lunar-orbit-03.png)
 
 ## Putting the pieces together
 

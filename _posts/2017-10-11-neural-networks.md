@@ -123,4 +123,117 @@ I know from reading through these and many other articles on the subject, that I
 
 So, my first steps are to create a framework that can handle the most simple of neural networks, the *Single Layer Perceptron*. To prove the fundamentals of my framework, I want to start with an easy challenge like that proposed by [Trent Sartain](https://github.com/trentsartain), to create a network that can [solve *Exclusive Or (XOR)*](https://github.com/trentsartain/Neural-Network#what-are-the-parts-of-a-neural-network).
 
-I will do this by following *John Wakefields* tutorial series in order to progress solving *Trent Sartain's* `XOR` challenge until the network requires something more difficult to work out. I won't be copy/pasting any code, instead I'll understand each phase of progress and then re-implement that myself (the reason for doing so is that, quite often, these very clever data scientists know enough about programming to make something functional, but their code isn't as *clean* or even *OOP* as I would normally code, so I prefer to *translate* for my own sanity).
+I will do this by following *John Wakefields* tutorial series in order to progress solving *Trent Sartain's* `XOR` challenge until the network requires something more difficult to work out. I won't be copy/pasting any code, instead I'll try to understand each phase of progress and then re-implement that myself (the reason for doing so is that, quite often, these very clever data scientists know enough about programming to make something functional, but their code isn't as *clean* or even *OOP* as I would normally code, so I prefer to *translate* for my own sanity).
+
+Speaking of OOP, having read a dozen articles I've already planned ahead somewhat, so if the following seems a bit overkill or the design decisions dubious, bear with it. I think they'll be the right choice looking ahead slightly, as non-agile as that might be. I'll start with the following structure:
+
+![neural network solution](../images/neural-network-solution-01.png)
+
+My intent is to have the key services exposed within the `CleanSpace.NeuralNetwork` project and associated tests in the `CleanSpace.NeuralNetwork.Tests` project. The idea behind the `CleanSpace.NeuralNetwork.AspNetCore` is to provide integration with ASP.NET Core, providing middleware that can handle varying types of operations.
+
+Having read a great number of articles and sample applications dealing with neural networks, one of my biggest code gripes is the configuration models the samples and frameworks exposed. Due to the complexity of neural networks, I'm going to avoid passing in magic numbers and strings as well as multi-dimension arrays and any manner of typically avoided code, in favour of a Fluent API. If I do have to provide strange arrays and such, the code will hopefully make it much clearer what they are.
+
+My first test will be an attempt to represent and prove John's simplest network:
+
+![robosoup simplest network](../images/neural-network-robosoup-01.png)
+
+As you can see, there is no mysterious *hidden layer* in this network. It's straight forward input to output in order to prove the code. This first test will try to train the network to always output `0`, regardless of the input (as per [Steven's example](https://stevenmiller888.github.io/mind-how-to-build-a-neural-network/)).
+
+The first problem is that networks rely upon a random distribution during initialisation. For those of you with any experience with automated testings, having random numbers flow through the test is a nightmare because it may cause the test to intermittently fail, reducing confidence in the test. To get around this, I'll use a seeded random with a known seed (such as zero). That will give me a predictable / reproducable random distribution.
+
+To represent the above network with a fluent API, I like to start with the Fluent Description first. I start with a fixture:
+
+```csharp
+using System;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CleanSpace.NeuralNetwork.Tests
+{
+  public class ApplicationFixture
+  {
+    private readonly IServiceProvider _provider;
+
+    public ApplicationFixture()
+    {
+      _provider = new ServiceCollection()
+        .AddNeuralNetwork()
+        .BuildServiceProvider();
+    }
+
+    public NeuralNetworkBuilder CreateNetwork()
+      => _provider.GetRequiredService<NeuralNetworkBuilder>();
+  }
+}
+```
+
+The fixture being injected is very simple; I'm just using it as a composition root and abstract factory for the `NeuralNetworkBuilder` (via *service location* seeing as test projects don't have a dependency injection bootstrapper like ASP.NET Core does). The test class itself is a bit more complicated, but its a test pattern I use for more complex projects:
+
+```csharp
+using FluentAssertions;
+using System;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace CleanSpace.NeuralNetwork.Tests
+{
+  public class SingleLayerPerceptronTests
+  {
+    public class Given2RandomInputs
+    {
+      private readonly Random _random = new Random(0);
+      private readonly NeuralNetworkBuilder _network;
+
+      private Given2RandomInputs(ApplicationFixture fixture) => _network = fixture
+        .CreateNetwork()
+        .AddInputs(_random.NextDouble(), _random.NextDouble())
+          .WithForwardPropagation();
+
+      public class WhenTargetIsZero : Given2RandomInputs, IClassFixture<ApplicationFixture>
+      {
+        public WhenTargetIsZero(ApplicationFixture fixture) : base(fixture) => _network
+          .AddOutput<double>()
+            .WithBackPropagation()
+            .Targetting(0);
+
+        [Fact]
+        public async Task ThenEachIterationReducesMarginOfError()
+        {
+          var firstPass = await _network.ExecuteOnce();
+          var secondPass = await _network.ExecuteOnce();
+
+          secondPass.MarginOfError
+            .Should().BeLessThan(firstPass.MarginOfError);
+        }
+      }
+    }
+  }
+}
+```
+
+As you can see, I use [xUnit Fixtures](https://xunit.github.io/docs/shared-context.html) to pass in my `ApplicationFixture` (composition root) and hide some of that unimportant noise out of the way. I then build up a traditional *Given-When-Then* structure via classes. The important pieces add up to the following:
+
+```csharp
+_network = _neuralNetworkBuilder
+  .CreateNetwork()
+  .AddInputs(_random.NextDouble(), _random.NextDouble())
+    .WithForwardPropagation()
+  .AddOutput<double>()
+    .WithBackPropagation()
+    .Targetting(0);
+
+var firstPass = await _network.ExecuteOnce();
+var secondPass = await _network.ExecuteOnce();
+secondPass.MarginOfError
+  .Should().BeLessThan(firstPass.MarginOfError);
+```
+
+As you can see, I'm using a Fluent API to build up the network, then executing the network a couple of times and asserting that the `MarginOfError` is reducing after each iteration. As a [TDD](https://en.wikipedia.org/wiki/Test-driven_development) developer, I wrote all this test code without having created any implementation, so I had nothing but compilation errors at that stage.
+
+Creating the Fluent API implementation is a bit tedious but given I've done them before, I avoided some of the common pitfalls. The observant among you may have noticed that I haven't given any details in the test for *how* forward and back propagation should work. That's because I want to provide some basic defaults based on the aforementioned neural network tutorials, and later expand the core library with additional implementations and provide extenisibility for custom implementations.
+
+All of the above can be passed by creating some empty methods to satisfy the compilation errors and then setting `MarginOfError` to the next number in a decrementing sequence each time `ExecuteOnce` is called. I had to add a load of unit tests to flesh out some more thorough behaviour which I won't detail in piecemeal here (you can go [check out the code](https://github.com/smudge202/neural-network) if you want nitty gritty detail).
+
+Clearly, the network doesn't have a hidden layer in the above network, so I wanted to make the code extensible enough to have one or more hidden layers without going beyond the realm of the test. Fortunately, following [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) kept things on track and saved me some lengthy refactoring later.
+
+[Steven Miller Twitter]: https://twitter.com/stevenmiller888
+[John Wakefield Twitter]: https://twitter.com/robosoup

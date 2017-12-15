@@ -38,6 +38,7 @@ I wouldn't say I'm *old* exactly, but I've certainly been around long enough to 
     - [Full-Fat .Net Core](#full-fat-net-core)
   - [Proxy](#proxy)
 - [Testing](#testing)
+  - [Pre Request Handler](#pre-request-handler)
 
 <!-- /TOC -->
 <!-- markdownlint-enable MD007 -->
@@ -359,11 +360,11 @@ Next steps, you can either look at the [Testing](#testing) section for advice on
 
 #### Full-Fat .Net Core
 
-For developers that haven't jumped into .Net Core yet, I appreciate it can be a little daunting. A great deal has changed. You may have heard something along the lines of
+For developers that haven't jumped into *.Net Core* yet, I appreciate it can be a little daunting. A great deal has changed. You may have heard something along the lines of
 
 > *".Net Core can run on the Full Framework"*
 
-..but that probably doesn't make a great deal of sense. I don't really want to get into explaining the difference between platforms, what *.Net Standard* and so forth is right now, so I recommend having a scan of [this article](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) if you're unsure.
+..but that probably doesn't make a great deal of sense. I don't really want to get into explaining the difference between platforms or what exactly *.Net Standard* is, so I recommend having a scan of [this article](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) if you're unsure.
 
 The point being, when people talk about *"Full Fat .Net Core"* what they're actually talking about is using the latest tooling such as the improved [`csproj` format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) and *not* the cross-platform features introduced by *.Net Core* itself.
 
@@ -399,15 +400,17 @@ In addition to a cleaner `csproj`, you also get features like the [*transitive d
 
 ### Proxy
 
-If [sideloading](#sideloading) isn't for you, there is an alternative. The idea here is to create a new web application which completely replaces your old websites, but, by default, forwards all the requests to your old site (which is deployed elsewhere, in turn).
+If [sideloading](#sideloading) isn't for you, there is an alternative. The idea here is to create a new web application which completely replaces your old website, but, by default, forwards all the requests to your old site (which is deployed elsewhere, in turn).
 
 This of course introduces an additional web call and the associated latency which can be a deal breaker for many. But, if old and new site are physically co-located or sat in the same Cloud virtual network, you'll be surprised how small that latency is.
 
-What you get in turn is the ability to conditionally handle any request originally intended for your old site using the new technology stack, safe in the knowledge that anything you haven't decided to replace is being executed the way it used to.
+What you get in return for this latency is the ability to conditionally handle any request originally intended for your old site whilst using a new and improved technology stack, safe in the knowledge that anything you haven't decided to replace is being executed the way it used to.
 
 Better still, Microsoft have already started writing the code necessary to do this very simply.
 
-> Caveat: I'm going to reference their `dev` branch of an unpublished Microsoft GitHub repository in the following snippets because MS haven't officially published this anywhere yet - if that scares the snot out of you, you could always try writing it yourself... */sigh*
+> Caveat: I'm going to reference the `dev` branch of an unpublished Microsoft GitHub repository in the following snippets because MS haven't officially published this anywhere yet - if that scares the snot out of you, you could always try writing it yourself... */sigh*
+>
+> In my opinion, better to use the existing code with no expectation of support, pushing useful changes back and testing the middleware for Microsoft than to write something homebrew.
 
 I'm going to assume that you're using Git and the new site you're introducing is *.Net Core* (running on [full fat](#full-fat-net-core) if need be) because why wouldn't you? (Sure, because you want a mature EF, working SignalR, some other un-migrated dependency; all legit reasons).
 
@@ -417,10 +420,10 @@ I'm going to assume that you're using Git and the new site you're introducing is
 
     - If you need to target *.Net Framework*, open the `csproj` and change the value of `<TargetFramework>` (i.e. `net462` for .Net Framework v4.6.2).
 1. [Fork Microsoft's Proxy repository](https://github.com/aspnet/Proxy#fork-destination-box) or feel free to use the one I [created for Future Digital Footprint](https://github.com/futuredigitalfootprint/Proxy)
-    - If you're going to use ours, you can skip over to step 9
+    - If you're going to use ours, you can skip to step 9
 1. [Submodule](https://git-scm.com/docs/git-submodule) your fork
 1. Switch your submodule to the `dev` branch
-1. Update `Microsoft.AspNetCore.Proxy.csproj` to reference the latest stable versions of the [`Microsoft.AspNetCore.WebSockets`](https://www.nuget.org/packages/microsoft.aspnetcore.websockets) and [`Microsoft.Extensions.Options`](https://www.nuget.org/packages/microsoft.extensions.options) projects
+1. Update `Microsoft.AspNetCore.Proxy.csproj` to reference the latest *stable* (not nightly) versions of the [`Microsoft.AspNetCore.WebSockets`](https://www.nuget.org/packages/microsoft.aspnetcore.websockets) and [`Microsoft.Extensions.Options`](https://www.nuget.org/packages/microsoft.extensions.options) projects
     - For example, see [here](https://github.com/futuredigitalfootprint/Proxy/commit/583e3419fc3d9cb363c9425de5069293fb766659#diff-87a66f67dbf25670909ed818b769a682)
 1. Delete `src/Directory.Build.props` to bypass Microsoft's build shenanigans
 1. Commit and push the changes to your fork
@@ -449,7 +452,7 @@ I'm going to assume that you're using Git and the new site you're introducing is
 
     </Project>
     ```
-    > Note: *Please don't jump through all the above hoops if Microsoft have gotten round to publishing this package since I wrote all this. Be sure to check [here](https://www.nuget.org/packages/microsoft.aspnetcore.proxy) for a version greater than `0.2.0`, at which point skip steps 2-11 and just add the NuGet package instead.*
+    > Note: *Please don't jump through all the above hoops if Microsoft have gotten round to publishing this package since I wrote this article. Be sure to check [here](https://www.nuget.org/packages/microsoft.aspnetcore.proxy) for a version greater than `0.2.0`, at which point skip steps 2-11 and just add the NuGet package instead.*
 
 1. Update your `Startup` class to add the Proxy:
 
@@ -461,7 +464,7 @@ I'm going to assume that you're using Git and the new site you're introducing is
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    // add your namespace
+    // your namespace
 
     public class Startup
     {
@@ -524,8 +527,14 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Unfortunately, both the MVC and Proxy middleware are *pipeline branch terminators* which means that MVC will always handle a request and not pass it on to any middleware registered *after* the MVC registration (even when MVC doesn't know how to handle it), and as you can imagine, there is no request the Proxy wouldn't know how to handle because all it's doing is forwarding it, so again, it won't pass a request on to the next piece of middleware. If you want to use MVC in your new site you'll need to map specific requests to either the proxy *or* MVC (depending which way round you prefer / is easier).
+Unfortunately, both the MVC and Proxy middleware are *pipeline branch terminators* which means that MVC will always handle a request and not pass it on to any middleware registered *after* the MVC registration (even when MVC doesn't know how to handle it). And as you might imagine, there is no request the Proxy wouldn't know how to handle because all it's doing is forwarding requests to the configured endpoint, so again, it won't pass a request on to the next piece of middleware. If you want to use MVC in your new site you'll need to map specific requests to either the proxy *or* MVC (depending which way round you prefer / is easier).
 
 ## Testing
 
-So you've decided which migration technique to use, be it [sideloading](#sideloading) or via [proxy](#proxy), and now you're ready to start replacing some of your old code? As I've said before in this article, there is no easy answer. However, I would like to show you the multi-targeting power of *.Net Core* tooling which may allow you to safely replace existing pages. Before we can do that though, you're almost definitely going to need [*dependency injection*](https://en.wikipedia.org/wiki/Dependency_injection) in order to [*mock*](https://en.wikipedia.org/wiki/Mock_object) aspects of your environment and execution pipeline.
+So you've decided which migration technique to use, be it [sideloading](#sideloading) or via [proxy](#proxy), and now you're ready to start replacing some of your old code? As I've said before in this article, there is no easy answer. However, I would like to show you the multi-targeting power of *.Net Core* tooling which may allow you to safely replace existing pages. Before we can do that though, you're almost definitely going to need [*dependency injection (DI)*](https://en.wikipedia.org/wiki/Dependency_injection) in order to [*mock*](https://en.wikipedia.org/wiki/Mock_object) aspects of your environment and execution pipeline.
+
+If you need to inject `*.aspx` pages, it's a real palaver (one of the many benefits of moving to MVC is improved abstraction). There are only two mechanisms I know of for Web Forms described in the sections below.
+
+### Pre Request Handler
+
+The reason you can't easily implement DI in Web Forms is that the factories that are responsible for receiving a request and building up an instance of your Page to pass the request to, insist upon there being a parameterless public constructor on the page. If there can be no parameters, there can be no injection.

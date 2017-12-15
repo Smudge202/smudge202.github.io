@@ -230,7 +230,132 @@ Next steps, you can either look at the [Testing](#testing) section for advice on
 
 ##### Move MVC 5 into Web Forms
 
-With this approach, we'll try to uplift an existing Web Forms project to include the necessary MVC 5 infrastructure. Before you start, I recommend creating a new (temporary) MVC 5 web application that has both Web Forms and MVC enabled, so that you have an easy-to-teach example project to check if you're unsure about something.
+With this approach, we'll try to uplift an existing Web Forms project to include the necessary MVC 5 infrastructure. Before you start, I recommend creating a new (temporary) MVC 5 web application that has both Web Forms and MVC enabled, so that you have an easy-to-reach example project to check if you're unsure about something.
+
+1. Install the [`Microsoft.AspNet.Mvc` NuGet Package](https://www.nuget.org/packages/microsoft.aspnet.mvc)
+1. Add the following `configuration/appsettings` in `web.config`:
+
+```xml
+<appSettings>
+  <add key="webpages:Version" value="3.0.0.0"/>
+  <add key="webpages:Enabled" value="false"/>
+  <add key="PreserveLoginUrl" value="true"/>
+  <add key="ClientValidationEnabled" value="true"/>
+  <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+</appSettings>
+```
+
+3. Add the following section under `configuration/system.web` in `web.config`:
+
+```xml
+<pages>
+  <namespaces>
+    <add namespace="System.Web.Helpers"/>
+    <add namespace="System.Web.Mvc"/>
+    <add namespace="System.Web.Mvc.Ajax"/>
+    <add namespace="System.Web.Mvc.Html"/>
+    <add namespace="System.Web.Routing"/>
+    <add namespace="System.Web.WebPages"/>
+  </namespaces>
+</pages>
+```
+
+4. Add a directory called `App_Start`
+5. Add a class called `RouteConfig` to the `App_Start` directory, with the following content (update the Namespace accordingly):
+
+```csharp
+using System.Web.Mvc;
+using System.Web.Routing;
+
+namespace $Namespace$
+{
+  public class RouteConfig
+  {
+    public static void RegisterRoutes(RouteCollection routes)
+    {
+      routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+      routes.MapRoute(
+        name: "Default",
+        url: "{controller}/{action}/{id}",
+        defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+      );
+    }
+  }
+}
+```
+
+6. Add the following lines to the `Application_Start` event in `global.asax`:
+
+```csharp
+AreaRegistration.RegisterAllAreas();
+RouteConfig.RegisterRoutes(RouteTable.Routes);
+```
+
+> Note: You'll need the following `using` statements if not present:
+>
+>```csharp
+>using System;
+>using System.Web;
+>using System.Web.Mvc;
+>using System.Web.Routing;
+>```
+
+7. Add the following directories to the solution:
+   - `Controllers`
+   - `Models`
+   - `Views`
+8. Add a *second* `web.config` to the `Views` directory, with the following content:
+
+```xml
+<?xml version="1.0"?>
+
+<configuration>
+  <configSections>
+    <sectionGroup name="system.web.webPages.razor" type="System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
+      <section name="host" type="System.Web.WebPages.Razor.Configuration.HostSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
+      <section name="pages" type="System.Web.WebPages.Razor.Configuration.RazorPagesSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+
+  <system.web.webPages.razor>
+    <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+    <pages pageBaseType="System.Web.Mvc.WebViewPage">
+      <namespaces>
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+      </namespaces>
+    </pages>
+  </system.web.webPages.razor>
+
+  <appSettings>
+    <add key="webpages:Enabled" value="false" />
+  </appSettings>
+
+  <system.webServer>
+    <handlers>
+      <remove name="BlockViewHandler"/>
+      <add name="BlockViewHandler" path="*" verb="*" preCondition="integratedMode" type="System.Web.HttpNotFoundHandler" />
+    </handlers>
+  </system.webServer>
+
+  <system.web>
+    <compilation>
+      <assemblies>
+        <add assembly="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+      </assemblies>
+    </compilation>
+  </system.web>
+</configuration>
+```
+
+9. In this same *second* `web.config`, add your own namespace next to the `System.Web` namespaces under the `configuration/system.web.webPages.razor/pages/namespaces` section
+   - For example, `<add namespace="Your.Namespace" />`
+
+All being well, you should now have enabled MVC in your Web Forms project. To test everything is working, try [Adding a Controller](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/adding-a-controller) and confirming you get a result.
+
+Next steps, you can either look at the [Testing](#testing) section for advice on how to replace those pesky Web Forms files, or if you've managed to achieve that, check out the section below on [migrating to .Net core](#full-fat-net-core).
 
 #### Full-Fat .Net Core
 

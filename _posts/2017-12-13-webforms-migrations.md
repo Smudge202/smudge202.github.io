@@ -184,20 +184,18 @@ In this approach, we'll create a new MVC 5 project and move our existing code ov
    - For example, if it's not present already, add `using System.Web.Globalization;`
 1. Now, with the caret on the unused `using` (which should be showing as greyed out if you're using a modern Visual Studio), press `Ctrl + . (period)`, mouse over `Remove Unnecessary Usings` and then click `Solution`:
 
-![unnecessary usings](../images/unused-usings.png)
+    ![unnecessary usings](../images/unused-usings.png)
 
-This will come in very useful later if you haven't been cleaning up your `using`s before now.
+    This will come in very useful later if you haven't been cleaning up your `using`s before now.
 
-> Caveat: Visual Studio can be a little *cavalier* when determining whether a `using` is in use or not. Especially if you have any imports inside `aspx`/`asmx`/`ascx` files. Make sure you review your changes, that your project still builds, and that your views still render. Typically, opening any file modified will cause static analysis to kick in - if it starts showing exceptions, then add the necessary imports back.
+    > Caveat: Visual Studio can be a little *cavalier* when determining whether a `using` is in use or not. Especially if you have any imports inside `aspx`/`asmx`/`ascx` files. Make sure you review your changes, that your project still builds, and that your views still render. Typically, opening any file modified will cause static analysis to kick in - if it starts showing exceptions, then add the necessary imports back.
 
-{:start="4"}
-4. Create a new MVC 5 Project.
+1. Create a new MVC 5 Project.
 1. When prompted, ensure you enable Web Forms and MVC (and Web API if you will need it):
 
-![new mvc application](../images/new-mvc5-app.png)
+    ![new mvc application](../images/new-mvc5-app.png)
 
-{:start="6"}
-6. Navigate to your Web Forms project in Windows Explorer, and copy all of the files (and folders) to your New Project, except those listed below. If prompted, skip any files about replacements and take note of which files couldn't be copied.
+1. Navigate to your Web Forms project in Windows Explorer, and copy all of the files (and folders) to your New Project, except those listed below. If prompted, skip any files about replacements and take note of which files couldn't be copied.
    - `bin\`
    - `obj\`
    - `Properties\`
@@ -208,15 +206,13 @@ This will come in very useful later if you haven't been cleaning up your `using`
    - `web.config`
 1. In Visual Studio, select your MVC project in *Solution Explorer* and select *Show All Files*:
 
-![show all files](../images/show-all-files.png)
+    ![show all files](../images/show-all-files.png)
 
-{:start="8"}
-8. If you expand your MVC project, in addition to the default MVC infrastructure generated during project creation, you should be able to see all your pages, controls, and so forth, copied over from the Web Forms project. You need to work through all these files, R-Click them and choose `Include in Project`. You can highlight several at a time and include whole folders to make it easier.
+1. If you expand your MVC project, in addition to the default MVC infrastructure generated during project creation, you should be able to see all your pages, controls, and so forth, copied over from the Web Forms project. You need to work through all these files, R-Click them and choose `Include in Project`. You can highlight several at a time and include whole folders to make it easier.
 
-![include in project](../images/include-in-project.png)
+    ![include in project](../images/include-in-project.png)
 
-{:start="9"}
-9. Merge the Web Forms `global.asax` into your new MVC 5 `global.asax`
+1. Merge the Web Forms `global.asax` into your new MVC 5 `global.asax`
    - This should be no different to any other code merge. MVC 5 will only be using the `Application_Start` event currently, so copy over any custom code you have in the old `global.asax` being careful not to remove the MVC 5 logic.
 1. Merge the Web Forms `web.config` into your new MVC 5 `web.config`
    - This is much trickier because there will often be a considerable difference between the configs. You'll need to not only copy over the obvious items like `appSettings` and `connectionStrings`, but also ensure required `HttpModules`, security and runtime settings, WCF bindings, and anything else your Web Forms project *actually* needed is copied over. If you start with the basics, you can then just keep trying to load your new site, resolving startup errors by copying over the respective old configuration (you may need to come back to this task after you've got the new project compiling).
@@ -226,7 +222,7 @@ This will come in very useful later if you haven't been cleaning up your `using`
    - The errors you find will almost always be a difference in references between old and new projects. In the file with an exception, take a look at what Visual Studio thinks is an unused (which we know shouldn't exist now because we removed them all earlier) or missing `using` statement at the top of the file, and add a reference to the respective assembly. The name of the `using` should give a good indication as to which assembly you're missing, otherwise lookup one of the classes that cannot be resolved on MSDN; the page will tell you exactly which assembly contains the given class.
    - Any errors you can't fix by adding a reference to the necessary assembly, take to google.
 1. Make sure your views actually compile. Either open each of the views to see what intellisense finds, or publish the site with [Precompilation enabled](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/older-versions-getting-started/deploying-web-site-projects/precompiling-your-website-cs) to ensure the views haven't been broken.
-   - For whatever reason, the static analysis that identifies problems in your `*.cs` files doesn't scan your views so this form of precompilation can be useful to locate errors that static analysis misses and would otherwise cause you a runtime exception.
+    - For whatever reason, the static analysis that identifies problems in your `*.cs` files doesn't scan your views so this form of precompilation can be useful to locate errors that static analysis misses and would otherwise cause you a runtime exception.
 
 Congratulations, with a little bit of luck you've now got your project sideloading. Feel free to drop me a comment if you get stuck and can't find an answer on google.
 
@@ -237,129 +233,124 @@ Next steps, you can either look at the [Testing](#testing) section for advice on
 With this approach, we'll try to uplift an existing Web Forms project to include the necessary MVC 5 infrastructure. Before you start, I recommend creating a new (temporary) MVC 5 web application that has both Web Forms and MVC enabled, so that you have an easy-to-reach example project to check if you're unsure about something.
 
 1. Install the [`Microsoft.AspNet.Mvc` NuGet Package](https://www.nuget.org/packages/microsoft.aspnet.mvc)
-1. Add the following `configuration/appsettings` in `web.config`:
+1. Add the following `configuration/appSettings` in `web.config`:
 
-```xml
-<appSettings>
-  <add key="webpages:Version" value="3.0.0.0"/>
-  <add key="webpages:Enabled" value="false"/>
-  <add key="PreserveLoginUrl" value="true"/>
-  <add key="ClientValidationEnabled" value="true"/>
-  <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
-</appSettings>
-```
+    ```xml
+    <appSettings>
+      <add key="webpages:Version" value="3.0.0.0"/>
+      <add key="webpages:Enabled" value="false"/>
+      <add key="PreserveLoginUrl" value="true"/>
+      <add key="ClientValidationEnabled" value="true"/>
+      <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+    </appSettings>
+    ```
 
-{:start="3"}
-3. Add the following section under `configuration/system.web` in `web.config`:
+1. Add the following section under `configuration/system.web` in `web.config`:
 
-```xml
-<pages>
-  <namespaces>
-    <add namespace="System.Web.Helpers"/>
-    <add namespace="System.Web.Mvc"/>
-    <add namespace="System.Web.Mvc.Ajax"/>
-    <add namespace="System.Web.Mvc.Html"/>
-    <add namespace="System.Web.Routing"/>
-    <add namespace="System.Web.WebPages"/>
-  </namespaces>
-</pages>
-```
+    ```xml
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers"/>
+        <add namespace="System.Web.Mvc"/>
+        <add namespace="System.Web.Mvc.Ajax"/>
+        <add namespace="System.Web.Mvc.Html"/>
+        <add namespace="System.Web.Routing"/>
+        <add namespace="System.Web.WebPages"/>
+      </namespaces>
+    </pages>
+    ```
 
-{:start="4"}
-4. Add a directory called `App_Start`
-5. Add a class called `RouteConfig` to the `App_Start` directory, with the following content (update the Namespace accordingly):
+1. Add a directory called `App_Start`
+1. Add a class called `RouteConfig` to the `App_Start` directory, with the following content (update the Namespace accordingly):
 
-```csharp
-using System.Web.Mvc;
-using System.Web.Routing;
+    ```csharp
+    using System.Web.Mvc;
+    using System.Web.Routing;
 
-namespace $Namespace$
-{
-  public class RouteConfig
-  {
-    public static void RegisterRoutes(RouteCollection routes)
+    namespace $Namespace$
     {
-      routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-      routes.MapRoute(
-        name: "Default",
-        url: "{controller}/{action}/{id}",
-        defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-      );
+      public class RouteConfig
+      {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+          routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+          routes.MapRoute(
+            name: "Default",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional     }
+          );
+        }
+      }
     }
-  }
-}
-```
+    ```
 
-{:start="6"}
-6. Add the following lines to the `Application_Start` event in `global.asax`:
+1. Add the following lines to the `Application_Start` event in `global.asax`:
 
-```csharp
-AreaRegistration.RegisterAllAreas();
-RouteConfig.RegisterRoutes(RouteTable.Routes);
-```
+    ```csharp
+    AreaRegistration.RegisterAllAreas();
+    RouteConfig.RegisterRoutes(RouteTable.Routes);
+    ```
 
-> Note: You'll need the following `using` statements if not present:
->
->```csharp
->using System;
->using System.Web;
->using System.Web.Mvc;
->using System.Web.Routing;
->```
+    > Note: You'll need the following `using` statements if not present:
+    >
+    >```csharp
+    >using System;
+    >using System.Web;
+    >using System.Web.Mvc;
+    >using System.Web.Routing;
+    >```
 
-{:start="7"}
-7. Add the following directories to the solution:
+1. Add the following directories to the solution:
    - `Controllers`
    - `Models`
    - `Views`
-8. Add a *second* `web.config` to the `Views` directory, with the following content:
+1. Add a *second* `web.config` to the `Views` directory, with the following content:
 
-```xml
-<?xml version="1.0"?>
+    ```xml
+    <?xml version="1.0"?>
 
-<configuration>
-  <configSections>
-    <sectionGroup name="system.web.webPages.razor" type="System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
-      <section name="host" type="System.Web.WebPages.Razor.Configuration.HostSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
-      <section name="pages" type="System.Web.WebPages.Razor.Configuration.RazorPagesSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
-    </sectionGroup>
-  </configSections>
+    <configuration>
+      <configSections>
+        <sectionGroup name="system.web.webPages.razor"     type="System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup,     System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral,     PublicKeyToken=31BF3856AD364E35">
+          <section name="host" type="System.Web.WebPages.Razor.Configuration.HostSection,     System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral,     PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
+          <section name="pages"     type="System.Web.WebPages.Razor.Configuration.RazorPagesSection,     System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral,     PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
+        </sectionGroup>
+      </configSections>
 
-  <system.web.webPages.razor>
-    <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
-    <pages pageBaseType="System.Web.Mvc.WebViewPage">
-      <namespaces>
-        <add namespace="System.Web.Mvc" />
-        <add namespace="System.Web.Mvc.Ajax" />
-        <add namespace="System.Web.Mvc.Html" />
-        <add namespace="System.Web.Routing" />
-      </namespaces>
-    </pages>
-  </system.web.webPages.razor>
+      <system.web.webPages.razor>
+        <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc,     Version=5.2.3.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <pages pageBaseType="System.Web.Mvc.WebViewPage">
+          <namespaces>
+            <add namespace="System.Web.Mvc" />
+            <add namespace="System.Web.Mvc.Ajax" />
+            <add namespace="System.Web.Mvc.Html" />
+            <add namespace="System.Web.Routing" />
+          </namespaces>
+        </pages>
+      </system.web.webPages.razor>
 
-  <appSettings>
-    <add key="webpages:Enabled" value="false" />
-  </appSettings>
+      <appSettings>
+        <add key="webpages:Enabled" value="false" />
+      </appSettings>
 
-  <system.webServer>
-    <handlers>
-      <remove name="BlockViewHandler"/>
-      <add name="BlockViewHandler" path="*" verb="*" preCondition="integratedMode" type="System.Web.HttpNotFoundHandler" />
-    </handlers>
-  </system.webServer>
+      <system.webServer>
+        <handlers>
+          <remove name="BlockViewHandler"/>
+          <add name="BlockViewHandler" path="*" verb="*" preCondition="integratedMode"     type="System.Web.HttpNotFoundHandler" />
+        </handlers>
+      </system.webServer>
 
-  <system.web>
-    <compilation>
-      <assemblies>
-        <add assembly="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
-      </assemblies>
-    </compilation>
-  </system.web>
-</configuration>
-```
+      <system.web>
+        <compilation>
+          <assemblies>
+            <add assembly="System.Web.Mvc, Version=5.2.3.0, Culture=neutral,     PublicKeyToken=31BF3856AD364E35" />
+          </assemblies>
+        </compilation>
+      </system.web>
+    </configuration>
+    ```
 
-{:start="9"}
-9. In this same *second* `web.config`, add your own namespace next to the `System.Web` namespaces under the `configuration/system.web.webPages.razor/pages/namespaces` section
+1. In this same *second* `web.config`, add your own namespace next to the `System.Web` namespaces under the `configuration/system.web.webPages.razor/pages/namespaces` section
    - For example, `<add namespace="Your.Namespace" />`
 
 All being well, you should now have enabled MVC in your Web Forms project. To test everything is working, try [Adding a Controller](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/adding-a-controller) and confirming you get a result.

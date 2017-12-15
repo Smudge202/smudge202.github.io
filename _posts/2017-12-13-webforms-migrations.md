@@ -133,13 +133,13 @@ I'm sorry. So sorry. I'm not sure in which gods you believe nor how you offended
 
 Facts are you're running outside of .Net, and almost certainly on an outdated version of IIS, on bare metal. Your options here really are very limited and dependent on circumstances. I haven't had to do this for a long while, but my advice would be:
 
-* See if there is an IIS version (preferably latest) that can side load both your ASP Classic site and a .Net site. If the answer is yes, jump to the [Proxy](#proxy) section below.
-* Is the site addressed by DNS instead of by IP directly? If so, you can still try the [Proxy](#proxy) methodology.
-* If the site is addressed directly, and/or the site relies on some crazy old undocumented and unsupported `dll`, chances are you're going to have to suck it up and replace some components en masse. However, still check out the [Testing](#testing) sections below for some advice on how to do so more safely.
+- See if there is an IIS version (preferably latest) that can side load both your ASP Classic site and a .Net site. If the answer is yes, jump to the [Proxy](#proxy) section below.
+- Is the site addressed by DNS instead of by IP directly? If so, you can still try the [Proxy](#proxy) methodology.
+- If the site is addressed directly, and/or the site relies on some crazy old undocumented and unsupported `dll`, chances are you're going to have to suck it up and replace some components en masse. However, still check out the [Testing](#testing) sections below for some advice on how to do so more safely.
 
 ### Web Forms
 
-As a technology, I consider *ASP .Net Web Forms* to be worse than ASP Classic. The bastardisation of HTTP to better suit desktop minded developers, whilst a viable developer migration strategy for Microsoft, was in all other respects a mistake. ASP Classic was at least not all that different from *modern* scripting languages such as PHP, which whilst I might frown upon, have their uses. If all you've ever done is Web/Win Forms, this is going to be *real* tough. Everything you thought you knew about the web was a thinly veiled lie; you need to throw damn near all that knowledge away and start over.
+As a technology, I consider *ASP .Net Web Forms* to be worse than ASP Classic. The bastardisation of HTTP to better suit desktop minded developers, whilst a viable developer migration strategy for Microsoft, was in all other respects a mistake. ASP Classic was at least not all that different from *"modern"* scripting languages such as PHP, which whilst I might frown upon, have their uses. If all you've ever done is Web/Win Forms, this is going to be *real* tough. Everything you thought you knew about the web was a thinly veiled lie; you need to throw damn near all that knowledge away and start over.
 
 However, once you know enough about *ASP .Net MVC*, I recommend checking out existing articles such as [Rachel Appel's guide](http://rachelappel.com/integrating-aspnet-web-forms-and-aspnetmvc/) or the [WebForms to MVC section below](#web-forms-to-mvc-5) for a guide on sideloading Web Forms and MVC. This will allow you to introduce MVC mechanisms into your web application. Once the infrastructure is in place, all new work should be completed using the MVC architecture, and whenever a significant amount of work is required within an existing Web Form, consider moving the code to MVC instead (bearing in mind aforementioned pragmatic/dogmatic caveat).
 
@@ -165,7 +165,7 @@ This involves running both old and new technology stacks in the same application
 
 #### Web Forms to MVC 5
 
-There are already some great guides out there on how to sideload so I won't provide all the details here, they haven't really changed that much between the MVC versions. It's important to note that this is a migration to the *"full fat"* ASP .Net framework and has nothing at all to do with *.Net Core*.
+There are already some great guides out there on how to sideload so I won't provide all the details here, they haven't really changed that much between the MVC versions. It's important to note that this is a migration to the *"full fat"* ASP .Net framework has nothing at all to do with *.Net Core*.
 
 There are two ways to perform the migration as detailed below. Neither is necessarily *better*, but if you find yourself stuck trying one option, simply shelve/revert your changes and try the other option.
 
@@ -190,11 +190,13 @@ This will come in very useful later if you haven't been cleaning up your `using`
 
 > Caveat: Visual Studio can be a little *cavalier* when determining whether a `using` is in use or not. Especially if you have any imports inside `aspx`/`asmx`/`ascx` files. Make sure you review your changes, that your project still builds, and that your views still render. Typically, opening any file modified will cause static analysis to kick in - if it starts showing exceptions, then add the necessary imports back.
 
+{:start="4"}
 4. Create a new MVC 5 Project.
-5. When prompted, ensure you enable Web Forms and MVC (and Web API if you will need it):
+1. When prompted, ensure you enable Web Forms and MVC (and Web API if you will need it):
 
 ![new mvc application](../images/new-mvc5-app.png)
 
+{:start="6"}
 6. Navigate to your Web Forms project in Windows Explorer, and copy all of the files (and folders) to your New Project, except those listed below. If prompted, skip any files about replacements and take note of which files couldn't be copied.
    - `bin\`
    - `obj\`
@@ -208,21 +210,23 @@ This will come in very useful later if you haven't been cleaning up your `using`
 
 ![show all files](../images/show-all-files.png)
 
+{:start="8"}
 8. If you expand your MVC project, in addition to the default MVC infrastructure generated during project creation, you should be able to see all your pages, controls, and so forth, copied over from the Web Forms project. You need to work through all these files, R-Click them and choose `Include in Project`. You can highlight several at a time and include whole folders to make it easier.
 
 ![include in project](../images/include-in-project.png)
 
+{:start="9"}
 9. Merge the Web Forms `global.asax` into your new MVC 5 `global.asax`
    - This should be no different to any other code merge. MVC 5 will only be using the `Application_Start` event currently, so copy over any custom code you have in the old `global.asax` being careful not to remove the MVC 5 logic.
 1. Merge the Web Forms `web.config` into your new MVC 5 `web.config`
-    - This is much trickier because there will often be a considerable difference between the configs. You'll need to not only copy over the obvious items like `appSettings` and `connectionStrings`, but also ensure required `HttpModules`, security and runtime settings, WCF bindings, and anything else your Web Forms project *actually* needed is copied over. If you start with the basics, you can then just keep trying to load your new site, resolving startup errors by copying over the respective old configuration (you may need to come back to this task after you've got the new project compiling).
+   - This is much trickier because there will often be a considerable difference between the configs. You'll need to not only copy over the obvious items like `appSettings` and `connectionStrings`, but also ensure required `HttpModules`, security and runtime settings, WCF bindings, and anything else your Web Forms project *actually* needed is copied over. If you start with the basics, you can then just keep trying to load your new site, resolving startup errors by copying over the respective old configuration (you may need to come back to this task after you've got the new project compiling).
 1. Merge over all the files you took note of in *Step 6*.
 1. Try yo build your new MVC project. The likelihood is that it will fail because references included in your old project have not yet been added to the MVC project.
-    - Run a build and then examine your `Error List`, ensuring that you've selected `Build Only` in the drop down (Intellisense can generate thousands of errors when a reference is missing, creating a lot of confusing noise).
-    - The errors you find will almost always be a difference in references between old and new projects. In the file with an exception, take a look at what Visual Studio thinks is an unused (which we know shouldn't exist now because we removed them all earlier) or missing `using` statement at the top of the file, and add a reference to the respective assembly. The name of the `using` should give a good indication as to which assembly you're missing, otherwise lookup one of the classes that cannot be resolved on MSDN; the page will tell you exactly which assembly contains the given class.
-    - Any errors you can't fix by adding a reference to the necessary assembly, take to google.
+   - Run a build and then examine your `Error List`, ensuring that you've selected `Build Only` in the drop down (Intellisense can generate thousands of errors when a reference is missing, creating a lot of confusing noise).
+   - The errors you find will almost always be a difference in references between old and new projects. In the file with an exception, take a look at what Visual Studio thinks is an unused (which we know shouldn't exist now because we removed them all earlier) or missing `using` statement at the top of the file, and add a reference to the respective assembly. The name of the `using` should give a good indication as to which assembly you're missing, otherwise lookup one of the classes that cannot be resolved on MSDN; the page will tell you exactly which assembly contains the given class.
+   - Any errors you can't fix by adding a reference to the necessary assembly, take to google.
 1. Make sure your views actually compile. Either open each of the views to see what intellisense finds, or publish the site with [Precompilation enabled](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/older-versions-getting-started/deploying-web-site-projects/precompiling-your-website-cs) to ensure the views haven't been broken.
-    - For whatever reason, the static analysis that identifies problems in your `*.cs` files doesn't scan your views so this form of precompilation can be useful to locate errors that static analysis misses and would otherwise cause you a runtime exception.
+   - For whatever reason, the static analysis that identifies problems in your `*.cs` files doesn't scan your views so this form of precompilation can be useful to locate errors that static analysis misses and would otherwise cause you a runtime exception.
 
 Congratulations, with a little bit of luck you've now got your project sideloading. Feel free to drop me a comment if you get stuck and can't find an answer on google.
 
@@ -245,6 +249,7 @@ With this approach, we'll try to uplift an existing Web Forms project to include
 </appSettings>
 ```
 
+{:start="3"}
 3. Add the following section under `configuration/system.web` in `web.config`:
 
 ```xml
@@ -260,6 +265,7 @@ With this approach, we'll try to uplift an existing Web Forms project to include
 </pages>
 ```
 
+{:start="4"}
 4. Add a directory called `App_Start`
 5. Add a class called `RouteConfig` to the `App_Start` directory, with the following content (update the Namespace accordingly):
 
@@ -284,6 +290,7 @@ namespace $Namespace$
 }
 ```
 
+{:start="6"}
 6. Add the following lines to the `Application_Start` event in `global.asax`:
 
 ```csharp
@@ -300,6 +307,7 @@ RouteConfig.RegisterRoutes(RouteTable.Routes);
 >using System.Web.Routing;
 >```
 
+{:start="7"}
 7. Add the following directories to the solution:
    - `Controllers`
    - `Models`
@@ -350,6 +358,7 @@ RouteConfig.RegisterRoutes(RouteTable.Routes);
 </configuration>
 ```
 
+{:start="9"}
 9. In this same *second* `web.config`, add your own namespace next to the `System.Web` namespaces under the `configuration/system.web.webPages.razor/pages/namespaces` section
    - For example, `<add namespace="Your.Namespace" />`
 

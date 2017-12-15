@@ -21,22 +21,22 @@ I wouldn't say I'm *old* exactly, but I've certainly been around long enough to 
 <!-- TOC -->
 
 - [Estate](#estate)
-    - [Tact](#tact)
-    - [Mining](#mining)
+  - [Tact](#tact)
+  - [Mining](#mining)
 - [Goal](#goal)
-    - [Top-Down](#top-down)
-    - [Bottom-Up](#bottom-up)
+  - [Top-Down](#top-down)
+  - [Bottom-Up](#bottom-up)
 - [Migration](#migration)
-    - [ASP Classic](#asp-classic)
-    - [Web Forms](#web-forms)
-    - [MVC](#mvc)
+  - [ASP Classic](#asp-classic)
+  - [Web Forms](#web-forms)
+  - [MVC](#mvc)
 - [Techniques](#techniques)
-    - [Sideloading](#sideloading)
-        - [Web Forms to MVC 5](#web-forms-to-mvc-5)
-            - [Move Web Forms into MVC 5](#move-web-forms-into-mvc-5)
-            - [Move MVC 5 into Web Forms](#move-mvc-5-into-web-forms)
-        - [Full-Fat .Net Core](#full-fat-net-core)
-    - [Proxy](#proxy)
+  - [Sideloading](#sideloading)
+    - [Web Forms to MVC 5](#web-forms-to-mvc-5)
+      - [Move Web Forms into MVC 5](#move-web-forms-into-mvc-5)
+      - [Move MVC 5 into Web Forms](#move-mvc-5-into-web-forms)
+    - [Full-Fat .Net Core](#full-fat-net-core)
+  - [Proxy](#proxy)
 - [Testing](#testing)
 
 <!-- /TOC -->
@@ -59,7 +59,7 @@ I'm a big fan of of this quote
 
 I say this, because there are only two real ways to establish your estate. The first and most preferable is through the experience of others. Ask questions starting at high level design, digging down as necessary, but making an effort not to point fingers. If the people answering your questions are not aware how bad their code is, teach them by example through excited demonstrations of good software at a later date, **not** by shaming them in the present.
 
-> *Caveat: I'm terrible at this. Bad code **really** gripes me and it's not uncommon for my mouth to move before my brain catches up. In closed company this can be a great stress relief, and I've no problem with anonymous/redacted submissions to [The Daily WTF](https://thedailywtf.com), but trust me when I say that rubbing people up the wrong way, no matter how inadequate you may think their skillset, will **not** help you.*
+> Caveat: *I'm terrible at this. Bad code **really** gripes me and it's not uncommon for my mouth to move before my brain catches up. In closed company this can be a great stress relief, and I've no problem with anonymous/redacted submissions to [The Daily WTF](https://thedailywtf.com), but trust me when I say that rubbing people up the wrong way, no matter how inadequate you may think their skillset, will **not** help you.*
 
 ![you-code-is-bad](../images/your-code-is-bad.jpg)
 
@@ -86,7 +86,7 @@ If your managers aren't quite as cool, there's still some tips below, especially
 
 ### Top-Down
 
-> *Note: I've noticed that I don't always agree with which way round "top-down" and "bottom-up" describes these mechanisms. I'll describe them as I visualise them in my head, but be aware I or others may use the inverse!*
+> Note: *I've noticed that I don't always agree with which way round "top-down" and "bottom-up" describes these mechanisms. I'll describe them as I visualise them in my head, but be aware I or others may use the inverse!*
 
 Knowing what the product does, having established the estate, albeit not including all the nuances and finer detail, how would you write the product from scratch? With your team, draft and design, at a high level, what that system would look like. What tech stacks would you be looking at, what architecture, what deployment infrastructure, security, resilience, and so forth, would be built in?
 
@@ -117,7 +117,7 @@ You should *never* approach a product owner and say
 
 I have had the good fortune to work with product owners that will prefer the first option, but the latter is all too often the preference. The thing is, you're a professional, right? The latter needn't be an option! You have the choice, you are the one writing the code, you are the one estimating the change. You can say "no".
 
-> *Caveat: There needs to be a pragmatic vs. dogmatic balance here. If you leave you product owner or stakeholders in a bind, you may be doing more harm than good to your company, no matter your intentions. Typically there's a middle ground that both sides can compromise and agree upon.*
+> Caveat: *There needs to be a pragmatic vs. dogmatic balance here. If you leave you product owner or stakeholders in a bind, you may be doing more harm than good to your company, no matter your intentions. Typically there's a middle ground that both sides can compromise and agree upon.*
 
 ## Migration
 
@@ -359,6 +359,173 @@ Next steps, you can either look at the [Testing](#testing) section for advice on
 
 #### Full-Fat .Net Core
 
+For developers that haven't jumped into .Net Core yet, I appreciate it can be a little daunting. A great deal has changed. You may have heard something along the lines of
+
+> *".Net Core can run on the Full Framework"*
+
+..but that probably doesn't make a great deal of sense. I don't really want to get into explaining the difference between platforms, what *.Net Standard* and so forth is right now, so I recommend having a scan of [this article](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) if you're unsure.
+
+The point being, when people talk about *"Full Fat .Net Core"* what they're actually talking about is using the latest tooling such as the improved [`csproj` format](https://docs.microsoft.com/en-us/dotnet/core/tools/csproj) and *not* the cross-platform features introduced by *.Net Core* itself.
+
+With that cleared up, you can very easily begin using the new tooling by targeting your new style `csproj` at the full *.Net Framework*:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+  </ItemGroup>
+
+</Project>
+```
+
+These new style `csproj` files have gone the way of old school `web.config` and had a bunch of stuff hidden away so that, hopefully, only content that matters to you should be present. No longer will you find all the default build configuration and individual entries for each file in your project. Instead, the build configuration has some defaults tucked away (which can be overridden). For example, by default:
+
+- All `*.cs` files are included and compiled
+- All `*.resx` files are included and embedded
+- All other files are shown in the project, but have no impact on the build
+
+In addition to a cleaner `csproj`, you also get features like the [*transitive dependency*](https://www.erikheemskerk.nl/transitive-nuget-dependencies-net-core-got-your-back/) mechanism. When something is referenced, everything it references in turn is also pulled in, so instead of a `package.config` (which is no longer necessary) filled with dozens of packages despite you only having added 1 top-level package, you need only list the top level now.
+
+*.Net Core* has a much higher release cadence than *.Net Framework*, so the associated tooling evolves quicker; it's likely worth your time [migrating to .Net Core](https://docs.microsoft.com/en-us/aspnet/core/migration/). You'll be rewarded with improved tooling, and you needn't change anything on your production server / deployment targets. Plus, it'll place you in a better position to migrate to the `.Net Core` *platform* should it's feature set entice you.
+
 ### Proxy
 
+If [sideloading](#sideloading) isn't for you, there is an alternative. The idea here is to create a new web application which completely replaces your old websites, but, by default, forwards all the requests to your old site (which is deployed elsewhere, in turn).
+
+This of course introduces an additional web call and the associated latency which can be a deal breaker for many. But, if old and new site are physically co-located or sat in the same Cloud virtual network, you'll be surprised how small that latency is.
+
+What you get in turn is the ability to conditionally handle any request originally intended for your old site using the new technology stack, safe in the knowledge that anything you haven't decided to replace is being executed the way it used to.
+
+Better still, Microsoft have already started writing the code necessary to do this very simply.
+
+> Caveat: I'm going to reference their `dev` branch of an unpublished Microsoft GitHub repository in the following snippets because MS haven't officially published this anywhere yet - if that scares the snot out of you, you could always try writing it yourself... */sigh*
+
+I'm going to assume that you're using Git and the new site you're introducing is *.Net Core* (running on [full fat](#full-fat-net-core) if need be) because why wouldn't you? (Sure, because you want a mature EF, working SignalR, some other un-migrated dependency; all legit reasons).
+
+1. Create a new *"ASP .NET Core Web Application"*
+
+    ![new net core web app](../images/new-netcore-webapp.png)
+
+    - If you need to target *.Net Framework*, open the `csproj` and change the value of `<TargetFramework>` (i.e. `net462` for .Net Framework v4.6.2).
+1. [Fork Microsoft's Proxy repository](https://github.com/aspnet/Proxy#fork-destination-box) or feel free to use the one I [created for Future Digital Footprint](https://github.com/futuredigitalfootprint/Proxy)
+    - If you're going to use ours, you can skip over to step 9
+1. [Submodule](https://git-scm.com/docs/git-submodule) your fork
+1. Switch your submodule to the `dev` branch
+1. Update `Microsoft.AspNetCore.Proxy.csproj` to reference the latest stable versions of the [`Microsoft.AspNetCore.WebSockets`](https://www.nuget.org/packages/microsoft.aspnetcore.websockets) and [`Microsoft.Extensions.Options`](https://www.nuget.org/packages/microsoft.extensions.options) projects
+    - For example, see [here](https://github.com/futuredigitalfootprint/Proxy/commit/583e3419fc3d9cb363c9425de5069293fb766659#diff-87a66f67dbf25670909ed818b769a682)
+1. Delete `src/Directory.Build.props` to bypass Microsoft's build shenanigans
+1. Commit and push the changes to your fork
+1. Hop back into your main repository and commit the submodule change
+1. In Visual Studio, R-Click the solution and `Add Existing Project...`
+1. Navigate to and select the submoduled `Microsoft.AspNetCore.Proxy.csproj`
+1. In your new web site, add a reference to the Proxy project:
+
+    ```xml
+    <Project Sdk="Microsoft.NET.Sdk.Web">
+      <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <Folder Include="wwwroot\" />
+      </ItemGroup>
+
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+      </ItemGroup>
+
+      <ItemGroup>
+        <ProjectReference Include="..\submodules\Microsoft.AspNetCore.Proxy\src\Microsoft.AspNetCore.Proxy\Microsoft.AspNetCore.Proxy.csproj" />
+      </ItemGroup>
+
+    </Project>
+    ```
+    > Note: *Please don't jump through all the above hoops if Microsoft have gotten round to publishing this package since I wrote all this. Be sure to check [here](https://www.nuget.org/packages/microsoft.aspnetcore.proxy) for a version greater than `0.2.0`, at which point skip steps 2-11 and just add the NuGet package instead.*
+
+1. Update your `Startup` class to add the Proxy:
+
+    ```csharp
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Proxy;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    // add your namespace
+
+    public class Startup
+    {
+      private readonly IConfiguration _configuration;
+
+      public Startup(IConfiguration configuration)
+        => _configuration = configuration;
+
+      public void ConfigureServices(IServiceCollection services)
+      {
+        services.AddProxy();
+      }
+
+      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+      {
+        if (env.IsDevelopment())
+          app.UseDeveloperExceptionPage();
+
+        var proxyOptions = _configuration.Get<ProxyOptions>();
+        // Host and AppendQuery properties will not bind correctly so we have to intervene
+        proxyOptions.Host = HostString.FromUriComponent(_configuration["Host"]);
+        proxyOptions.AppendQuery = QueryString.FromUriComponent(_configuration["AppendQuery"]);
+
+        app.RunProxy(proxyOptions);
+      }
+    }
+    ```
+
+1. You'll also need to add details of where the old site will be available so that the proxy middleware knows where to forward requests to. You can use any [configuration style](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration) you want, but as an example, here it is in `appSettings.json`:
+
+    ```json
+    {
+      "Proxy": {
+        "Scheme": "https",
+        "Host": "example.com",
+        "PathBase": "/virtualPath",
+        "AppendQuery": "foo=bar"
+      }
+    }
+    ```
+
+And that's your proxy ready. All requests received by this web application will now be forwarded. But, it's unlikely you'll want to forward *all* requests. You can use normal routing mechanics so that, for example, a given request goes to some specific [custom middleware](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware?tabs=aspnetcore2x):
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+  if (env.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+
+  app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/some-url"),
+    builder => builder.UseMiddleware<MyCustomerMiddleware>());
+
+  var proxyOptions = _configuration.Get<ProxyOptions>();
+  // Host and AppendQuery properties will not bind correctly so we have to intervene
+  proxyOptions.Host = HostString.FromUriComponent(_configuration["Host"]);
+  proxyOptions.AppendQuery = QueryString.FromUriComponent(_configuration["AppendQuery"]);
+
+  app.RunProxy(proxyOptions);
+}
+```
+
+Unfortunately, both the MVC and Proxy middleware are *pipeline branch terminators* which means that MVC will always handle a request and not pass it on to any middleware registered *after* the MVC registration (even when MVC doesn't know how to handle it), and as you can imagine, there is no request the Proxy wouldn't know how to handle because all it's doing is forwarding it, so again, it won't pass a request on to the next piece of middleware. If you want to use MVC in your new site you'll need to map specific requests to either the proxy *or* MVC (depending which way round you prefer / is easier).
+
 ## Testing
+
+So you've decided which migration technique to use, be it [sideloading](#sideloading) or via [proxy](#proxy), and now you're ready to start replacing some of your old code? As I've said before in this article, there is no easy answer. However, I would like to show you the multi-targeting power of *.Net Core* tooling which may allow you to safely replace existing pages. Before we can do that though, you're almost definitely going to need [*dependency injection*](https://en.wikipedia.org/wiki/Dependency_injection) in order to [*mock*](https://en.wikipedia.org/wiki/Mock_object) aspects of your environment and execution pipeline.

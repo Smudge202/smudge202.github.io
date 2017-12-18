@@ -109,7 +109,7 @@ You should *never* approach a product owner and say
 
 > *"If I do it **properly** it'll take this long, but I can hack it in much quicker if needs be*
 
-I have had the good fortune to work with product owners that will prefer the first option, but the latter is all too often the preference. The thing is, you're a professional, right? The latter needn't be an option! You have the choice, you are the one writing the code, you are the one estimating the change. You can say "no".
+I have had the good fortune to work with product owners that will prefer the first option, but the latter is all too often the preference. The thing is, the latter needn't be an option! You have the choice, you are the one writing the code, you are the one estimating the change. You can say "no".
 
 > Caveat: *There needs to be a pragmatic vs. dogmatic balance here. If you leave your product owner or stakeholders in a bind, you may be doing more harm than good to your company, no matter your intentions. Typically there's a middle ground that both sides can compromise and agree upon.*
 

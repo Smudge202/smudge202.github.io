@@ -537,4 +537,102 @@ If you need to inject `*.aspx` pages, it's a real palaver (one of the many benef
 
 ### Pre Request Handler
 
-The reason you can't easily implement DI in Web Forms is that the factories that are responsible for receiving a request and building up an instance of your Page to pass the request to, insist upon there being a parameterless public constructor on the page. If there can be no parameters, there can be no injection.
+The reason you can't easily implement DI in Web Forms is that the factories that are responsible for receiving a request and building up an instance of your Page to pass the request to, insist upon there being a parameterless public constructor on the page. If there can be no parameters, there can be no (constructor) injection.
+
+You *could* circumvent this using the [Service Locator Anti-Pattern](http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/), but you *should not*. There are other workarounds (such as those listed here) that take very little time to put together and at least don't fragment your composition.
+
+One way of working around this is defining two constructors in your pages. The first, public parameterless (implicitly apparent when none are defined) and the second containing your dependencies. There is a [good article on MSDN](https://blogs.msdn.microsoft.com/webdev/2016/10/19/modern-asp-net-web-forms-development-dependency-injection/) showing how you can then use an [`IHttpModule`](https://msdn.microsoft.com/en-us/library/system.web.ihttpmodule(v=vs.110).aspx) to hook your choice of container into the [`PreRequestHandlerExecute`](https://msdn.microsoft.com/en-us/library/system.web.httpapplication.prerequesthandlerexecute(v=vs.110).aspx) allowing you to take actions against the page being called prior to your [page life cycle](https://msdn.microsoft.com/en-us/library/ms178472.aspx#lifecycle_events).
+
+I personally really like the new [`Microsoft.Extensions.DependencyInjection`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) libraries so the following code shows an alternate version of the aforementioned MSDN article using the Microsoft library instead of [Autofac](https://autofac.org/).
+
+Whether your `IHttpModule` acts as your [Composition Root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/) or whether it calls into it is up to you. For the sake of brevity, I'm going to add my service bindings in the module:
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.Web.UI;
+
+// add your namespace
+public class DependencyInjectionHttpModule : IHttpModule
+{
+  private static readonly IServiceProvider Provider;
+  private static readonly ConcurrentDictionary<TypeInfo, Action<Page>> PageConstructors
+    = new ConcurrentDictionary<TypeInfo, Action<Page>>();
+
+  static DependencyInjectionHttpModule()
+  {
+    var services = new ServiceCollection()
+    .AddTransient<Foo, Bar>();
+    // add more services or tie into composition root
+    Provider = services.BuildServiceProvider();
+  }
+
+  public void Init(HttpApplication context)
+    => context.PreRequestHandlerExecute += PreRequestHandlerExecute;
+
+  private void PreRequestHandlerExecute(object sender, EventArgs e)
+  {
+    if (HttpContext.Current.CurrentHandler is Page page)
+      ConstructorInject(page);
+  }
+
+  private void ConstructorInject(Page page)
+  {
+    var pageTypeInfo = page.GetType().BaseType.GetTypeInfo();
+    if (pageTypeInfo.IsAbstract)
+      return;
+    if (PageConstructors.ContainsKey(pageTypeInfo))
+      PageConstructors[pageTypeInfo](page);
+
+    var constructors = pageTypeInfo.DeclaredConstructors
+      .Where(c => !c.IsStatic && c.IsPublic)
+      .Select(c => new Constructor(c))
+      .ToArray();
+    var largestConstructor = constructors.Max(x => x.Parameters.Length);
+    if (constructors.Count(x => x.Parameters.Length == largestConstructor) != 1)
+      PageConstructors.TryAdd(pageTypeInfo, p => throw new InvalidOperationException($"No suitable constructor could be found for {p.GetType().AssemblyQualifiedName}."));
+    else
+      PageConstructors.TryAdd(pageTypeInfo, Compose(page, pageTypeInfo, constructors.Single(x => x.Parameters.Length == largestConstructor)));
+    PageConstructors[pageTypeInfo](page);
+  }
+
+  private static Action<Page> Compose(Page page, TypeInfo pageTypeInfo, Constructor constructor)
+  {
+    var parameters = new object[constructor.Parameters.Length];
+
+    try
+    {
+      for (var i = 0; i < parameters.Length; i++)
+      parameters[i] = Provider.GetRequiredService(constructor.Parameters[i].ParameterType);
+    }
+    catch (InvalidOperationException ex)
+    {
+      return p => throw new InvalidOperationException($"No suitable constructor could be found for {page.GetType().AssemblyQualifiedName}.", ex);
+    }
+
+    return p => constructor.MethodInfo.Invoke(page, parameters);
+  }
+
+  public void Dispose() { }
+
+  private class Constructor
+  {
+    public ConstructorInfo MethodInfo { get; }
+    public ParameterInfo[] Parameters { get; }
+    public Constructor(ConstructorInfo constructorInfo)
+    {
+      MethodInfo = constructorInfo;
+      Parameters = constructorInfo.GetParameters();
+    }
+  }
+}
+```
+
+<!--TODO: Add web.config httpmodule info reminder-->
+<!--TODO: Add property injection alternative-->
+<!--TODO: Add existing di module alternative (Unity)-->
+<!--TODO: Add multi-target testing-->

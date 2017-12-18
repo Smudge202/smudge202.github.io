@@ -12,9 +12,7 @@ I recently started work for a [new (and very exciting) company](http://www.futur
 _Image from [Virtual Geek](http://virtualgeek.typepad.com/virtual_geek/2015/08/vmworld-2015-cloud-native-apps-a-complex-interesting-but-fascinating-story.html)_
 {: style="font-size: 12px; text-align: center;"}
 
-I can't attest to *enjoying* brownfield work personally, but it's unavoidable. Its my belief that the software development industry as a whole is pretty damn terrible; our disciplines and professionalism not focused sufficiently nor at an early enough point in the personal development of junior roles, leading to an exponential influx of technical debt and subsequent likelihood of brownfield. Rant aside, and be that true or not, I've only ever had **one** role that was purely greenfield (out of *many*).
-
-I wouldn't say I'm *old* exactly, but I've certainly been around long enough to have worked on software developed pre the [*dot-com bubble*](https://en.wikipedia.org/wiki/Dot-com_bubble). I've worked with all the key *.Net* web technologies, and several that existed prior to the birth of *.Net*. In that time, I've collected and refined a number of lessons that it's about time I put to paper and potentially pass on (plus invite comment on further insights and improvements on these techniques).
+I've worked with all the key *.Net* web technologies, and several that existed prior to the birth of *.Net*. In that time, I've collected and refined a number of lessons that I'd like to put to paper and potentially pass on (plus invite comment on further insights and improvements on these techniques).
 
 <!-- markdownlint-disable MD007 -->
 <!-- markdownlint-disable MD010 -->
@@ -46,11 +44,25 @@ I wouldn't say I'm *old* exactly, but I've certainly been around long enough to 
 
 ## Estate
 
-The first task towards orchestrating the migration or uplifting of heritage software is establishing the *estate*. Oftentimes you'll be working with developers long since devoid of the original authors and left with little more than speculation and grey area, but your number one job is to understand the functionality of your entire software suite. You don't need to know how it works, and as amusing or aggravating as the *why-it-works-that-way* might be, that isn't necessarily of importance either.
+My past few roles have entailed a large amount of what we'll fondly refer to as *heritage* software. The first task towards orchestrating the migration or uplifting of heritage software is establishing the *estate*.
+
+Most of the legacy code I've inherited throughout my career were being maintained by developers that were not around for the entire history of the software. Oftentimes you'll be working with developers long since devoid of the original authors and left with little more than speculation and grey area, but your number one job is to understand the functionality of the software suite.
+
+I don't aim to know how it works, and as amusing or aggravating as the *why-it-works-that-way* might be, that isn't necessarily of importance either.
 
 ### Tact
 
-Presume that the bizarre and downright crazy code and practices you come across were driven by one reason or another that you simply can't comprehend through fault of your own. Accept that those decisions were made already and there's little that whining about it will do to change a thing.
+Those that know me well probably wouldn't use the word "tact" in the same sentence as my name. Bad code **really** gripes me and it's not uncommon for my mouth to move before my brain catches up. In closed company this can be a great stress relief, and I've no problem with anonymous/redacted submissions to [The Daily WTF](https://thedailywtf.com), but putting people's backs up doesn't help.
+
+![you-code-is-bad](../images/your-code-is-bad.jpg)
+
+_Image from [Quick Meme](http://www.quickmeme.com/)_
+{: style="font-size: 12px; text-align: center;"}
+
+Having hurt several people's feelings in the past saying the first angry thing that came to mind after seeing a snippet of... *interesting* code, I've had to lay some ground rules for myself that others may benefit from.
+
+- Presume that the bizarre and downright crazy code and practices you come across were driven by one reason or another that you simply can't comprehend, and the inability to comprehend it is your fault. 
+- Accept that decisions were made with constraints you can't fathom, and there's little that whining about it will do to change a thing.
 
 I'm a big fan of of this quote
 
@@ -58,14 +70,7 @@ I'm a big fan of of this quote
 
 ...but in all likelihood, the developers who wrote the software didn't hear that advice.
 
-I say this, because there are only two real ways to establish your estate. The first and most preferable is through the experience of others. Ask questions starting at high level design, digging down as necessary, but making an effort not to point fingers. If the people answering your questions are not aware how bad their code is, teach them by example through excited demonstrations of good software at a later date, **not** by shaming them in the present.
-
-> Caveat: *I'm terrible at this. Bad code **really** gripes me and it's not uncommon for my mouth to move before my brain catches up. In closed company this can be a great stress relief, and I've no problem with anonymous/redacted submissions to [The Daily WTF](https://thedailywtf.com), but trust me when I say that rubbing people up the wrong way, no matter how inadequate you may think their skillset, will **not** help you.*
-
-![you-code-is-bad](../images/your-code-is-bad.jpg)
-
-_Image from [Quick Meme](http://www.quickmeme.com/)_
-{: style="font-size: 12px; text-align: center;"}
+There are only two real ways I've found when trying to establish an estate. The first and most preferable is through the experience of others. Asking questions starting at high level design, digging down as necessary, but making an effort not to point fingers. If the people answering my questions are not aware how bad (I think) their code is, I'd rather teach them by example; through excited demonstrations of good software at a later date, **not** by shaming them in the present.
 
 ### Mining
 

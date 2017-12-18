@@ -557,8 +557,8 @@ public class DependencyInjectionHttpModule : IHttpModule
   static DependencyInjectionHttpModule()
   {
     var services = new ServiceCollection()
-    .AddTransient<Foo, Bar>();
-    // add more services or tie into composition root
+      .AddTransient<Foo, Bar>();
+      // add more services or tie into composition root
     Provider = services.BuildServiceProvider();
   }
 
@@ -598,7 +598,7 @@ public class DependencyInjectionHttpModule : IHttpModule
     try
     {
       for (var i = 0; i < parameters.Length; i++)
-      parameters[i] = Provider.GetRequiredService(constructor.Parameters[i].ParameterType);
+        parameters[i] = Provider.GetRequiredService(constructor.Parameters[i].ParameterType);
     }
     catch (InvalidOperationException ex)
     {

@@ -157,7 +157,7 @@ This involves running both old and new technology stacks in the same application
 
 #### Web Forms to MVC 5
 
-There are already some great guides out there on how to sideload so I won't provide all the details here, they haven't really changed that much between the MVC versions. It's important to note that this is a migration to the *"full fat"* ASP .Net framework has nothing at all to do with *.Net Core*.
+There are already some great guides out there on how to sideload so I won't provide all the details here, they haven't really changed that much between the MVC versions. It's important to note that this is a migration to the *"full fat"* ASP .Net framework and has nothing at all to do with *.Net Core*.
 
 There are two ways to perform the migration as detailed below. Neither is necessarily *better*, but if you find yourself stuck trying one option, simply shelve/revert your changes and try the other option.
 
@@ -209,9 +209,9 @@ In this approach, we'll create a new MVC 5 project and move our existing code ov
 1. Merge the Web Forms `web.config` into your new MVC 5 `web.config`
    - This is much trickier because there will often be a considerable difference between the configs. You'll need to not only copy over the obvious items like `appSettings` and `connectionStrings`, but also ensure required `HttpModules`, security and runtime settings, WCF bindings, and anything else your Web Forms project *actually* needed is copied over. If you start with the basics, you can then just keep trying to load your new site, resolving startup errors by copying over the respective old configuration (you may need to come back to this task after you've got the new project compiling).
 1. Merge over all the files you took note of in *Step 6*.
-1. Try yo build your new MVC project. The likelihood is that it will fail because references included in your old project have not yet been added to the MVC project.
+1. Try to build your new MVC project. The likelihood is that it will fail because references included in your old project have not yet been added to the MVC project.
    - Run a build and then examine your `Error List`, ensuring that you've selected `Build Only` in the drop down (Intellisense can generate thousands of errors when a reference is missing, creating a lot of confusing noise).
-   - The errors you find will almost always be a difference in references between old and new projects. In the file with an exception, take a look at what Visual Studio thinks is an unused (which we know shouldn't exist now because we removed them all earlier) or missing `using` statement at the top of the file, and add a reference to the respective assembly. The name of the `using` should give a good indication as to which assembly you're missing, otherwise lookup one of the classes that cannot be resolved on MSDN; the page will tell you exactly which assembly contains the given class.
+   - The errors you find will almost always be a difference in references between old and new projects. In the file with an exception, take a look at what Visual Studio thinks is an unused or missing `using` statement (which we know shouldn't exist now because we removed them all earlier) at the top of the file, and add a reference to the respective assembly. The name of the `using` should give a good indication as to which assembly you're missing, otherwise lookup one of the classes that cannot be resolved on MSDN; the page will tell you exactly which assembly contains the given class.
    - Any errors you can't fix by adding a reference to the necessary assembly, take to google.
 1. Make sure your views actually compile. Either open each of the views to see what intellisense finds, or publish the site with [Precompilation enabled](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/older-versions-getting-started/deploying-web-site-projects/precompiling-your-website-cs) to ensure the views haven't been broken.
     - For whatever reason, the static analysis that identifies problems in your `*.cs` files doesn't scan your views so this form of precompilation can be useful to locate errors that static analysis misses and would otherwise cause you a runtime exception.
@@ -222,7 +222,7 @@ Next steps, you can either look at the [Testing](#testing) section for advice on
 
 ##### Move MVC 5 into Web Forms
 
-With this approach, we'll try to uplift an existing Web Forms project to include the necessary MVC 5 infrastructure. Before you start, I recommend creating a new (temporary) MVC 5 web application that has both Web Forms and MVC enabled, so that you have an easy-to-reach example project to check if you're unsure about something.
+With this approach, we'll try to uplift an existing Web Forms project to include the necessary MVC 5 infrastructure. Before you start, I recommend creating a new (temporary) MVC 5 web application that has both Web Forms and MVC enabled so that you have an easy-to-reach example project to check if you're unsure about something.
 
 1. Install the [`Microsoft.AspNet.Mvc` NuGet Package](https://www.nuget.org/packages/microsoft.aspnet.mvc)
 1. Add the following `configuration/appSettings` in `web.config`:

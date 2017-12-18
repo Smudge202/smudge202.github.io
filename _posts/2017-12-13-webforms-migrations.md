@@ -12,7 +12,7 @@ I recently started work for a [new (and very exciting) company](http://www.futur
 _Image from [Virtual Geek](http://virtualgeek.typepad.com/virtual_geek/2015/08/vmworld-2015-cloud-native-apps-a-complex-interesting-but-fascinating-story.html)_
 {: style="font-size: 12px; text-align: center;"}
 
-I've worked with all the key *.Net* web technologies, and several that existed prior to the birth of *.Net*. In that time, I've collected and refined a number of lessons that I'd like to put to paper and potentially pass on (plus invite comment on further insights and improvements on these techniques).
+Having worked with the key *.Net* web technologies, I'd like to put to paper and potentially pass on, by way of this article, some insights into Brownfield development (plus invite comment on further insights and improvements on these techniques).
 
 <!-- markdownlint-disable MD007 -->
 <!-- markdownlint-disable MD010 -->
@@ -44,9 +44,9 @@ I've worked with all the key *.Net* web technologies, and several that existed p
 
 ## Estate
 
-My past few roles have entailed a large amount of what we'll fondly refer to as *heritage* software. The first task towards orchestrating the migration or uplifting of heritage software is establishing the *estate*.
+My past few roles have entailed a large amount of what we'll fondly refer to as *heritage* software. Whenever tackling these code bases, my first task towards orchestrating the migration or uplifting of heritage software is establishing the *estate*.
 
-Most of the legacy code I've inherited throughout my career were being maintained by developers that were not around for the entire history of the software. Oftentimes you'll be working with developers long since devoid of the original authors and left with little more than speculation and grey area, but your number one job is to understand the functionality of the software suite.
+Most of the legacy code I've inherited throughout my career was being maintained by developers that were not around for the entire history of the software. Oftentimes you'll be working with developers long since devoid of the original authors and left with little more than speculation and grey area, but your number one job is to understand the functionality of the software suite.
 
 I don't aim to know how it works, and as amusing or aggravating as the *why-it-works-that-way* might be, that isn't necessarily of importance either.
 
@@ -61,7 +61,7 @@ _Image from [Quick Meme](http://www.quickmeme.com/)_
 
 Having hurt several people's feelings in the past saying the first angry thing that came to mind after seeing a snippet of... *interesting* code, I've had to lay some ground rules for myself that others may benefit from.
 
-- Presume that the bizarre and downright crazy code and practices you come across were driven by one reason or another that you simply can't comprehend, and the inability to comprehend it is your fault. 
+- Presume that the bizarre and downright crazy code you come across was driven by one reason or another that you simply can't comprehend, and the inability to comprehend it is *your* shortcoming.
 - Accept that decisions were made with constraints you can't fathom, and there's little that whining about it will do to change a thing.
 
 I'm a big fan of of this quote
@@ -70,85 +70,110 @@ I'm a big fan of of this quote
 
 ...but in all likelihood, the developers who wrote the software didn't hear that advice.
 
-There are only two real ways I've found when trying to establish an estate. The first and most preferable is through the experience of others. Asking questions starting at high level design, digging down as necessary, but making an effort not to point fingers. If the people answering my questions are not aware how bad (I think) their code is, I'd rather teach them by example; through excited demonstrations of good software at a later date, **not** by shaming them in the present.
+There are only two real ways I've found to establish an estate. The first and most preferable is through the experience of others. Asking questions starting at high level design, digging down as necessary, but making an effort not to point fingers. If the people answering my questions are not aware how bad (I think) their code is, I'd rather teach them by example; through excited demonstrations of good software at a later date, **not** by shaming them in the present.
 
 ### Mining
 
-Alongside gaining information from peers that may have been around longer than you, where available, you'll also need to dig through code. In an ideal world, you'll have an up to date and comprehensive test suite (**never** happened for me...) but more than likely you'll jump to a test project to find empty, redundant, commented-out, superfluous blocks of code.
+Alongside gaining information from peers that may have been around longer than me, or in the complete absence of such, I also dig through code. Of course, the first thing I do is go looking for an up to date and comprehensive test suite... one day that might even pan out for me. More likely though, you'll jump to a test project to find empty, redundant, commented-out, superfluous blocks of code.
 
-In that case, establish the public endpoints. What is the customer facing surface area of the product? What are the common interactions? How does the code accomplish these tasks? What services, API calls, database logic and so forth is required to achieve the most basic and most common aspects?
+My preferred approach when I don't have tests is to establish the public endpoints. What is the customer facing surface area of the product? What are the common interactions? How does the code accomplish these tasks? What services, API calls, database logic and so forth is required to achieve the most basic and most common aspects?
 
-Drill down from this surface area. You don't need to memorise, graph and document every call, and you'll probably never find out why *it* was done in such an awkward way. You just need to get a feel for how the thing hangs together.
+I don't try to memorise and graph everything; take notes and update any documentation that proved to be incorrect, but at this stage you just need to get a feel for how the thing hangs together.
 
 ## Goal
 
-You might think that this section should have come earlier. But actually, the establishing of one's estate is something I'd begin on day 1 of any role, regardless of overarching objectives. If you're moving into a greenfield role, great, it won't take very long to work out what's already there!
+You might think that this section should have come earlier. But actually, the establishing of one's estate is something I'd begin on day 1 of any role, regardless of overarching objectives.
 
-If you're lucky, you're working for a CTO or manager that values intelligent, self-managing autonomous teams. I've seen a lot of this of late and been fortunate in that my past several roles were operated on such a level.
+I'm not sure if we're seeing a shift in the industry or if I've just been lucky, but my last several CTO's/managers valued intelligent, self-managing autonomous teams. They provided high level goals and appropriate deadlines with little else, preferring that the team determine the best courses of action.
 
-That being the case, you will be given a goal (typically one or more objectives alongside appropriate deadlines) and hopefully not a lot else. I can't offer specific advice on assessment of your goal, they'll obviously be case by case. However, there are a couple of approaches you can take regarding high level planning.
-
-If your managers aren't quite as cool, there's still some tips below, especially in the [Bottom-Up Section](#bottom-up).
+If your managers aren't quite as cool though, there's still some tips below, especially in the [Bottom-Up Section](#bottom-up).
 
 ### Top-Down
 
-> Note: *I've noticed that I don't always agree with which way round "top-down" and "bottom-up" describes these mechanisms. I'll describe them as I visualise them in my head, but be aware I or others may use the inverse!*
+> Note: *I've noticed that I don't always agree with which way round "top-down" and "bottom-up" describes these mechanisms. I'll describe them as I visualise them in my head, but be aware I (or others) may use the inverse!*
 
-Knowing what the product does, having established the estate, albeit not including all the nuances and finer detail, how would you write the product from scratch? With your team, draft and design, at a high level, what that system would look like. What tech stacks would you be looking at, what architecture, what deployment infrastructure, security, resilience, and so forth, would be built in?
+Knowing what the product does, having established the estate, albeit not including all the nuances and finer detail, how would I write the product from scratch? As a team, draft and design, at a high level, what that system would look like. What tech stacks would you be looking at, what architecture, what deployment infrastructure, security, resilience, and so forth, would be built in?
 
-This system, subject to change as requirements are deduced and refined, is now your goal. The question becomes, how do you *iteratively* arrive at your goal.
+This *ideal* system, subject to change as requirements are deduced and refined, is now my goal. The question becomes, how do you *iteratively* arrive at that goal.
 
-If your plan is to *File -> New Solution* and one day flick a switch, chances are you're doomed to failure. Honestly, I've seen it time and again. I've heard in passing from proud CTO's where such an endeavour has paid off, but it is a massive and *unnecessary* gamble. By and large, all you'll achieve is the creation of an incomplete product fork that is shelved when the cash runs dry, or is forced into the wilderness despite reduced and unfinished functionality, causing your customers no end of pain.
+In the past I've worked for a couple of companies that had decided that the only way to migrate their product, was a complete re-write. At the time, this meant more interesting code writing for me, so who was I to complain. However, one company was writing a new web product in parallel with maintenance on a thick WinForms product. I don't know if they ever got there, but I had the distinct impression that there was simply no way for the new product to catch up with the old.
 
-Again, how you get from A → B is going to be case by case, but try to define phases that get you from the current code base to your end goal. There are some [migration techniques](#migration) later in the article that may help you achieve this.
+Another company I worked for had been through THREE attempts to re-write their software. Each had ended when cash or motivation for the cycle ran dry and the re-write was scrapped in favour of the much more stable and feature-full original legacy software. By the time I joined said company, they had bought all of their users a second monitor so that everyone could run new and old systems at the same time - entering data into both systems for every operation.
+
+![wtf](https://vignette.wikia.nocookie.net/uncyclopedia/images/2/24/Funny_wtf_cat.jpg/revision/latest?cb=20090211025621)
+
+_Image from Uncyclopedia Wiki_ {: style="font-size: 12px; text-align: center;"}
+
+The point being, if your plan is to *File -> New Solution* and one day flick a switch, chances are you're doomed to failure. I've heard in passing from proud CTO's where such an endeavour has paid off, but it is a massive and *unnecessary* gamble. By and large, all you'll achieve is the creation of an incomplete product fork that is shelved when the cash runs out, or is forced into the wilderness despite reduced and unfinished functionality, causing your users no end of pain.
+
+Therefore, the trick becomes, how do you get from A → B. I try to define phases, often utilising one of the [techniques below](#techniques) as a starting point, then iteratively adding my *ideal* infrastructure in phases that get me from the current code base to the end goal. Whilst that's quite an abstract description of this process, each system will need to be assessed on a case by case basis.
+
+Some objectives I try to maintain whilst defining these phases may be of help:
+
+- Avoid downtime
+  - Especially when using the [proxy technique](#proxy) described later in this article, it's quite often possible to roll over to new infrastructure at the speed a DNS change propagates without incurring any downtime at all. In the case of upgrades to necessitate [sideloading](#sideloading) however, the best bet is often to coincide changes with a scheduled release.
+- Improve visibility
+  - Along every step of the way, I try to improve the logs and analytics available to me. I know that speculation and even *educated* guesswork is still exactly that, guesswork.
+- Maintain reverse compatibility
+  - As heritage components are exchanged out, I do what I can to accommodate existing users. Legacy API surfaces typically don't have any [versioning mechanisms](https://www.hanselman.com/blog/ASPNETCoreRESTfulWebAPIVersioningMadeEasy.aspx) so treat your existing estate as `v1` implicitly, and build `v2` upon it, using metrics and logs to determine when aspects of the heritage system can safely be disabled and removed.
+- Clean up orphaned work
+  - As components are deprecated and replaced, it's important to remember to go back and delete the respective code. Many a time I've stumbled across orphaned code but lacking the context that the functionality was recently replaced, the decision to remove the code is much trickier!
 
 ### Bottom-Up
 
-Given the current estate, what needs addressing first and foremost? Using some of the techniques described below, you should be able to find a way to have new and old systems coincide, allowing you to iteratively replace endpoints and/or pipelines.
+I've worked for several companies where terms like *"migration"* and *"re-write"* were too big and scary to be even uttered. Companies where product owners, line management, top bods, or all of the above were against the idea of improving the software for one reason or another. Sometimes it's worth fighting with them over it; perhaps it's just a fear of the unknown which can be alleviated, or a misunderstanding of what's involved.
 
-Keep improving upon the worst areas, driven by customer demand typically, though evaluation of technical debt where time permits. With this approach, I find you end up in a *hybrid* state for longer than is the case with *top-down*, but if your focus is on addressing problem areas, presumably any lingering legacy code isn't causing you a great deal of harm.
+But when all else fails, I always fall back on the *bottom-up* approach. For those familiar with the [boyscout rule](https://books.google.co.uk/books?id=_i6bDeoCQzsC&pg=PA14&lpg=PA14#v=onepage&q&f=false), the bottom-up migration is little more than a slight extension of that. More often than not, I've found it's just about drawing lines a little further in the sand.
 
-In that respect, this approach, while not my preference, can be more palatable to stakeholders. Better yet, you don't need any *permission* or *sign-off*. If words like *"migration"* and *"re-write"* are a big no-no, consider it a matter of professionalism to take this bottom-up approach. Be bold and brave, introduce new techniques and best practices as you see fit - don't just *go with the norm*!
+I've often found that these roles follow *Panic*-Driven-Development (PDD), placing themselves in an endless vicious cycle of fire fighting the latest problem as quickly as possible, foregoing clean coding principles. Many a time I've seen this equally-endlessly described as a *temporary* measure, but of course, foregoing good practices in code inevitably leading to more fires to that need putting out, increasing code complexity from hack after hack further slowing down the ability to maintain the software.
 
-You should *never* approach a product owner and say
+The way out of this loop, I've found, is to move the line in the sand. Step up your boy-scouting from removing unused variables and correcting member casing, to writing tests. Using one of the [testing practices](#testing) explained below, I'm often able to get dependency injection and mocking into even the worst of code bases.
+
+Once you've established a testing practice (remembering to onboard and help peers to do the same), step it up to the next level. Keep improving upon the worst areas, driven by customer demand typically, though evaluation of technical debt where time permits. With this approach, I find you end up in a *hybrid* state for longer than is the case with *top-down*, but if your focus is on addressing problem areas, presumably any lingering legacy code isn't causing you a great deal of harm.
+
+In that respect, this approach, while not my preference, can be more palatable to stakeholders. Better yet, you don't need any *permission* or *sign-off*.
+
+Instead of saying to my product owner
 
 > *"If I do it **properly** it'll take this long, but I can hack it in much quicker if needs be*
 
-I have had the good fortune to work with product owners that will prefer the first option, but the latter is all too often the preference. The thing is, the latter needn't be an option! You have the choice, you are the one writing the code, you are the one estimating the change. You can say "no".
+...I only offer them estimates based on my line in the sand. I've found there needs to be a pragmatic vs. dogmatic balance mind you. If you leave your product owner or stakeholders in a bind, you may be doing more harm than good to your company, no matter your intentions. More often than not there's a middle ground that both sides can compromise and agree upon, though try not to be pushed too far back from that mythical line in the sand.
 
-> Caveat: *There needs to be a pragmatic vs. dogmatic balance here. If you leave your product owner or stakeholders in a bind, you may be doing more harm than good to your company, no matter your intentions. Typically there's a middle ground that both sides can compromise and agree upon.*
+I've usually found this to be an arduous and lengthy process, but as confidence in the software increases due to a reducing number of bugs, confidence in the development team increases alongside it. If the doors were closed on a top-down approach before, you may find them increasingly ajar as confidence improves.
 
 ## Migration
 
-So you've established your estate, determined a preferred migration methodology, and put together some flexible high level phases that will get you to your goal. Now the really tough part begins, how to get there?
+Having established the estate, determined a preferred migration methodology, and put together some flexible high level phases that will get us to our goal, the really tough part begins. How to get there?
 
-I'm going to list a few titbits I've picked up over the years, including code samples, where applicable, that may help you achieve your ends. These particular code samples will be focused on the web stack, but I've had ample experience with WinForms, WPF, UWP (desktop based) technologies so if you'd like some advice there, ping me a comment and I'll draft up some notes.
+I'm going to list a few titbits I've picked up over the years, including code samples, where applicable, that may help you achieve your ends. These particular code samples will be focused on the web stack, but I've had experience with WinForms, WPF, UWP (desktop based) technologies so if you'd like some advice there, ping me a comment and I'll draft up some notes.
 
 If you have something specific in mind, feel free to jump to the section below that best describes where you are right now.
 
 ### ASP Classic
 
-Facts are you're running outside of .Net, and almost certainly on an outdated version of IIS and/or on bare metal. Your options here really are very limited and dependent on circumstances. I haven't had to do this for a long while, but my advice would be:
+I haven't had to do this for a long while, but traditionally, facts are we're running outside of .Net, and almost certainly on an outdated version of IIS and/or on bare metal. Options here really are very limited and dependent on circumstances, but my advice would be:
 
-- See if there is an IIS version (preferably latest) that can side load both your ASP Classic site and a .Net site. If the answer is yes, jump to the [Proxy](#proxy) section below.
-- Is the site addressed by DNS instead of by IP directly? If so, you can still try the [Proxy](#proxy) methodology.
-- If the site is addressed directly, and/or the site relies on some crazy old undocumented and unsupported `dll`, chances are you're going to have to suck it up and replace some components en masse. However, still check out the [Testing](#testing) sections below for some advice on how to do so more safely.
+- If there is an IIS version that can side load both the ASP Classic site(s) and a .Net site, I'll attempt to follow the [Proxy](#proxy) section below.
+- If the site(s) are addressed by DNS instead of by IP directly, I can still try the [Proxy](#proxy) methodology.
+- If the site is addressed directly, and/or the site relies on some crazy old undocumented and unsupported `dll`, inevitably I've ended up having to replace some components en masse. However, still check out the [Testing](#testing) sections below for some advice on how to do so more safely.
 
 ### Web Forms
 
-As a technology, I consider *ASP .Net Web Forms* to be worse than ASP Classic. The bastardisation of HTTP to better suit desktop minded developers, whilst a viable developer migration strategy for Microsoft, was in all other respects a mistake. ASP Classic is at least not all that different from *"modern"* scripting languages such as PHP, which whilst I might not have any fondness for either, still have their uses.
+As a technology, I consider *ASP .Net Web Forms* to be worse than ASP Classic. The bastardisation of HTTP to better suit desktop minded developers, whilst a viable *developer* migration strategy for Microsoft, was in all other respects a mistake. ASP Classic is at least not all that different from *"modern"* scripting languages such as PHP, which whilst I might not have any fondness for either, still have their uses.
 
-Once you're comfortable with *ASP .Net MVC*, I recommend checking out existing articles such as [Rachel Appel's guide](http://rachelappel.com/integrating-aspnet-web-forms-and-aspnetmvc/) or the [WebForms to MVC section below](#web-forms-to-mvc-5) for a guide on sideloading Web Forms and MVC. This will allow you to introduce MVC mechanisms into your web application. Once the infrastructure is in place, all new work should be completed using the MVC architecture, and whenever a significant amount of work is required within an existing Web Form, consider moving the code to MVC instead (bearing in mind aforementioned pragmatic/dogmatic caveat).
+I recommend checking out existing articles such as [Rachel Appel's guide](http://rachelappel.com/integrating-aspnet-web-forms-and-aspnetmvc/) or check out my own advice in the [WebForms to MVC section below](#web-forms-to-mvc-5) for a guide on sideloading Web Forms and MVC. This allows the introduction of MVC mechanisms into an existing web application.
 
-I'm not going to argue or even make a case for the merits of migrating from WebForms to MVC; I'd just end up ranting.
+Once the infrastructure is in place, I make it a rule that all new work should be completed using the MVC architecture, and whenever a significant amount of work is required within an existing Web Form, I consider moving the code to MVC instead (bearing in mind aforementioned pragmatic/dogmatic caveat).
 
-Once you have the MVC side loading in place, check out the [Testing](#testing) section below for tips on how to more safely migrate heritage code.
+I'm not going to argue or even make a case for the merits of migrating from WebForms to MVC; I'd just end up ranting. Apart from my deepfelt resentment for the WebForms stack, the benefits of MVC over Web Forms are very easy to google for.
+
+Once MVC side loading is in place, check out the [Testing](#testing) section below for tips on how to more safely migrate heritage code.
 
 ### MVC
 
-Want to get into all this *.Net Core* malark but don't know where to start? Or finally finished that Web Form to MVC migration and you're patting yourself on the back? Uh uh. There's further to go yet.
+I've been working with the *.Net Core* stack since it was still called *"Project K"* (so, a few years now). Whilst I'm more inclined to harp on about why and exactly how *.Net Core* is better, I'll try not to. However, I do consider it a *huge* improvement over class/full-fat MVC (let alone Web Forms), and recommend it to others.
 
-Check out the section below on [Full-Fat .Net Core](#full-fat-net-core).
+If you check out the section below on [Full-Fat .Net Core](#full-fat-net-core), you may find it's easier to get into than you imagined.
 
 ## Techniques
 

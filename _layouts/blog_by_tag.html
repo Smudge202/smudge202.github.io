@@ -6,7 +6,7 @@ layout: default
 <div>
     {% if site.tags[page.tag] %}
         {% for post in site.tags[page.tag] %}
-            {% if jekyll.environment != "production" or post.hidden == null %}
+            {% if jekyll.environment != "production" or post.wip == null %}
                 <article class="post">
                     <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>    
                 

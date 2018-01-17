@@ -19,13 +19,13 @@ I won't say the game has come on leaps and bounds, it really hasn't. I spent a l
 
 - [Artificial Intelligence](#artificial-intelligence)
 - [Goals](#goals)
-	- [Layers in your Layers](#layers-in-your-layers)
-		- [Engineering](#engineering)
-		- [Astrogation](#astrogation)
-		- [Captain](#captain)
-	- [Breakdown](#breakdown)
+  - [Layers in your Layers](#layers-in-your-layers)
+    - [Engineering](#engineering)
+    - [Astrogation](#astrogation)
+    - [Captain](#captain)
+  - [Breakdown](#breakdown)
 - [Target](#target)
-	- [Basics](#basics)
+  - [Basics](#basics)
 
 <!-- /TOC -->
 <!-- markdownlint-enable MD007 -->
@@ -193,7 +193,7 @@ namespace CleanSpace.NeuralNetwork.Tests
         public WhenTargetIsZero(ApplicationFixture fixture) : base(fixture) => _network
           .AddOutput<double>()
             .WithBackPropagation()
-            .Targetting(0);
+            .Targeting(0);
 
         [Fact]
         public async Task ThenEachIterationReducesMarginOfError()
@@ -219,7 +219,7 @@ _network = _neuralNetworkBuilder
     .WithForwardPropagation()
   .AddOutput<double>()
     .WithBackPropagation()
-    .Targetting(0);
+    .Targeting(0);
 
 var firstPass = await _network.ExecuteOnce();
 var secondPass = await _network.ExecuteOnce();
@@ -229,7 +229,7 @@ secondPass.MarginOfError
 
 As you can see, I'm using a Fluent API to build up the network, then executing the network a couple of times and asserting that the `MarginOfError` is reducing after each iteration. As a [TDD](https://en.wikipedia.org/wiki/Test-driven_development) developer, I wrote all this test code without having created any implementation, so I had nothing but compilation errors at that stage.
 
-Creating the Fluent API implementation is a bit tedious but given I've done them before, I avoided some of the common pitfalls. The observant among you may have noticed that I haven't given any details in the test for *how* forward and back propagation should work. That's because I want to provide some basic defaults based on the aforementioned neural network tutorials, and later expand the core library with additional implementations and provide extenisibility for custom implementations.
+Creating the Fluent API implementation is a bit tedious but given I've done them before, I avoided some of the common pitfalls. The observant among you may have noticed that I haven't given any details in the test for *how* forward and back propagation should work. That's because I want to provide some basic defaults based on the aforementioned neural network tutorials, and later expand the core library with additional implementations and provide extensibility for custom implementations.
 
 All of the above can be passed by creating some empty methods to satisfy the compilation errors and then setting `MarginOfError` to the next number in a decrementing sequence each time `ExecuteOnce` is called. I had to add a load of unit tests to flesh out some more thorough behaviour which I won't detail in piecemeal here (you can go [check out the code](https://github.com/smudge202/neural-network) if you want nitty gritty detail).
 

@@ -36,7 +36,8 @@ Having worked with the key *.Net* web technologies, I'd like to put to paper and
     - [Full-Fat .Net Core](#full-fat-net-core)
   - [Proxy](#proxy)
 - [Testing](#testing)
-  - [Pre Request Handler](#pre-request-handler)
+  - [Constructor Injection](#constructor-injection)
+  - [Property Injection](#property-injection)
 
 <!-- /TOC -->
 <!-- markdownlint-enable MD007 -->
@@ -556,7 +557,7 @@ So you've decided which migration technique to use, be it [sideloading](#sideloa
 
 If you need to inject `*.aspx` pages, it's a real palaver (one of the many benefits of moving to MVC is improved abstraction). There are only two mechanisms I know of for Web Forms described in the sections below.
 
-### Pre Request Handler
+### Constructor Injection
 
 The reason you can't easily implement DI in Web Forms is that the factories that are responsible for receiving a request and building up an instance of your Page to pass the request to, insist upon there being a parameterless public constructor on the page. If there can be no parameters, there can be no (constructor) injection.
 
@@ -653,7 +654,43 @@ public class DependencyInjectionHttpModule : IHttpModule
 }
 ```
 
-<!--TODO: Add web.config httpmodule info reminder-->
+This `IHttpModule` uses a *greedy* search to find the largest constructor on the Page you're trying to instantiate, and then attempt to populate the parameters using the Microsoft Dependency Injection container. We can't just ask the DI container to create the page itself because the Page will already have been created by the hidden away WebForms framework (the one that required there be a public parameterless constructor present), and in case you didn't know, you don't *have* to use the `new` keyword to call a constructor; it is just a method at the end of the day.
+
+As a slight aside, many full DI container libraries implement an improved version of this *greedy* search in that they will attempt to find the largest constructor they have sufficient service bindings to actually fulfil. You're welcome to expand the above snippet if you need that functionality (or ping me a comment below if you're unsure how), but it should be fairly trivial to utilise the `IServiceCollection` to determine which constructors can and can not be fulfilled.
+
+As with all `IHttpModules`, in order for this to be utilised at runtime you will need to add the correct entry to your `web.config`:
+
+```xml
+<configuration>
+  <system.web>
+    <httpModules>
+      <!--  Use this if you are on IIS 7 and earlier -->
+      <add name="DependencyInjectionHttpModule" type="Your.Namespace.DependencyInjectionHttpModule, Your.AssemblyName"/>
+    </httpModules>
+  </system.web>
+  <system.webServer>
+    <modules>
+      <!-- Use this if you are on IIS 8 and later -->
+      <add name="DependencyInjectionHttpModule" type="Your.Namespace.DependencyInjectionHttpModule, Your.AssemblyName" />
+    </modules>
+  </system.webServer>
+</configuration>
+```
+
+> Make sure you replace `Your.Namespace` and `Your.AssemblyName`.
+
+### Property Injection
+
+Property Injection is very similar to the constructor injection shown above. Instead of writing your own constructor to populate fields as shown above, your composition framework (be it imported or homebrew) becomes responsible for locating Properties on the page that need to be populated, and then populates them.
+
+Generally, I really dislike this approach. By having dependencies passed to a constructor it's very obvious that the class requires those dependencies in order to function (to the point that you can't instantiate it without them). With properties however, it's akin some very old (bad) practices that involved having to call `Initialise` or `Init` on a class before the class is available for use.
+
+In my experience, it also leads to any dependency validation (null checking for example) being duplicated across the class, and there's unless you add validation to the properties, implies that a user can modify your dependency properties (more null checking, concurrency issues, etc).
+
+However, when all is said and done, property injection is the preferred approach when working with Web Forms purely because it looks a little cleaner. A good number of DI Containers such as [StructureMap](https://cmatskas.com/dependency-injection-in-asp-net-webforms-with-structuremap/) and [SimpleInjector](http://simpleinjector.readthedocs.io/en/latest/webformsintegration.html) can handle this property injection out of the box and be integrated into WebForms easily.
+
+If you'd like to use the Microsoft DI Container shown in the previous section, you're welcome to use this modified version of the above `IHttpModule` (sold as-is, no warranty...)
+
 <!--TODO: Add property injection alternative-->
 <!--TODO: Add existing di module alternative (Unity)-->
 <!--TODO: Add multi-target testing-->

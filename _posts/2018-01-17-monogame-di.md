@@ -95,3 +95,121 @@ Once the XNA components are configured, MonoGame goes on to instantiate our `Gam
 The reason I keep highlighting these `internal` members is it means, unless we're writing code in the same assembly as MonoGame, or MonoGame for some reason exposes it's internal members to our code using an `InternalsVisibleTo` attribute, we can only *access* those classes via reflection, and doing so would not be type safe. This is a *huge* problem with regards to extensibility because it makes it either impossible or very *unsafe* to extend and change behaviours.
 
 ![not happy](../images/happiness-challenged.jpg)
+
+## Submodules
+
+There are a number of approaches to tackling the above problems, but the one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
+
+> *Note: I don't want to spend time explaining submodules and how to work with them, so if it's a concept you're not familiar or comfortable with, I recommend checking out a [tutorial](https://git-scm.com/book/en/v2/Git-Tools-Submodules) and then heading back here afterwards.*
+
+Before I get started on this approach though, I want to say that this is a *bad* idea. By submoduling the MonoGame repository I'm introducing a fork that I then become responsible for maintaining (like applying the latest commits from the parent). On a large active repository like MonoGame, it really isn't very workable. However, it is a useful mechanism for *exploring* problems with frameworks you depend on.
+
+Per the [MonoGame README](https://github.com/MonoGame/MonoGame#source-code), once you've initialised the MonoGame submodule and in turn, MonoGame's submodules, you can run `Protobuild.exe` to generate the necessary `csproj`'s. Protobuild will generate a `MonoGame.Framework.WindowsUniversal.csproj` in the `MonoGame.Framework` directory, which we can add to out solution as an existing project:
+
+![monogame submodule](../images/monogame-submodule.png)
+
+With the MonoGame source code now available, drop the *assembly* reference to `MonoGame.Framework` in your own application, and add a *project* reference to `MonoGame.Framework.WindowsUniversal` in it's place. Your application should still build and be able to execute (though in my case I do get a build warning about differing versions of `System.Runtime.WindowsRuntime` which I'll ignore).
+
+Whilst that seems like a lot of work to have achieved nothing, what it actually means is that we can now edit the MonoGame code and see that reflected immediately in our own application. Given the power and authority to change MonoGame code, the next sections outline the changes I would make in order to better support dependency injection.
+
+## Initialisation
+
+If you remember from my [previous post](http://blog.devbot.net/game-loop/#dependency-injection) there's actually two aspects of dependency injection I would like to improve. The first is constructor injection for my `Game` class during initialisation (when the game first loads, or perhaps resumes from sleeping in some cases). The second case was *scoped convention injection* during each iteration of the loop (each time the `Update` method is called).
+
+The two mechanisms are very different so we'll tackle each in turn. Whenever you make a change to an application, there are several things you need to take into account, one of which is *performance*. I could spend time benchmarking application initialisation times before and after my changes, but the fact is, if your game reads any file (textures, sprites, audio clips, etc) or pops out to the internet, which is very likely when you're loading a game, the minuscule amount of time it takes to run dependency injection by comparison makes it a complete non-entity. As such, I'm not even going to consider performance for game initialisation. However, when we look at interfering with the update loop, which runs very often and needs to execute very quickly, we'll definitely spend some time benchmarking.
+
+When following the startup code, we saw that the execution flow is roughly:
+
+`App.xaml.cs` → `GamePage.xaml.cs` → `Game1.cs` → `GraphicsDeviceManager.cs`
+
+The `GraphicsDeviceManager` however requires a reference to `Game1`. Normally, this would be a good thing. We call it *[dependency inversion](http://blog.devbot.net/composition/#dependency-inversion-principle-dip)*, however the two classes are very *[strongly-coupled](https://stackoverflow.com/a/3085419/707618)*.
+
+The question therefore becomes, why does `Game1` need `GraphicsDeviceManager` and vice-versa. What we're aiming for is for one class to depend on the other, ideally through abstractions, but not both classes depending on each other. Therefore, I started this exercise by determining for what reason each class depends on the other, and therefore which I'd find the easiest to cut loose.
+
+### Decoupling Game from GraphicsDeviceManager
+
+The custom `Game1` class created by the project template doesn't appear to depend on `GraphicsDeviceManager` at all.
+
+![graphics not used](../images/game-decoupling-01.png)
+
+But, if you follow code execution, you'll find that the constructor of `GraphicsDeviceManager` also assigns itself to an internal property of the `Game` class, which your custom `Game1` class inherits from:
+
+```csharp
+internal GraphicsDeviceManager graphicsDeviceManager
+{
+  get
+  {
+    if (_graphicsDeviceManager == null)
+    {
+      _graphicsDeviceManager = (IGraphicsDeviceManager)
+        Services.GetService(typeof(IGraphicsDeviceManager));
+    }
+    return (GraphicsDeviceManager)_graphicsDeviceManager;
+  }
+  set
+  {
+    if (_graphicsDeviceManager != null)
+      throw new InvalidOperationException("GraphicsDeviceManager already registered for this Game object");
+    _graphicsDeviceManager = value;
+  }
+}
+```
+
+Interestingly, whilst you can't set this field to `null` without causing an exception, when it is null, the property getter will attempt to populate itself using `Services`, which is a public property returning a `GameServiceContainer`. Going back to the constructor of `GraphicsDeviceManager`, we see that it adds itself to this `GameServiceContainer` right at the end of its constructor:
+
+```csharp
+_game.Services.AddService(typeof(IGraphicsDeviceManager), this);
+_game.Services.AddService(typeof(IGraphicsDeviceService), this);
+```
+
+The `GameServiceContainer` actually implements `System.IServiceProvider` which is well known for being the interface for Dependency Injection Containers. So, there is DI here already? No.
+
+If you check out the [code for `GameServiceContainer`](https://github.com/MonoGame/MonoGame/blob/develop/MonoGame.Framework/GameServiceContainer.cs) you'll see that all it really does is wrap around a `Dictionary<Type, object>`. Any object added to the dictionary can be retrieved at a later date. It is a *Service Collection*, but it doesn't actually perform any dependency injection. The idea behind dependency injection is that the services registered in your composition root can be resolved, and the dependencies of the service you're resolving can also be injected in turn (recursively working its way down all the dependencies until they've all been satisfied), building up a veritable tree of classes in order to serve the top level class you've requested.
+
+So, we know that the `Game` class has a property that stores the `GraphicsDeviceManager`, but if the `GraphicsDeviceManager` property is null when it's needed, the `Game` class will go and fetch it from the *service collection*. To be safe, I followed the *backing field* for the property to make sure it isn't used directly elsewhere in the class, and to my dismay found that it is in fact used outside the property. Twice.
+
+The first time is within the `Dispose` method:
+
+```csharp
+if (_graphicsDeviceManager != null)
+{
+  (_graphicsDeviceManager as GraphicsDeviceManager).Dispose();
+  _graphicsDeviceManager = null;
+}
+```
+
+This makes total sense. If the `Dispose` method used the property instead of the field when the field was `null`, then it would needlessly fetch the `GraphicsDeviceManager` from the service collection before disposing it and setting the field back to `null` again. If the `_graphicsDeviceManager` field is null, it'll behave just fine, though has the potential to not dispose the `GraphicsDeviceManager` sat in the service collection. That's something to bear in mind as we plough ahead, but if the Game hasn't used the `GraphicsDeviceManager` then there's probably not much to dispose anyway, so it's not too big a concern.
+
+The second usage is in an internal method called `DoInitialize`, which is conditionally called by both `RunOneFrame` and `Run` public methods.
+
+```csharp
+if (GraphicsDevice == null && graphicsDeviceManager != null)
+  _graphicsDeviceManager.CreateDevice();
+```
+
+We see here that the field `_graphicsDeviceManager` is only used after a conditional check against the `graphicsDeviceManager` property. That's good, it means if the field was null then the property will perform the service collection lookup and populate the field.
+
+We're lucky it seems. At a glance, it would appear we can *slightly* decouple `Game` from `GraphicsDeviceManager`, so long as the `GraphicsDeviceManager` is available in the `GameContainerService`.
+
+![never happier](../images/never-happier.jpg)
+
+To be thorough, I also want to check what would be needed to do the opposite and reduce the reliance the `GraphicsDeviceManager` has on `Game`.
+
+### Decoupling GraphicsDeviceManager from Game
+
+Looking through the constructor on `GraphicsDeviceManager`, I can see that it stores the `Game` in a private field called `_game`, which has the following usages:
+
+![game class usages](../images/game-decoupling-02.png)
+
+A couple of these you'll probably recognise from the section above as being part of the constructor and are not all that interesting to us here. There are several lines of note though. For starts, there are 4 usages of properties on `_game.Window` and 2 methods on `_game.Window` can be called throughout the class. Each of these are in private methods and their unclear to me (due to a lack of understanding on the MonoGame internals). Similarly, there is also a method on `_game.Platform` that the `GraphicsDeviceManager` can invoke.
+
+Finally, the following is a snippet from the constructor, just prior to the `GraphicsDeviceManager` appending itself to the `GameServiceContainer`:
+
+```csharp
+if (_game.Services.GetService(typeof(IGraphicsDeviceManager)) != null)
+  throw new ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
+```
+
+This means that the only way to add the `GraphicsDeviceManager` to that container is through the constructor, and the constructor can only be invoked once. I immediately imagine that becoming a nuisance as we try to interfere with the current coupling, but we'll come back to it later.
+
+All in all, the references to `Game` *from* `GraphicsDeviceManager` are much more difficult to understand and address. We could remove a lot of it's reliance on `Game` by providing the `_game.Window`, `_game.Platform`, and `_game.Services` classes on themselves (not attached to `Game`).

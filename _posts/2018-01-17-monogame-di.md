@@ -30,6 +30,8 @@ Whilst this class contains around 130 lines of code by default (from the project
 rootFrame.Navigate(typeof(GamePage), e.Arguments);
 ```
 
+> *Note: Whilst it might seem I'm ripping into MonoGame for their lack of DI support in this article, it's worth mentioning that Microsoft are no better - they provide basically no DI support in UWP itself.*
+
 During startup, because nothing has been navigated to or displayed yet, the application will transition to `GamePage`. At this point, the code in `GamePage.xaml.cs` will be executed:
 
 ```csharp
@@ -51,7 +53,7 @@ public sealed partial class GamePage : Page
 
 This is the first point at which MonoGame gets involved. Here we can see that it is trying to load the `Game1` class into a `SwapChainPanel` (which the project template has declared for you in `GamePage.xaml`).
 
-Before we take a look at the `Game1` class, let's have a look at the code that executes within the [`XamlGame<Game1>.Create` method](https://github.com/MonoGame/MonoGame/blob/develop/MonoGame.Framework/WindowsUniversal/XamlGame.cs#L28-L56):
+Before we take a look at the `Game1` class, let's have a look at the code that executes within the [`XamlGame<Game1>.Create` method](https://github.com/MonoGame/MonoGame/blob/v3.7.1/MonoGame.Framework/WindowsUniversal/XamlGame.cs#L28-L31):
 
 ```csharp
 static public T Create(string launchParameters, CoreWindow window, SwapChainPanel swapChainPanel)
@@ -89,7 +91,7 @@ static public T Create(Func<T> gameConstructor, string launchParameters, CoreWin
 }
 ```
 
-There's a lot more happening here than everything else so far. We can ignore the argument exceptions (excluded for brevity above) and jump straight to `UAPGamePlatform` and `UAPGamePlatform`. 'UAP' is short for [*Universal Apps*](https://msdn.microsoft.com/en-gb/magazine/dn973012.aspx) which is what we called 'UWP' a few years ago when the concept was first introduced. The classes in question actually belong to the `XNA` namespace (not MonoGame) which is a game framework Microsoft stopped developing several years ago before the MonoGame community picked up the reins.
+There's a lot more happening here than everything else we've seen so far. We can ignore the argument validation (excluded for brevity above) and jump straight to `UAPGamePlatform` and `UAPGamePlatform`. 'UAP' is short for [*Universal Apps*](https://msdn.microsoft.com/en-gb/magazine/dn973012.aspx) which is what we called 'UWP' a few years ago when the concept was first introduced. The classes in question actually belong to the `XNA` namespace (not MonoGame) which is a game framework Microsoft stopped developing several years ago before the MonoGame community picked up the reins.
 
 > *Note: 'XNA' is not an acronym. [Greg Duncan explained](https://channel9.msdn.com/coding4fun/blog/ANXFramework-ANXs-not-XNA-but-kind-of) that if anything, 'XNA' stands for '**X**NA's **n**ot **a**cronymed'...*
 >
@@ -99,7 +101,7 @@ There's a lot more happening here than everything else so far. We can ignore the
 
 The `Initialize` method on the `UAPGameWindow` class is also very involving, not to mention `internal` so is otherwise not visible to us.
 
-Once the XNA components are configured, MonoGame goes on to instantiate our `Game1` class (passed as a generic `T`), then complain (by throwing an exception) if you don't set the `graphicsDeviceManager` property (which is also `internal`...) before calling the public `Run` method on the inherited `Game` class.
+Once the XNA components are configured, MonoGame goes on to instantiate our `Game1` class (passed as a generic `T`), then complain (by throwing an exception) if you don't set the `graphicsDeviceManager` property (which is also `internal`...) before calling the public `Run` method on the inherited `Game` class. Remember this bit because it'll become important later.
 
 The reason I keep highlighting these `internal` members is it means, unless we're writing code in the same assembly as MonoGame, or MonoGame for some reason exposes it's internal members to our code using an `InternalsVisibleTo` attribute, we can only *access* those classes via reflection, and doing so would not be type safe. This is a *huge* problem with regards to extensibility because it makes it either impossible or very *unsafe* to extend and change behaviours.
 
@@ -158,7 +160,7 @@ public GraphicsDeviceManager(Game game)
 }
 ```
 
-If you scroll up to the previous chapter, you may recall that `graphicsDeviceManager` was a property on the `Game` class. During our exploration of the `Create` method we saw that if you don't set that property when constructing your `Game` then it will throw an exception. Here's a mini-recap:
+If you scroll up to the previous chapter, you may recall that `graphicsDeviceManager` was a property on the `Game` class (I told you that bit was important). During our exploration of the `Create` method we saw that if you don't set that property when constructing your `Game` then it will throw an exception. Here's a mini-recap:
 
 ```csharp
 // Construct the game.
@@ -173,7 +175,7 @@ For those with experience with DI containers, you'll immediately see the issue h
 
 ## Submodules
 
-There are a number of approaches to tackling the above problems, but the first one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
+There are a number of approaches to tackling the above problems (and others we haven't discovered yet), but the first one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
 
 > *Note: I don't want to spend time explaining submodules and how to work with them, so if it's a concept you're not familiar or comfortable with, I recommend checking out a [tutorial](https://git-scm.com/book/en/v2/Git-Tools-Submodules) and then heading back here afterwards.*
 
@@ -183,13 +185,15 @@ Per the [MonoGame README](https://github.com/MonoGame/MonoGame#source-code), onc
 
 ![monogame submodule](../images/monogame-submodule.png)
 
-With the MonoGame source code now available, drop the *assembly* reference to `MonoGame.Framework` in your own application, and add a *project* reference to `MonoGame.Framework.WindowsUniversal` in it's place. Your application should still build and be able to execute (though in my case I do get a build warning about differing versions of `System.Runtime.WindowsRuntime` which I'll ignore).
+> *Note: Once you've submoduled MonoGame, create yourself at the v3.7.1 tag and checkout there, otherwise you'll default to the `develop` branch which has been set as the default.*
+
+With the MonoGame source code now available, drop the *assembly* reference to `MonoGame.Framework` in your own application, and add a *project* reference to `MonoGame.Framework.WindowsUniversal` in it's place. Your application should still build and be able to execute (though in my case I do get a bunch of build warnings from the MonoGame project which I'll ignore).
 
 Whilst that seems like a lot of work to have achieved nothing, what it actually means is that we can now edit the MonoGame code and see that reflected immediately in our own application. Given the power and authority to change MonoGame code, the next sections outline the changes I would make in order to better support dependency injection.
 
 ## Initialisation
 
-If you remember from my [previous post](http://blog.devbot.net/game-loop/#dependency-injection) there's actually two aspects of dependency injection I would like to improve. The first is constructor injection for my `Game` class during initialisation (when the game first loads, or perhaps resumes from sleeping in some cases). The second case was *scoped convention injection* during each iteration of the loop (each time the `Update` method is called).
+If you may remember from my [previous post](http://blog.devbot.net/game-loop/#dependency-injection) there's actually two aspects of dependency injection I would like to improve. The first is constructor injection for my `Game` class during initialisation (when the game first loads, or perhaps resumes from sleeping in some cases). The second case was *scoped convention injection* during each iteration of the loop (each time the `Update` method is called).
 
 The two mechanisms are very different so we'll tackle each in turn. Whenever you make a change to an application, there are several things you need to take into account, one of which is *performance*. I could spend time benchmarking application initialisation times before and after my changes, but the fact is, if your game reads any file (textures, sprites, audio clips, etc) or pops out to the internet, which is very likely when you're loading a game, the minuscule amount of time it takes to run dependency injection by comparison makes it a complete non-entity. As such, I'm not even going to consider performance for game initialisation. However, when we look at interfering with the update loop, which runs very often and needs to execute very quickly, we'll definitely spend some time benchmarking.
 
@@ -197,7 +201,7 @@ When following the startup code, we saw that the execution flow is roughly:
 
 `App.xaml.cs` → `GamePage.xaml.cs` → `Game1.cs` → `GraphicsDeviceManager.cs`
 
-The `GraphicsDeviceManager` however requires a reference to `Game1`. Normally, this would be a good thing. We call it *[dependency inversion](http://blog.devbot.net/composition/#dependency-inversion-principle-dip)*, however the two classes are very *[strongly-coupled](https://stackoverflow.com/a/3085419/707618)*.
+As we discovered above, the `GraphicsDeviceManager` requires a reference to `Game1`. Normally, this would be a good thing. We call it *[dependency inversion](http://blog.devbot.net/composition/#dependency-inversion-principle-dip)*, however the two classes are very *[strongly-coupled](https://stackoverflow.com/a/3085419/707618)*.
 
 The question therefore becomes, why does `Game1` need `GraphicsDeviceManager` and vice-versa. What we're aiming for is for one class to depend on the other, ideally through abstractions, but not both classes depending on each other. Therefore, I started this exercise by determining for what reason each class depends on the other, and therefore which I'd find the easiest to cut loose.
 

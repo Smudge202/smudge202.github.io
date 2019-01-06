@@ -280,7 +280,7 @@ Looking through the constructor on `GraphicsDeviceManager`, I can see that it st
 
 ![game class usages](../images/game-decoupling-02.PNG)
 
-A couple of these you'll probably recognise from the section above as being part of the constructor and are not all that interesting to us here. There are several lines of note though. For starts, there are 4 usages of properties on `_game.Window` and 2 methods on `_game.Window` can be called throughout the class. Each of these are in private methods and their unclear to me (due to a lack of understanding on the MonoGame internals). Similarly, there is also a method on `_game.Platform` that the `GraphicsDeviceManager` can invoke.
+A couple of these you'll probably recognise from the section above as being part of the constructor and are not all that interesting to us here. There are several lines of note though. For starts, there are 4 usages of properties on `_game.Window` and 2 methods on `_game.Window` can be called throughout the class. Each of these are in private methods and they're usages are unclear to me (due to a lack of understanding on the MonoGame internals). Similarly, there is also a method on `_game.Platform` that the `GraphicsDeviceManager` can invoke.
 
 Finally, the following is a snippet from the constructor, just prior to the `GraphicsDeviceManager` appending itself to the `GameServiceContainer`:
 

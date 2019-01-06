@@ -175,7 +175,7 @@ For those with experience with DI containers, you'll immediately see the issue h
 
 ## Submodules
 
-There are a number of approaches to tackling the above problems (and others we haven't discovered yet), but the first one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
+There are a number of approaches to tackling the above problems (and other problems we haven't discovered yet), but the first one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
 
 > *Note: I don't want to spend time explaining submodules and how to work with them, so if it's a concept you're not familiar or comfortable with, I recommend checking out a [tutorial](https://git-scm.com/book/en/v2/Git-Tools-Submodules) and then heading back here afterwards.*
 

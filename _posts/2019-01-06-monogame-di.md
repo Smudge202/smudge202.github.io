@@ -203,92 +203,90 @@ When following the startup code, we saw that the execution flow is roughly:
 
 As we discovered above, the `GraphicsDeviceManager` requires a reference to `Game1`. Normally, this would be a good thing. We call it *[dependency inversion](http://blog.devbot.net/composition/#dependency-inversion-principle-dip)*, however the two classes are very *[strongly-coupled](https://stackoverflow.com/a/3085419/707618)*.
 
-The question therefore becomes, why does `Game1` need `GraphicsDeviceManager` and vice-versa. What we're aiming for is for one class to depend on the other, ideally through abstractions, but not both classes depending on each other. Therefore, I started this exercise by determining for what reason each class depends on the other, and therefore which I'd find the easiest to cut loose.
+For Application Initialisation it's actually pretty simple to hook in a DI container if we accept the caveat that the constructor for `Game1` must always instantiate the `GraphicsDeviceManager`. To prove this, let's install the [`Microsoft.Extensions.DependencyInjection` NuGet package](https://www.nuget.org/packages/microsoft.extensions.dependencyinjection).
 
-### Decoupling Game from GraphicsDeviceManager
+> *Note: In order to install this package, per the [NetStandard Compatibility Documentation](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support), you need to ensure your minimum UWP target is the Falls Creators Update (Windows 10.0 Build 16299).*
 
-The custom `Game1` class created by the project template doesn't appear to depend on `GraphicsDeviceManager` at all.
-
-![graphics not used](../images/game-decoupling-01.png)
-
-But, if you follow code execution, you'll find that the constructor of `GraphicsDeviceManager` also assigns itself to an internal property of the `Game` class, which your custom `Game1` class inherits from:
+Once installed, modify `GamePage.xaml.cs` to read as follows:
 
 ```csharp
-internal GraphicsDeviceManager graphicsDeviceManager
+public GamePage()
 {
-  get
-  {
-    if (_graphicsDeviceManager == null)
-    {
-      _graphicsDeviceManager = (IGraphicsDeviceManager)
-        Services.GetService(typeof(IGraphicsDeviceManager));
-    }
-    return (GraphicsDeviceManager)_graphicsDeviceManager;
-  }
-  set
-  {
-    if (_graphicsDeviceManager != null)
-      throw new InvalidOperationException("GraphicsDeviceManager already registered for this Game object");
-    _graphicsDeviceManager = value;
-  }
+    this.InitializeComponent();
+
+    // Create the game.
+    var launchArguments = string.Empty;
+
+    // create an MS service collection
+    var services = new ServiceCollection();
+    // add our game class
+    services.AddSingleton<Game1>();
+    // Our game class creates the GraphicsDeviceManager, which in turn adds itself to the Game.Services property
+    // we can peal those services back out by fetching our singleton Game1 instance:
+    services.AddSingleton(provider => provider
+        .GetRequiredService<Game1>()
+        .Services
+            .GetService<IGraphicsDeviceManager>());
+    services.AddSingleton(provider => provider
+        .GetRequiredService<Game1>()
+        .Services
+            .GetService<IGraphicsDeviceService>());
+            
+    // add your custom services here...
+            
+    // build a microsoft di container
+    var serviceProvider = services.BuildServiceProvider();
+     // pass a delegate of our di container to the Create method overload
+    _game = MonoGame.Framework.XamlGame<Game1>.Create(serviceProvider.GetRequiredService<Game1>, launchArguments, Window.Current.CoreWindow, swapChainPanel);
 }
 ```
 
-Interestingly, whilst you can't set this field to `null` without causing an exception, when it is null, the property getter will attempt to populate itself using `Services`, which is a public property returning a `GameServiceContainer`. Going back to the constructor of `GraphicsDeviceManager`, we see that it adds itself to this `GameServiceContainer` right at the end of its constructor:
+Hopefully the code comments cover the basics in that snippet. We can confirm this works by adding a dependency to our `Game1` constructor:
 
 ```csharp
-_game.Services.AddService(typeof(IGraphicsDeviceManager), this);
-_game.Services.AddService(typeof(IGraphicsDeviceService), this);
-```
-
-The `GameServiceContainer` actually implements `System.IServiceProvider` which is well known for being the interface for Dependency Injection Containers. So, there is DI here already? No.
-
-If you check out the [code for `GameServiceContainer`](https://github.com/MonoGame/MonoGame/blob/develop/MonoGame.Framework/GameServiceContainer.cs) you'll see that all it really does is wrap around a `Dictionary<Type, object>`. Any object added to the dictionary can be retrieved at a later date. It is a *Service Collection*, but it doesn't actually perform any dependency injection. The idea behind dependency injection is that the services registered in your composition root can be resolved, and the dependencies of the service you're resolving can also be injected in turn (recursively working its way down all the dependencies until they've all been satisfied), building up a veritable tree of classes in order to serve the top level class you've requested.
-
-So, we know that the `Game` class has a property that stores the `GraphicsDeviceManager`, but if the `GraphicsDeviceManager` property is null when it's needed, the `Game` class will go and fetch it from the *service collection*. To be safe, I followed the *backing field* for the property to make sure it isn't used directly elsewhere in the class, and to my dismay found that it is in fact used outside the property. Twice.
-
-The first time is within the `Dispose` method:
-
-```csharp
-if (_graphicsDeviceManager != null)
+public Game1(Foo foo)
 {
-  (_graphicsDeviceManager as GraphicsDeviceManager).Dispose();
-  _graphicsDeviceManager = null;
+    _foo = foo;
+
+    // this line must be kept despite the DI, sorry!
+    graphics = new GraphicsDeviceManager(this);
+    Content.RootDirectory = "Content";
 }
 ```
 
-This makes total sense. If the `Dispose` method used the property instead of the field when the field was `null`, then it would needlessly fetch the `GraphicsDeviceManager` from the service collection before disposing it and setting the field back to `null` again. If the `_graphicsDeviceManager` field is null, it'll behave just fine, though has the potential to not dispose the `GraphicsDeviceManager` sat in the service collection. That's something to bear in mind as we plough ahead, but if the Game hasn't used the `GraphicsDeviceManager` then there's probably not much to dispose anyway, so it's not too big a concern.
-
-The second usage is in an internal method called `DoInitialize`, which is conditionally called by both `RunOneFrame` and `Run` public methods.
+Then add a `Foo` implementation to our DI container in the `GamePage.xaml.cs` class prior to the DI container being created:
 
 ```csharp
-if (GraphicsDevice == null && graphicsDeviceManager != null)
-  _graphicsDeviceManager.CreateDevice();
+// add your custom services here...
+services.AddSingleton<Foo>();
 ```
 
-We see here that the field `_graphicsDeviceManager` is only used after a conditional check against the `graphicsDeviceManager` property. That's good, it means if the field was null then the property will perform the service collection lookup and populate the field.
+But wait, we now have an error in this class. The generic on the `XamlGame` class is declared as `where T : Game, new()`.
 
-We're lucky it seems. At a glance, it would appear we can *slightly* decouple `Game` from `GraphicsDeviceManager`, so long as the `GraphicsDeviceManager` is available in the `GameContainerService`.
+![ffs](../images/ffs.jpg)
 
-![never happier](../images/never-happier.jpg)
-
-To be thorough, I also want to check what would be needed to do the opposite and reduce the reliance the `GraphicsDeviceManager` has on `Game`.
-
-### Decoupling GraphicsDeviceManager from Game
-
-Looking through the constructor on `GraphicsDeviceManager`, I can see that it stores the `Game` in a private field called `_game`, which has the following usages:
-
-![game class usages](../images/game-decoupling-02.PNG)
-
-A couple of these you'll probably recognise from the section above as being part of the constructor and are not all that interesting to us here. There are several lines of note though. For starts, there are 4 usages of properties on `_game.Window` and 2 methods on `_game.Window` can be called throughout the class. Each of these are in private methods and they're usages are unclear to me (due to a lack of understanding on the MonoGame internals). Similarly, there is also a method on `_game.Platform` that the `GraphicsDeviceManager` can invoke.
-
-Finally, the following is a snippet from the constructor, just prior to the `GraphicsDeviceManager` appending itself to the `GameServiceContainer`:
+Well, if you're only after a hacky application initialisation, you can update the constructors on `Game1` to be as follows:
 
 ```csharp
-if (_game.Services.GetService(typeof(IGraphicsDeviceManager)) != null)
-  throw new ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
+// this entire ctor must be kept despite the DI, sorry!
+public Game1()
+{
+    graphics = new GraphicsDeviceManager(this);
+    Content.RootDirectory = "Content";
+}
+
+public Game1(Foo foo) : this()
+{
+    _foo = foo;
+}
 ```
 
-This means that the only way to add the `GraphicsDeviceManager` to that container is through the constructor, and the constructor can only be invoked once. I immediately imagine that becoming a nuisance as we try to interfere with the current coupling, but we'll come back to it later.
+Because we *must* have a public parameterless constructor to keep `XamlGame` happy, I've moved the default instantiation code into it. We can then have a constructor of our choosing (such as the one taking a `Foo` in the example above) so long as it calls the default constructor (which I'm doing above with the `this()` instruction).
 
-All in all, the references to `Game` *from* `GraphicsDeviceManager` are much more difficult to understand and address. We could remove a lot of it's reliance on `Game` by providing the `_game.Window`, `_game.Platform`, and `_game.Services` classes on themselves (not attached to `Game`).
+If you run the above code you'll see that the constructor that takes a `Foo` is called first, which in turn immediately calls the default constructor. It's not pretty, but unless we're prepared to get our hands real dirty (per the next blog post in this series!!) then that's the best you can manage.
+
+## Summary
+
+This has been a really long post for what amounts to a very sub-par solution, and that's ignoring the fact that we've only tackled the much easier *application initialisation* aspect. However, it's all a learning process and we now have all the pieces in place to enact some real change and improve this solution.
+
+As an aside, it took me almost a whole year to write the second article in this mini-series, and even then I only picked it up because someone showed interest on Twitter (thanks [@Osoy13](https://twitter.com/Osoy13) for your [tweet](https://twitter.com/Osoy13/status/1080971742569512960)). If this series interests you please drop me a note below or on twitter - it makes a big difference to my motivation to blog more!

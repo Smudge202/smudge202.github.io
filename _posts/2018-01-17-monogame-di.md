@@ -16,7 +16,7 @@ I'll also explore (and *prove*) the performance considerations of making changes
 
 So the issue with MonoGame, and I'll keep reiterating that it's not limited to *just* MonoGame, is that there are no abstractions, and many classes have inter-dependencies. That is to say that class *A* depends on class *B*, and class *B* depends on *A*. This problem very quickly rears it's ugly head if you follow the application bootstrapping code, as demonstrated in the previous post.
 
-Throughout this article I'll be working exclusively with the [`dev` branch](https://github.com/MonoGame/MonoGame/tree/develop) of MonoGame, but the [*Universal Windows Platform*](https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide) (or 'UWP' for short) XAML project is much the same as in the MonoGame 3.6 Stable version. As such, let's recap and explore the application startup of a UWP XAML project.
+Throughout this article I'll be working exclusively with the [v3.7.1](http://community.monogame.net/t/monogame-3-7-1-release/11173) of MonoGame, but the [*Universal Windows Platform*](https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide) (or 'UWP' for short) XAML project is much the same in the latest ['dev' branch](https://github.com/MonoGame/MonoGame/tree/develop) if you're inclined to be a bit more *cutting edge*. As such, let's recap and explore the application startup of a UWP XAML project.
 
 > *Note: ['XAML'](https://msdn.microsoft.com/en-us/library/cc295302.aspx) stands for 'e**X**tensible **A**pplication **M**arkup **L**anguage' and is an XML-based language designed by Microsoft to describe the visual components of your Application.*
 
@@ -56,6 +56,15 @@ Before we take a look at the `Game1` class, let's have a look at the code that e
 ```csharp
 static public T Create(string launchParameters, CoreWindow window, SwapChainPanel swapChainPanel)
 {
+    return Create(() => new T(), launchParameters, window, swapChainPanel);
+}
+```
+
+This version of the `Create` method was actually introduced by [Francesco Bonizzi](https://www.fbonizzi.it/) in [October 2018](https://github.com/MonoGame/MonoGame/commit/ebcac5888d71069b67c6005a319490ce9dba91c7#diff-75d9e8e55eb0fd7e415e540939e8087b). This greatly simplifies (though doesn't solve) our DI considerations when compared to earlier versions. You see, whilst by default your Game class will be instantiated with `new T()`, we can see that there is an overloaded method of the `Create` method which accepts a `Func<T>`.
+
+```csharp
+static public T Create(Func<T> gameConstructor, string launchParameters, CoreWindow window, SwapChainPanel swapChainPanel)
+{
   //argument validation...
 
   // Save any launch parameters to be parsed by the platform.
@@ -65,7 +74,7 @@ static public T Create(string launchParameters, CoreWindow window, SwapChainPane
   UAPGameWindow.Instance.Initialize(window, swapChainPanel, UAPGamePlatform.TouchQueue);
 
   // Construct the game.
-  var game = new T();
+  var game = gameConstructor();
 
   // Set the swap chain panel on the graphics mananger.
   if (game.graphicsDeviceManager == null)
@@ -96,15 +105,81 @@ The reason I keep highlighting these `internal` members is it means, unless we'r
 
 ![not happy](../images/happiness-challenged.jpg)
 
+## Interdependencies
+
+Of the last block of code we looked at, the biggest problem by far is interactions with the `graphicsDeviceManager` property on the `Game` class. The property looks as follows:
+
+```csharp
+internal GraphicsDeviceManager graphicsDeviceManager
+{
+    get
+    {
+        if (_graphicsDeviceManager == null)
+        {
+            _graphicsDeviceManager = (IGraphicsDeviceManager)
+                Services.GetService(typeof(IGraphicsDeviceManager));
+        }
+        return (GraphicsDeviceManager)_graphicsDeviceManager;
+    }
+    set
+    {
+        if (_graphicsDeviceManager != null)
+            throw new InvalidOperationException("GraphicsDeviceManager already registered for this Game object");
+        _graphicsDeviceManager = value;
+    }
+}
+```
+
+There seems to be some sort of *in-joke* about setting important fields as `internal` and not making them `virtual`, but I understand that this property is so intrinsic to other code in MonoGame that they wanted to protect it. We can see from the *getter* that if the private field `_graphicsDeviceManager` is `null` then it will populate the field using `Services`.
+
+We haven't talked about this `Services` property yet but we'll circle back to it [later](#services). We can also see from the *setter* that if we make the mistake of attempting to set the `graphicsDeviceManager` property twice, we'll get an `InvalidOperationException`.
+
+With that all in mind, let's take a look at this `GraphicDeviceManager` class, and in particular, it's constructor:
+
+```csharp
+public GraphicsDeviceManager(Game game)
+{
+    if (game == null)
+        throw new ArgumentNullException("game", "Game cannot be null.");
+
+    _game = game;
+
+    // sets a load of graphics properties which I'll omit
+
+    // Let the plaform optionally overload construction defaults.
+    PlatformConstruct();
+
+    if (_game.Services.GetService(typeof(IGraphicsDeviceManager)) != null)
+        throw new ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
+    _game.graphicsDeviceManager = this;
+
+    _game.Services.AddService(typeof(IGraphicsDeviceManager), this);
+    _game.Services.AddService(typeof(IGraphicsDeviceService), this);
+}
+```
+
+If you scroll up to the previous chapter, you may recall that `graphicsDeviceManager` was a property on the `Game` class. During our exploration of the `Create` method we saw that if you don't set that property when constructing your `Game` then it will throw an exception. Here's a mini-recap:
+
+```csharp
+// Construct the game.
+var game = gameConstructor();
+
+// Set the swap chain panel on the graphics mananger.
+if (game.graphicsDeviceManager == null)
+    throw new NullReferenceException("You must create the GraphicsDeviceManager in the Game constructor!");
+```
+
+For those with experience with DI containers, you'll immediately see the issue here. In order to construct a `Game`, we must create `GraphicsDeviceManager`, but in order to construct a ` GraphicsDeviceManager`, we must create a `Game`. Depending on the DI container you use, you'll either end up with a `StackOverflowException` as the container loops around playing *hot-potato* with these constructors, or the container will realise that neither class can be instantiated and throw an exception accordingly.
+
 ## Submodules
 
-There are a number of approaches to tackling the above problems, but the one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
+There are a number of approaches to tackling the above problems, but the first one I've opted for here is to use a [git submodule](https://git-scm.com/docs/git-submodule) to pull in the MonoGame source code, have my project reference the submodule, and then hack away at it until things are working.
 
 > *Note: I don't want to spend time explaining submodules and how to work with them, so if it's a concept you're not familiar or comfortable with, I recommend checking out a [tutorial](https://git-scm.com/book/en/v2/Git-Tools-Submodules) and then heading back here afterwards.*
 
 Before I get started on this approach though, I want to say that this is a *bad* idea. By submoduling the MonoGame repository I'm introducing a fork that I then become responsible for maintaining (like applying the latest commits from the parent). On a large active repository like MonoGame, it really isn't very workable. However, it is a useful mechanism for *exploring* problems with frameworks you depend on.
 
-Per the [MonoGame README](https://github.com/MonoGame/MonoGame#source-code), once you've initialised the MonoGame submodule and in turn, MonoGame's submodules, you can run `Protobuild.exe` to generate the necessary `csproj`'s. Protobuild will generate a `MonoGame.Framework.WindowsUniversal.csproj` in the `MonoGame.Framework` directory, which we can add to out solution as an existing project:
+Per the [MonoGame README](https://github.com/MonoGame/MonoGame#source-code), once you've initialised the MonoGame submodule and in turn, MonoGame's submodules, you can run `Protobuild.exe` to generate the necessary `csproj`'s. Protobuild will generate a `MonoGame.Framework.WindowsUniversal.csproj` in the `MonoGame.Framework` directory, which we can add to our solution as an existing project:
 
 ![monogame submodule](../images/monogame-submodule.png)
 

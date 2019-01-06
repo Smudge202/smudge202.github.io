@@ -14,7 +14,7 @@ I'll also explore (and *prove*) the performance considerations of making changes
 
 ## First World Problems
 
-So the issue with MonoGame, and I'll keep reiterating that it's not limited to *just* MonoGame, is that there are no abstractions, and many classes have inter-dependencies. That is to say that class *A* depends on class *B*, and class *B* depends on *A*. This problem very quickly rears it's ugly head if you follow the application bootstrapping code, as demonstrated in the previous post.
+So the issue with MonoGame, and I'll keep reiterating that it's not limited to *just* MonoGame (don't get me started on *Unity*), is that there are no abstractions, and many classes have inter-dependencies. That is to say that class *A* depends on class *B*, and class *B* depends on *A*. This problem very quickly rears it's ugly head if you follow the application bootstrapping code, as demonstrated in the previous post.
 
 Throughout this article I'll be working exclusively with the [v3.7.1](http://community.monogame.net/t/monogame-3-7-1-release/11173) of MonoGame, but the [*Universal Windows Platform*](https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide) (or 'UWP' for short) XAML project is much the same in the latest ['dev' branch](https://github.com/MonoGame/MonoGame/tree/develop) if you're inclined to be a bit more *cutting edge*. As such, let's recap and explore the application startup of a UWP XAML project.
 

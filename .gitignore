@@ -7,6 +7,5 @@ Gemfile
 Gemfile.lock
 node_modules
 package.json
-/.vs/config/applicationhost.config
-/.vs/smudge202.github.io/v14/.suo
+.vs
 /smudge202.github.io.sln

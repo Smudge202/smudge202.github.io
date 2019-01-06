@@ -193,7 +193,7 @@ Whilst that seems like a lot of work to have achieved nothing, what it actually 
 
 ## Initialisation
 
-If you may remember from my [previous post](http://blog.devbot.net/game-loop/#dependency-injection) there's actually two aspects of dependency injection I would like to improve. The first is constructor injection for my `Game` class during initialisation (when the game first loads, or perhaps resumes from sleeping in some cases). The second case was *scoped convention injection* during each iteration of the loop (each time the `Update` method is called).
+You may remember from my [previous post](http://blog.devbot.net/game-loop/#dependency-injection) there's actually two aspects of dependency injection I would like to improve. The first is constructor injection for my `Game` class during initialisation (when the game first loads, or perhaps resumes from sleeping in some cases). The second case was *scoped convention injection* during each iteration of the loop (each time the `Update` method is called).
 
 The two mechanisms are very different so we'll tackle each in turn. Whenever you make a change to an application, there are several things you need to take into account, one of which is *performance*. I could spend time benchmarking application initialisation times before and after my changes, but the fact is, if your game reads any file (textures, sprites, audio clips, etc) or pops out to the internet, which is very likely when you're loading a game, the minuscule amount of time it takes to run dependency injection by comparison makes it a complete non-entity. As such, I'm not even going to consider performance for game initialisation. However, when we look at interfering with the update loop, which runs very often and needs to execute very quickly, we'll definitely spend some time benchmarking.
 
@@ -278,7 +278,7 @@ To be thorough, I also want to check what would be needed to do the opposite and
 
 Looking through the constructor on `GraphicsDeviceManager`, I can see that it stores the `Game` in a private field called `_game`, which has the following usages:
 
-![game class usages](../images/game-decoupling-02.png)
+![game class usages](../images/game-decoupling-02.PNG)
 
 A couple of these you'll probably recognise from the section above as being part of the constructor and are not all that interesting to us here. There are several lines of note though. For starts, there are 4 usages of properties on `_game.Window` and 2 methods on `_game.Window` can be called throughout the class. Each of these are in private methods and their unclear to me (due to a lack of understanding on the MonoGame internals). Similarly, there is also a method on `_game.Platform` that the `GraphicsDeviceManager` can invoke.
 

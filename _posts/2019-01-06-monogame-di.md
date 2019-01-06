@@ -171,7 +171,7 @@ if (game.graphicsDeviceManager == null)
     throw new NullReferenceException("You must create the GraphicsDeviceManager in the Game constructor!");
 ```
 
-For those with experience with DI containers, you'll immediately see the issue here. In order to construct a `Game`, we must create `GraphicsDeviceManager`, but in order to construct a ` GraphicsDeviceManager`, we must create a `Game`. Depending on the DI container you use, you'll either end up with a `StackOverflowException` as the container loops around playing *hot-potato* with these constructors, or the container will realise that neither class can be instantiated and throw an exception accordingly.
+For those with experience with DI containers, you'll immediately see the issue here. In order to construct a `Game`, we must create `GraphicsDeviceManager`, but in order to construct a `GraphicsDeviceManager`, we must create a `Game`. Depending on the DI container you use, you'll either end up with a `StackOverflowException` as the container loops around playing *hot-potato* with these constructors, or the container will realise that neither class can be instantiated and throw an exception accordingly.
 
 ## Submodules
 

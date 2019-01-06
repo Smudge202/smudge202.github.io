@@ -185,7 +185,7 @@ Per the [MonoGame README](https://github.com/MonoGame/MonoGame#source-code), onc
 
 ![monogame submodule](../images/monogame-submodule.png)
 
-> *Note: Once you've submoduled MonoGame, create yourself at the v3.7.1 tag and checkout there, otherwise you'll default to the `develop` branch which has been set as the default.*
+> *Note: Once you've submoduled MonoGame, create yourself a branch at the v3.7.1 tag and checkout there, otherwise you'll default to the `develop` branch which has been set as the default.*
 
 With the MonoGame source code now available, drop the *assembly* reference to `MonoGame.Framework` in your own application, and add a *project* reference to `MonoGame.Framework.WindowsUniversal` in it's place. Your application should still build and be able to execute (though in my case I do get a bunch of build warnings from the MonoGame project which I'll ignore).
 

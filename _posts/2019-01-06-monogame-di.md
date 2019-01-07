@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Dependency Injection in MonoGame
-hidden: true
-wip: true
 tags: [game-development, game-loop]
 ---
 

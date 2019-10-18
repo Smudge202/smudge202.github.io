@@ -6,7 +6,7 @@ hidden: true
 wip: true
 ---
 
-I don't publicly talk about mental health, but for several years now my closest friends have openly and jovially attributed aspergers to me. It started with a conversation with my mum who jokingly remarked "you're so aspie" in response to something I have said. I didn't question the comment at the time, but later during a conversation with my closest friend she very quickly explained aspergers and seemed surprised I hadn't *realised* my relationship to the syndrome. 
+I don't publicly talk about mental health, but for several years now my closest friends have openly and jovially attributed aspergers to me. It started with a conversation with my mum who jokingly remarked "you're so aspie" in response to something I had said. I didn't question the comment at the time, but later during a conversation with my closest friend she very quickly explained aspergers and seemed surprised I hadn't *realised* my relationship to the syndrome. 
 
 Off the back of these conversations I spent a couple weeks researching the subject and came to realise that it was probably a fair, even if unofficial assessment. As I understand it, the preferred terminology is Autistic Spectrum Disorder (ASD) nowadays, but for the sake of brevity I'll most refer to the term "aspie" for the rest of this article.
 

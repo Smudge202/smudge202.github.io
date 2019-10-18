@@ -44,6 +44,8 @@ I don't *suffer* from Aspergers. Being aspie is *not* a bad thing, in fact, in m
 
 For one, to many I can seem to have a prickly personality, or at least be a bit *weird*. Fortunately, I'm not *weird* alone, someone decided to give it a label. My close friends know I'm aspie and if I lapse or do something odd it can simply be chalked up to that. If I don't speak to my best friends for months it's not because they've upset me or I don't like them, I just don't seek comfort from them. They mean a *LOT* to me, I rely on them *being there*, and I do try to be the good traditional friend when I can. But I'm not naturally inclined to stay in contact with them all the time.
 
+My much better half, bless her, is also amazing in this regard. I don't know we've ever talked about my being aspie (though it's pretty implicit), however she seems to have a limitless patience and is incredibly supportive (of me, not just being aspie).
+
 Close friends aside though, I don't go around telling people I'm aspie and expecting them to be supportive. I put *considerable* effort into fitting in; I'd like to think colleagues and such don't think me (too) weird as a result. The point being, I don't use being aspie as an *excuse*. I consider it part of my personality, and make adjustments accordingly.
 
 To fit in aspies (or I, at least) spend an awful lot of time *pretending*. I feign interest, sympathy, emotion. I smile or "play nice" on queue, agree to attend gatherings I'm uncomfortable with, and repress to the best of my abilities any tells and symptoms. I spend considerable amounts of time analysing situations to try and determine what sympathetic or empthatic response is (or would have been) appropriate. 

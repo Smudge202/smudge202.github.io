@@ -6,7 +6,7 @@ hidden: true
 wip: true
 ---
 
-I don't publicly talk about mental health, but for several years now my closest friends have openly and jovially attributed aspergers to me. It started with a conversation with my mum who jokingly remarked "you're so aspie" in response to something I had said. I didn't question the comment at the time, but later during a conversation with my closest friend she very quickly explained aspergers and seemed surprised I hadn't *realised* my relationship to the syndrome. 
+I don't typically or publicly talk about mental health, but for several years now my closest friends have openly and jovially attributed aspergers to me. It started with a conversation with my mum who jokingly remarked "you're so aspie" in response to something I had said. I didn't question the comment at the time, but later during a conversation with my closest friend she very quickly explained aspergers and seemed surprised I hadn't *realised* my relationship to the syndrome. 
 
 Off the back of these conversations I spent a couple weeks researching the subject and came to realise that it was probably a fair, even if unofficial assessment. As I understand it, the preferred terminology is Autistic Spectrum Disorder (ASD) nowadays, but for the sake of brevity I'll most refer to the term "aspie" for the rest of this article.
 
@@ -44,7 +44,7 @@ I don't *suffer* from Aspergers. Being aspie is *not* a bad thing, in fact, in m
 
 For one, to many I can seem to have a prickly personality, or at least be a bit *weird*. Fortunately, I'm not *weird* alone, someone decided to give it a label. My close friends know I'm aspie and if I lapse or do something odd it can simply be chalked up to that. If I don't speak to my best friends for months it's not because they've upset me or I don't like them, I just don't seek comfort from them. They mean a *LOT* to me, I rely on them *being there*, and I do try to be the good traditional friend when I can. But I'm not naturally inclined to stay in contact with them all the time.
 
-My much better half, bless her, is also amazing in this regard. I don't know we've ever talked about my being aspie specifically (though it's pretty implicit), however she seems to have a limitless patience and is incredibly supportive (of me, not just being aspie). Being around large amounts of people I find *incredibly* stressful, but so long as my other half is with me, I feel like I can do it (thank you, beautiful).
+My much better half, bless her, is also amazing in this regard. I don't know we've ever talked about my being aspie specifically (though it's pretty implicit), however she seems to have a limitless patience and is incredibly supportive (of me, not just being aspie). Being around large amounts of people I find *incredibly* stressful, but so long as my other half is with me, I feel like I can do it safe in the knwoledge that I'll be left alone, potentially for several days, to recover (thank you, beautiful).
 
 Close friends aside though, I don't go around telling people I'm aspie and expecting them to be supportive. I put *considerable* effort into fitting in; I'd like to think colleagues and such don't think me (too) weird as a result. The point being, I don't use being aspie as an *excuse*. I consider it part of my personality, and make adjustments accordingly.
 

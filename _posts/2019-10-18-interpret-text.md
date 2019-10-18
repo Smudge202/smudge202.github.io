@@ -40,7 +40,7 @@ There are also some aspects of sensory sensitivity (being over or under sensitiv
 
 ## Personality
 
-I don't *suffer* from Aspergers. Being aspie is *not* a bad thing, in fact, in many ways I think it's a really great way to live.
+I don't *suffer* from Aspergers. Being aspie is *not* a bad thing. In fact, in many ways I think it's a really great way to live.
 
 For one, to many I can seem to have a prickly personality, or at least be a bit *weird*. Fortunately, I'm not *weird* alone, so much so someone decided to give it a label. My close friends know I'm aspie and if I lapse or do something odd it can simply be chalked up to that. If I don't speak to my best friends for months it's not because they've upset me or I don't like them, I just don't seek comfort from them. They mean a *LOT* to me, I rely on them *being there*, and I do try to be the good traditional friend when I can. But I'm not naturally inclined to stay in contact with them all the time.
 
@@ -66,3 +66,70 @@ It's also important to note that I'm not an expert on this or any other subject.
 
 ## Interpreting Text
 
+First and foremost I want to state that there is no *right answer* to this problem as far as I'm aware. You can only understand the variables and possiblilties built largely on assumptions and then make a best effort guess. That said, you don't have to blindly react to text-based messages.
+
+### Context
+
+I'm listing this aspect first because evaluating context can change all layers thereafter. For me, context has two key aspects, the first being *"cause"*. Are you receiving the message because you did something, because you sent something, because you are a point of contact for a particular thing?
+
+Cause isn't always present or more accurately the cause can be misinformed. If someone sends me a software developer's CV or discount codes for spectacles, it's be**cause** I've landed on some mailing list somewhere. However, more often than not, you're receiving a message in response to something you've sent to someone, in response to something you've published, or in response to something you have done.
+
+The second crucial piece of context is what you know of the sender. If the person is a complete stranger, even the entitled denizens of the internet have a somewhat limited context. They can only be responding to something public, which can make evaluating *cause* simpler and will also limit some of the aspects we evaluate later.
+
+Friends, associates, colleagues, and peers. They are the hardest to analyse in my opinion. Your knowledge of this group's personality is limited, and they have a broader scope of things in which be responding to.
+
+Finally, there's your closest friends and/or family whom you can hopefully consider to be in a *safe zone*. If I do or say something inappropriate with this group they won't send me some snarky hard to understand remark, they'll explain and help me understand.
+
+### Language
+
+The next step, once you've established a context, is to look at the language of the message itself. There is no single aspect you can look at, so you're looking to build upon your context here but avoid making a decision.
+
+If while reading through a message it starts to make you angry, sad, or any real emotion, you should **stop**. Easier said than done, but I highly recommend finding a mechanism that allows you to walk away, focus on something else, or do anything you can to put the message out of your mind. To effectively analyse a message you need to have a clear head. If you've finished the entire process and then find yourself responding emotionally then fair enough, but try to avoid it on your first pass.
+
+To help clarify this, consider the following potential response to this article:
+
+> *Them:* Great article bro
+
+I could read that and be happy that my article has been read favourably. I might respond to that with
+
+> *Me:* That's so kind! Thank you!!
+
+only to be slammed
+
+> *Them:* I was being sarcastic you turd
+
+The inverse could also have been true though, my intial response being
+
+> *Me:* I didn't force you to read it, bro!
+
+Only to be told
+
+> *Them:* What!? I was trying to be nice!!!
+
+The point of following this process of waying up the variables is to avoid these misunderstandings.
+
+### Grammar
+
+I'm not expert with grammar - I suspect there are countless mistakes in this article. However, that doesn't mean I can't try to understand a weigh up the grammar used by others. For example, proper use of punctuation or using an [Oxford Comma](https://www.grammarly.com/blog/what-is-the-oxford-comma-and-why-do-people-care-so-much-about-it/) *might* be indicative of the sender being better educated or taking time to write their message. A message being heavy in emoticons *might* indicate a younger person.
+
+The goal here isn't to *judge* the sender, but instead consider the likelihood of scenarios, and where appropriate include those scenarios in your final analysis.
+
+For example, I once worked with a Project Manager who seemed to find a reason to include repeated punctuation in all their e-mails, so I might receive
+
+> Why are we doing this?????????????
+
+To be honest, it drove me a bit crazy getting messages like this. But when analysing this message I can neither infer that the person is angry or joking on this alone. Only that whichever of those I decide is most likely is being emphasised ~~poorly~~. */cough*
+
+### Consequence
+
+The final piece of this puzzle is to consider the consequences of responding to a message in a given manner. The aforementioned entitled elite of the internet (and myself included in this at times) are very poor at doing this.
+
+However, when interacting with strangers in a non-professional situation, consequences are likely to be limited. The only reason to not offend a stranger, more often than not, is because you morally shouldn't. I'm not sure whether it an aspie trait or not, but I don't often feel guilt so if I accidentally or inadvertently offend someone, I don't inherently *care*. I try to be a good person usually, so I may try to rectify that situation, but I'll do so out of discipline, not because I feel bad (and yes, I appreciate that sounds worryingly sociopathic).
+
+If you lack both the guilt and discipline to right the wrongs of offending someone, you should probably take a look at some of the cases of public outrage on social media. That entitlement works both ways and there are cases aplenty where individuals have been *set upon* for accidents and mis-interpretations.
+
+When interacting with people you know, the consequences are usually a bit more immediate or obvious. If you call your boss an idiot, you're probably going to end up chatting to HR. You have a much better context for those you know, so use that to determine plausible outcomes to your responses.
+
+### Analyse
+
+If you've followed the above, you should have all the pieces you need, or at least, all the pieces that are likely available to you. There is no equation to sum up all the pieces and determine the best outcome, and even if there were, it would only give you a *likely* intent.

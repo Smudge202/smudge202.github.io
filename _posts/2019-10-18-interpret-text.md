@@ -42,7 +42,7 @@ There are also some aspects of sensory sensitivity (being over or under sensitiv
 
 I don't *suffer* from Aspergers. Being aspie is *not* a bad thing, in fact, in many ways I think it's a really great way to live.
 
-For one, to many I can seem to have a prickly personality, or at least be a bit *weird*. Fortunately, I'm not *weird* alone, someone decided to give it a label. My close friends know I'm aspie and if I lapse or do something odd it can simply be chalked up to that. If I don't speak to my best friends for months it's not because they've upset me or I don't like them, I just don't seek comfort from them. They mean a *LOT* to me, I rely on them *being there*, and I do try to be the good traditional friend when I can. But I'm not naturally inclined to stay in contact with them all the time.
+For one, to many I can seem to have a prickly personality, or at least be a bit *weird*. Fortunately, I'm not *weird* alone, so much so someone decided to give it a label. My close friends know I'm aspie and if I lapse or do something odd it can simply be chalked up to that. If I don't speak to my best friends for months it's not because they've upset me or I don't like them, I just don't seek comfort from them. They mean a *LOT* to me, I rely on them *being there*, and I do try to be the good traditional friend when I can. But I'm not naturally inclined to stay in contact with them all the time.
 
 My much better half, bless her, is also amazing in this regard. I don't know we've ever talked about my being aspie specifically (though it's pretty implicit), however she seems to have a limitless patience and is incredibly supportive (of me, not just being aspie). Being around large amounts of people I find *incredibly* stressful, but so long as my other half is with me, I feel like I can do it safe in the knowledge that I'll be left alone, potentially for several days, to recover (thank you, beautiful).
 
@@ -62,7 +62,7 @@ That isn't always the case of course; I've spent long hours researching body lan
 
 I find subjects like psychology fascinating, and strive to understand not only why people are the way they are, but also where there are differences between a typical thought process and my own. I'd be lying if I said I haven't once wondered "how do people live like that" when constrasting a *typical* process to my own, but ultimately I see the differences as just that. People are different, and being aspie is neither better nor worse.
 
-It's also important to note that I'm no expert on this or any subject. I've no formal education in any subject, so everything herein is my own opinion, experience, and speculation. I'd be very keen to hear other peoples opinions or simply be told I'm wrong on a given subject (so I can study it further and correct my misunderstandings).
+It's also important to note that I'm not an expert on this or any other subject. I've no formal education so everything herein is my own opinion, experience, and speculation. I'd be very keen to hear other peoples opinions or simply be told I'm wrong on a given subject (so I can study it further and correct my misunderstandings).
 
 ## Interpreting Text
 
